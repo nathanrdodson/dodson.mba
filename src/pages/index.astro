@@ -1,0 +1,26 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeHero from '../components/HomeHero.astro';
+import PostList from '../components/PostList.astro';
+
+const allPosts = await getCollection('blog', (e: CollectionEntry<'blog'>) => !e.data.draft);
+const posts = allPosts.sort(
+  (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
+    b.data.date.getTime() - a.data.date.getTime()
+);
+
+// Render about/index.md for the bio slot
+const aboutEntries = await getCollection('about');
+const aboutEntry = aboutEntries[0];
+const { Content: Bio } = aboutEntry ? await render(aboutEntry) : { Content: null };
+---
+
+<BaseLayout title="Nathan Dodson" bodyClass="is-home">
+  <main>
+    <HomeHero>
+      {Bio ? <Bio /> : <p>IT Director and platform engineer based in Kansas City.</p>}
+    </HomeHero>
+    <PostList posts={posts} />
+  </main>
+</BaseLayout>

@@ -1,0 +1,81 @@
+.m-hero {
+  position: relative;
+  flex-direction: column;
+  
+  overflow: hidden;
+  padding: 80px 0 0;
+
+  @extend .content-centered;
+
+  &.no-picture.in-post {
+    display: none;
+  }
+}
+
+.m-hero__picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  opacity: 0.7;
+	
+  &.in-post {
+    opacity: 1;
+  }
+
+  @include respond-to('medium') {
+    max-width: calc($break-medium - 40px);
+  }
+
+  @include respond-to('large') {
+    max-width: calc($break-large - 40px);
+  }
+
+  @include respond-to('large') {
+    max-width: calc($break-extra-large - 40px);
+  }
+
+  img {
+	// in feature-image for posts, lock height and width to fit within the viewport
+	// This is so that tall images are in full-view on desktops
+	max-height: 75vh;
+	max-width: 95vw;
+	width: auto;
+    object-fit: cover;
+  }
+}
+
+.m-hero__content {
+
+  position: relative;
+  text-align: center;
+  padding: 0 $mobile-space;
+  z-index: 2;
+
+  @include respond-to('medium') {
+    max-width: 700px;
+  }
+
+  @include respond-to('extra-large') {
+    padding: 0;
+  }
+}
+
+.m-hero__meta {
+  margin: 0 auto;
+
+  @include respond-to('medium') {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.rtl {
+  .m-hero__meta {
+    direction: ltr;
+  }
+}

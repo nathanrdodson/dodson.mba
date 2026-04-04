@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  photos: CollectionEntry<'photos'>[];
+}
+
+const { photos } = Astro.props;
+
+function formatDate(d: Date): string {
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+}
+---
+
+<div class="gallery">
+  <div id="photo-list">
+    {photos.map((photo) => (
+      <div class="gallery-item" data-animate="fade-up">
+        <a href={`/photos/${photo.id}/`}>
+          <div class="grainy">
+            <div class="grain-inner">
+              <h2>{photo.data.title}</h2>
+              <p>{formatDate(photo.data.date)}</p>
+            </div>
+          </div>
+          <img src={photo.data.featureImage} alt={photo.data.featureImageAlt} loading="lazy" />
+        </a>
+      </div>
+    ))}
+  </div>
+</div>

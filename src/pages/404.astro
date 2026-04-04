@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/404.scss';
+---
+
+<BaseLayout title="404 — Page Not Found" bodyClass="is-404">
+  <main>
+    <div class="l-content">
+      <div class="l-wrapper">
+        <section class="m-not-found-page" data-animate="fade-up">
+          <h1 class="m-not-found-page__title">404</h1>
+          <p class="m-not-found-page__subtitle">Page not found</p>
+          <p class="m-not-found-page__text">
+            The page you're looking for doesn't exist or has been moved.
+          </p>
+          <a href="/" class="m-button filled">Go home</a>
+        </section>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

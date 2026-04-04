@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ArticleCard from './ArticleCard.astro';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+---
+
+{posts.length > 0 && (
+  <section class="m-recommended">
+    <div class="l-wrapper in-recommended">
+      <h3 class="m-section-title in-recommended">Recommended for you</h3>
+      <div class="m-recommended-articles">
+        <div class="m-recommended-slider swiper js-recommended-slider">
+          <div class="swiper-wrapper">
+            {posts.map((post) => (
+              <div class="m-recommended-slider__item swiper-slide">
+                <ArticleCard post={post} />
+              </div>
+            ))}
+          </div>
+          <button class="m-icon-button filled in-recommended-articles swiper-button-prev" aria-label="Previous">
+            <span class="icon-arrow-left" aria-hidden="true"></span>
+          </button>
+          <button class="m-icon-button filled in-recommended-articles swiper-button-next" aria-label="Next">
+            <span class="icon-arrow-right" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+)}

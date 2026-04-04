@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ExperienceSection from '../components/ExperienceSection.astro';
+import CareerTimeline from '../components/CareerTimeline.astro';
+import '../styles/career.scss';
+---
+
+<BaseLayout
+  title="Experience"
+  description="Professional experience and career history for Nathan Dodson — IT Director, Platform Engineer, MBA."
+  bodyClass="is-career"
+>
+  <main>
+    <div class="l-content">
+      <div class="l-wrapper">
+        <div class="c-career" data-animate="fade-up">
+          <header class="c-career__header">
+            <h1 class="c-career__name">Nathan Dodson</h1>
+            <p class="c-career__title">IT Director &bull; Platform Engineer &bull; MBA</p>
+            <div class="c-career__contact">
+              <a href="mailto:nrdod@icloud.com">nrdod@icloud.com</a>
+              <span>&bull;</span>
+              <a href="https://linkedin.com/in/nathanrdodson" target="_blank" rel="noopener">
+                linkedin.com/in/nathanrdodson
+              </a>
+              <span>&bull;</span>
+              <a href="https://github.com/nathanrdodson" target="_blank" rel="noopener">
+                github.com/nathanrdodson
+              </a>
+            </div>
+          </header>
+
+          <CareerTimeline />
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

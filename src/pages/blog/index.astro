@@ -1,0 +1,82 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Pagination from '../../components/Pagination.astro';
+import '../../styles/listing.scss';
+
+const POSTS_PER_PAGE = 12;
+const url = Astro.url;
+const pageParam = url.searchParams.get('page');
+const currentPage = pageParam ? Math.max(1, parseInt(pageParam)) : 1;
+
+const allPosts = await getCollection('blog', (e: CollectionEntry<'blog'>) => !e.data.draft);
+allPosts.sort(
+  (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
+    b.data.date.getTime() - a.data.date.getTime()
+);
+
+const totalPages = Math.max(1, Math.ceil(allPosts.length / POSTS_PER_PAGE));
+const pagedPosts = allPosts.slice(
+  (currentPage - 1) * POSTS_PER_PAGE,
+  currentPage * POSTS_PER_PAGE
+);
+---
+
+<BaseLayout title="Writing" description="Articles and thoughts by Nathan Dodson">
+  <main>
+    <div class="l-content in-blog-listing">
+      <div class="l-wrapper">
+        <header class="blog-listing-header" data-animate="fade-up">
+          <h1 class="blog-listing-header__title">Writing</h1>
+        </header>
+
+        {pagedPosts.length > 0 ? (
+          <section class="m-articles-grid l-grid" data-animate="fade-up">
+            {pagedPosts.map((post: CollectionEntry<'blog'>) => (
+              <ArticleCard post={post} />
+            ))}
+          </section>
+        ) : (
+          <div class="m-heading no-margin">
+            <h3>No posts yet.</h3>
+            <p>Check back soon.</p>
+          </div>
+        )}
+
+        <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl="/blog/" />
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  @import '../../styles/common/mixins';
+  @import '../../styles/common/variables';
+
+  .in-blog-listing {
+    padding-top: 40px;
+
+    @include respond-to('medium') {
+      padding-top: 60px;
+    }
+  }
+
+  .blog-listing-header {
+    padding: 60px 0 40px;
+
+    @include respond-to('medium') {
+      padding: 80px 0 48px;
+    }
+  }
+
+  .blog-listing-header__title {
+    font-family: "bc-alphapipe", sans-serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--primary-foreground-color);
+    margin: 0;
+  }
+</style>

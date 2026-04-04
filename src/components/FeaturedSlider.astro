@@ -1,0 +1,84 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+
+function timeAgo(d: Date): string {
+  const seconds = Math.floor((Date.now() - d.getTime()) / 1000);
+  const intervals = [
+    { label: 'year', seconds: 31536000 },
+    { label: 'month', seconds: 2592000 },
+    { label: 'week', seconds: 604800 },
+    { label: 'day', seconds: 86400 },
+    { label: 'hour', seconds: 3600 },
+    { label: 'minute', seconds: 60 },
+  ];
+  for (const i of intervals) {
+    const c = Math.floor(seconds / i.seconds);
+    if (c >= 1) return `${c} ${i.label}${c !== 1 ? 's' : ''} ago`;
+  }
+  return 'just now';
+}
+---
+
+{posts.length > 0 && (
+  <div class="m-featured-slider swiper js-featured-slider">
+    <div class="m-featured-slider__list swiper-wrapper">
+      {posts.map((post) => {
+        const { title, featureImage, featureImageAlt, tags, date } = post.data;
+        const url = `/blog/${post.id}/`;
+        const primaryTag = tags[0] ?? null;
+        return (
+          <div class="m-featured-slider__list__item swiper-slide">
+            <article class={`m-featured-article${featureImage ? '' : ' no-picture'}`}>
+              <div class="m-featured-article__picture">
+                {featureImage && (
+                  <div
+                    style={`background-image: url(${featureImage});`}
+                    class="m-featured-article__picture-bg"
+                  ></div>
+                )}
+              </div>
+              <div class="m-featured-article__meta">
+                <a href="/" class="m-featured-article__author" aria-label="Nathan Dodson">
+                  <div style="background-image: url(/images/default-avatar-square-small.jpg);"></div>
+                </a>
+                {primaryTag && (
+                  <a href={`/blog/?tag=${encodeURIComponent(primaryTag)}`} class="m-featured-article__tag">
+                    {primaryTag}
+                  </a>
+                )}
+              </div>
+              <div class="m-featured-article__ribbon">
+                <span class="icon-star"></span>
+                <span>Featured</span>
+              </div>
+              <a href={url} class="m-featured-article__content">
+                <h2 class="m-featured-article__title" title={title}>{title}</h2>
+                <div class="m-featured-article__timestamp">
+                  <span>{timeAgo(date)}</span>
+                  <span>&bull;</span>
+                  <span>1 min read</span>
+                </div>
+              </a>
+            </article>
+          </div>
+        );
+      })}
+    </div>
+    {posts.length > 1 && (
+      <>
+        <button class="m-icon-button in-featured-articles swiper-button-prev js-featured-slider-button" aria-label="Previous">
+          <span class="icon-arrow-left" aria-hidden="true"></span>
+        </button>
+        <button class="m-icon-button in-featured-articles swiper-button-next js-featured-slider-button" aria-label="Next">
+          <span class="icon-arrow-right" aria-hidden="true"></span>
+        </button>
+      </>
+    )}
+  </div>
+)}

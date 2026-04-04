@@ -1,0 +1,28 @@
+.m-site-name {
+  display: flex;
+  align-items: center;
+
+  &.in-mobile-topbar {
+    color: var(--primary-foreground-color);
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  &.in-desktop-menu {
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+}
+
+.m-site-logo {
+  height: 28px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+
+  .in-desktop-menu & {
+    height: 32px;
+  }
+}

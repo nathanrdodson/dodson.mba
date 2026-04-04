@@ -1,0 +1,73 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  readingMinutes?: number;
+}
+
+const { post, readingMinutes = 1 } = Astro.props;
+const { title, featureImage, featureImageAlt, tags, featured, date } = post.data;
+const url = `/blog/${post.id}/`;
+const primaryTag = tags[0] ?? null;
+
+function timeAgo(d: Date): string {
+  const seconds = Math.floor((Date.now() - d.getTime()) / 1000);
+  const intervals = [
+    { label: 'year', seconds: 31536000 },
+    { label: 'month', seconds: 2592000 },
+    { label: 'week', seconds: 604800 },
+    { label: 'day', seconds: 86400 },
+    { label: 'hour', seconds: 3600 },
+    { label: 'minute', seconds: 60 },
+  ];
+  for (const i of intervals) {
+    const c = Math.floor(seconds / i.seconds);
+    if (c >= 1) return `${c} ${i.label}${c !== 1 ? 's' : ''} ago`;
+  }
+  return 'just now';
+}
+---
+
+<article class={`m-article-card${featureImage ? '' : ' no-picture'}`}>
+  <div class="m-article-card__picture">
+    <a href={url} class="m-article-card__picture-link" aria-hidden="true" tabindex="-1"></a>
+    {featureImage && (
+      <img
+        class="m-article-card__picture-background"
+        src={featureImage}
+        loading="lazy"
+        alt={featureImageAlt}
+      />
+    )}
+    <a href="/" class="m-article-card__author" aria-label="Nathan Dodson">
+      <div style="background-image: url(/images/default-avatar-square-small.jpg);"></div>
+    </a>
+    {featured && (
+      <a href={url} class="m-article-card__featured" aria-label="Featured">
+        <span class="icon-star" aria-hidden="true"></span>
+      </a>
+    )}
+  </div>
+
+  <div class={`m-article-card__info${primaryTag ? '' : ' no-tag'}`}>
+    {primaryTag && (
+      <a href={`/blog/?tag=${encodeURIComponent(primaryTag)}`} class="m-article-card__tag">{primaryTag}</a>
+    )}
+    <a href={url} class="m-article-card__info-link" aria-label={title}>
+      <div>
+        <h2
+          class={`m-article-card__title${featureImage ? '' : ' js-article-card-title-no-image'}`}
+          title={title}
+        >
+          {title}
+        </h2>
+      </div>
+      <div class="m-article-card__timestamp">
+        <span>{timeAgo(date)}</span>
+        <span>&bull;</span>
+        <span>{readingMinutes} min read</span>
+      </div>
+    </a>
+  </div>
+</article>

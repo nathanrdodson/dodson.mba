@@ -1,0 +1,65 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const photos = await getCollection('photos') as CollectionEntry<'photos'>[];
+  return photos.map((photo) => ({
+    params: { slug: photo.id },
+    props: { photo },
+  }));
+}
+
+interface Props {
+  photo: CollectionEntry<'photos'>;
+}
+
+const { photo } = Astro.props;
+const { title, featureImage, featureImageAlt, date } = photo.data;
+const { Content } = await render(photo);
+
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+});
+---
+
+<BaseLayout
+  title={title}
+  image={featureImage}
+  bodyClass="is-photo"
+>
+  <main>
+    <div class="l-content">
+      <div class="l-wrapper">
+        <div class="m-heading" data-animate="fade-up">
+          <h1 class="m-heading__title">{title}</h1>
+          <div class="m-heading__meta">
+            <span class="m-heading__meta__time">{formattedDate}</span>
+          </div>
+        </div>
+
+        <div class="m-photo-content js-post-content">
+          <img
+            src={featureImage}
+            alt={featureImageAlt}
+            class="js-zoomable"
+            loading="eager"
+          />
+          <div class="m-photo-blurb">
+            <Content />
+          </div>
+        </div>
+
+        <a href="/photos/" class="m-back">
+          <span class="icon-arrow-left" aria-hidden="true"></span>
+          Back to Photos
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    import '../../scripts/photos';
+  </script>
+</BaseLayout>

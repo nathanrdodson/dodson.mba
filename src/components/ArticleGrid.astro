@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ArticleCard from './ArticleCard.astro';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+---
+
+{posts.length > 0 ? (
+  <div class="l-content">
+    <div class="l-wrapper">
+      <section class="m-articles-grid l-grid" data-animate="fade-up">
+        {posts.map((post) => (
+          <ArticleCard post={post} />
+        ))}
+      </section>
+    </div>
+  </div>
+) : null}

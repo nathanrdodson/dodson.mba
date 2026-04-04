@@ -1,0 +1,129 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import RelatedPosts from '../../components/RelatedPosts.astro';
+import '../../styles/post.scss';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog', (e: CollectionEntry<'blog'>) => !e.data.draft);
+
+  return allPosts.map((post: CollectionEntry<'blog'>) => {
+    const related = allPosts
+      .filter(
+        (p: CollectionEntry<'blog'>) =>
+          p.id !== post.id &&
+          p.data.tags.some((t: string) => post.data.tags.includes(t))
+      )
+      .sort(
+        (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
+          b.data.date.getTime() - a.data.date.getTime()
+      )
+      .slice(0, 3);
+
+    return {
+      params: { slug: post.id },
+      props: { post, related },
+    };
+  });
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  related: CollectionEntry<'blog'>[];
+}
+
+const { post, related } = Astro.props;
+const { title, featureImage, featureImageAlt, featureImageCaption, tags, date } = post.data;
+const { Content } = await render(post);
+
+const primaryTag = tags[0] ?? null;
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout
+  title={title}
+  description={post.data.excerpt}
+  image={featureImage}
+  bodyClass="is-post"
+>
+  <main>
+    <Hero image={featureImage} imageAlt={featureImageAlt} inPost={true} />
+
+    {featureImage && featureImageCaption && (
+      <div class="l-wrapper in-caption">
+        <p class="m-small-text align-center">{featureImageCaption}</p>
+      </div>
+    )}
+
+    <article>
+      <div class="l-content in-post">
+        <div class={`l-wrapper in-post${featureImage ? '' : ' no-image'} js-animation-wrapper`} data-animate="fade-up">
+          <div class="l-post-content js-progress-content">
+            <header class="m-heading">
+              <h1 class="m-heading__title in-post">{title}</h1>
+              <div class="m-heading__meta">
+                {primaryTag && (
+                  <>
+                    <a href={`/blog/?tag=${encodeURIComponent(primaryTag)}`} class="m-heading__meta__tag">{primaryTag}</a>
+                    <span class="m-heading__meta__divider" aria-hidden="true">&bull;</span>
+                  </>
+                )}
+                <span class="m-heading__meta__time">{formattedDate}</span>
+              </div>
+            </header>
+
+            <div class="pos-relative js-post-content">
+              <Content />
+
+              {tags.length > 0 && (
+                <section class="m-tags in-post">
+                  <ul>
+                    {tags.map((tag: string) => (
+                      <li>
+                        <a href={`/blog/?tag=${encodeURIComponent(tag)}`} title={tag}>{tag}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <section class="m-author">
+          <div class="m-author__content">
+            <div class="m-author__picture">
+              <a href="/" class="m-author-picture" aria-label="Nathan Dodson">
+                <div style="background-image: url(/images/default-avatar-square-small.jpg);"></div>
+              </a>
+            </div>
+            <div class="m-author__info">
+              <h4 class="m-author__name">
+                <a href="/">Nathan Dodson</a>
+              </h4>
+              <p class="m-author__bio">IT Director &bull; Platform Engineer &bull; MBA</p>
+              <ul class="m-author-links">
+                <li>
+                  <a href="https://github.com/nathanrdodson" target="_blank" rel="noopener" aria-label="GitHub">
+                    <span class="icon-globe" aria-hidden="true"></span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <RelatedPosts posts={related} />
+      </div>
+    </article>
+  </main>
+
+  <script>
+    import '../../scripts/post';
+  </script>
+</BaseLayout>

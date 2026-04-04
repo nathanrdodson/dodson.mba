@@ -1,0 +1,30 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PhotoGallery from '../../components/PhotoGallery.astro';
+
+const photos = (await getCollection('photos') as CollectionEntry<'photos'>[]).sort(
+  (a, b) => a.data.order - b.data.order || b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<BaseLayout title="Photos" description="Photography by Nathan Dodson" bodyClass="is-photos">
+  <main>
+    <div class="l-content">
+      <div class="l-wrapper">
+        {photos.length > 0 ? (
+          <PhotoGallery photos={photos} />
+        ) : (
+          <div class="m-heading">
+            <h3>No photos yet</h3>
+            <p>Check back soon.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  </main>
+
+  <script>
+    import '../../scripts/photos';
+  </script>
+</BaseLayout>

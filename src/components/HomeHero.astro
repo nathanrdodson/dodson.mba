@@ -1,0 +1,104 @@
+---
+// Editorial home hero — pure typography, no image
+---
+
+<section class="home-hero" data-animate="fade">
+  <div class="l-wrapper">
+    <div class="home-hero__inner">
+      <h1 class="home-hero__name">Nathan Dodson</h1>
+      <p class="home-hero__title">IT Director &nbsp;&middot;&nbsp; Platform Engineer &nbsp;&middot;&nbsp; MBA</p>
+      <div class="home-hero__bio">
+        <slot />
+      </div>
+      <nav class="home-hero__links" aria-label="Quick links">
+        <a href="/blog/">Writing</a>
+        <a href="/career/">Career</a>
+        <a href="/photos/">Photos</a>
+        <a href="https://linkedin.com/in/nathanrdodson" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/nathanrdodson" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @import '../styles/common/mixins';
+  @import '../styles/common/variables';
+
+  .home-hero {
+    padding: 100px 0 64px;
+    border-bottom: 1px solid var(--primary-border-color);
+
+    @include respond-to('medium') {
+      padding: 140px 0 80px;
+    }
+  }
+
+  .home-hero__inner {
+    max-width: 760px;
+  }
+
+  .home-hero__name {
+    font-family: "bc-alphapipe", sans-serif;
+    font-weight: 400;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--primary-foreground-color);
+    margin: 0 0 16px;
+    line-height: 1.05;
+  }
+
+  .home-hero__title {
+    font-size: 0.875rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin: 0 0 32px;
+    font-weight: 400;
+  }
+
+  .home-hero__bio {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--titles-color);
+    max-width: 560px;
+    margin: 0 0 40px;
+
+    :global(p) {
+      margin: 0 0 12px;
+
+      &:last-child { margin-bottom: 0; }
+    }
+
+    :global(a) {
+      color: var(--accent-color);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      @include transition(border-color 0.2s ease);
+
+      &:hover {
+        border-bottom-color: var(--accent-color);
+      }
+    }
+  }
+
+  .home-hero__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+
+    a {
+      font-size: 0.875rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--titles-color);
+      text-decoration: none;
+      @include transition(color 0.2s ease);
+
+      &:hover {
+        color: var(--primary-foreground-color);
+      }
+    }
+  }
+</style>

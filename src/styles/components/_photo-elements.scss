@@ -1,0 +1,85 @@
+$padding: calc(8px + 1.5625vw);
+
+.gallery {
+	padding: $padding;
+
+	@media screen and (min-width: 1200px) {
+		columns: 2 auto;
+	}
+
+	columns: 1 auto;
+	column-gap: 0;
+}
+
+.gallery-item {
+	padding: $padding;
+
+	img {
+		width: 100%;
+	}
+}
+
+.grainy {
+	position: absolute;
+	width: calc(100% - $padding - $padding);
+	height: calc(100% - $padding - $padding);
+	
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	.grain-inner {
+		display: none;	
+	}
+}
+
+.grainy:hover {
+	background-color: rgb(0, 0, 0, 0.8);
+	transition: background-color 0.15s;
+
+	.grain-inner {
+		display: flex;
+		flex-direction: column;
+		animation: fadeDownAnimation 0.3s;
+	}
+}
+
+.gallery-blurb-title {
+	font-family: "bc-alphapipe", sans-serif;
+	font-weight: 200;
+	font-style: italic;
+	font-size: clamp(70px, 12vw, 140px);
+	white-space: nowrap;
+	margin-bottom: $padding;
+}
+
+.gallery-blurb-content, .gallery-blurb-nav {
+	p {
+		letter-spacing: 0.2px;
+		line-height: 1.5;
+		font-size: 1.125rem;
+	
+		@include respond-to("medium") {
+		  letter-spacing: 0.3px;
+		  line-height: 1.6;
+		  font-size: 1.25rem;
+		}
+	
+		img {
+		  margin-bottom: 0 !important;
+		}
+	}
+
+	padding: 0 0 $padding 0;
+}
+
+.noselect {
+	-webkit-touch-callout: none; /* iOS Safari */
+	  -webkit-user-select: none; /* Safari */
+	   -khtml-user-select: none; /* Konqueror HTML */
+		 -moz-user-select: none; /* Old versions of Firefox */
+		  -ms-user-select: none; /* Internet Explorer/Edge */
+			  user-select: none; /* Non-prefixed version, currently
+									supported by Chrome, Edge, Opera and Firefox */
+}

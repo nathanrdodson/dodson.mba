@@ -1,0 +1,178 @@
+---
+// Condensed professional experience for the home page.
+// Edit roles here; full detail lives on /career.
+
+interface Role {
+  title: string;
+  org: string;
+  dates: string;
+  location?: string;
+  current?: boolean;
+}
+
+const roles: Role[] = [
+  {
+    title: 'Software Developer Intern — SRE',
+    org: 'WellSky',
+    dates: 'May – Aug. 2023',
+    location: 'Overland Park, KS',
+  },
+  {
+    title: 'Software Developer Intern — Security',
+    org: 'AscendLearning',
+    dates: 'Dec. 2021 – Dec. 2022',
+    location: 'Leawood, KS',
+  },
+  {
+    title: 'Software Developer Intern — Backend',
+    org: 'SS&C, Inc.',
+    dates: 'May – Aug. 2021',
+    location: 'Kansas City, KS',
+  },
+  {
+    title: 'Cerner Scholar — Dev/Ops',
+    org: 'Cerner Corporation',
+    dates: 'Jan. – May 2019',
+    location: 'Kansas City, MO',
+  },
+];
+---
+
+<section class="exp-section">
+  <div class="l-wrapper">
+    <header class="exp-section__header">
+      <h2 class="exp-section__heading">Experience</h2>
+      <a href="/career/" class="exp-section__all">Full résumé &rarr;</a>
+    </header>
+
+    <ol class="exp-section__list">
+      {roles.map((role) => (
+        <li class="exp-section__item">
+          <div class="exp-section__left">
+            <span class="exp-section__role">{role.title}</span>
+            <span class="exp-section__org">{role.org}</span>
+          </div>
+          <div class="exp-section__right">
+            <span class="exp-section__dates">{role.dates}</span>
+            {role.location && (
+              <span class="exp-section__location">{role.location}</span>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style lang="scss">
+  @import '../styles/common/mixins';
+  @import '../styles/common/variables';
+
+  .exp-section {
+    padding: 64px 0 80px;
+    border-top: 1px solid var(--primary-border-color);
+
+    @include respond-to('medium') {
+      padding: 80px 0 100px;
+    }
+  }
+
+  .exp-section__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+
+  .exp-section__heading {
+    font-family: "bc-alphapipe", sans-serif;
+    font-weight: 400;
+    font-size: 0.6875rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--titles-color);
+    margin: 0;
+  }
+
+  .exp-section__all {
+    font-size: 0.8125rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--titles-color);
+    text-decoration: none;
+    @include transition(color 0.2s ease);
+
+    &:hover {
+      color: var(--accent-color);
+    }
+  }
+
+  .exp-section__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .exp-section__item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 20px 0;
+    border-top: 1px solid var(--primary-border-color);
+
+    @include respond-to('medium') {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 24px;
+    }
+
+    &:last-child {
+      border-bottom: 1px solid var(--primary-border-color);
+    }
+  }
+
+  .exp-section__left {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .exp-section__role {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-foreground-color);
+    letter-spacing: 0.2px;
+  }
+
+  .exp-section__org {
+    font-size: 0.875rem;
+    color: var(--accent-color);
+  }
+
+  .exp-section__right {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-shrink: 0;
+
+    @include respond-to('medium') {
+      align-items: flex-end;
+    }
+  }
+
+  .exp-section__dates {
+    font-size: 0.8125rem;
+    color: var(--titles-color);
+    white-space: nowrap;
+  }
+
+  .exp-section__location {
+    font-size: 0.75rem;
+    color: var(--primary-border-color);
+
+    @include respond-to('medium') {
+      color: var(--secondary-border-color);
+    }
+  }
+</style>

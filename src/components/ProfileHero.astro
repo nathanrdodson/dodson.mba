@@ -1,0 +1,21 @@
+---
+import { getCollection, render } from 'astro:content';
+
+const aboutEntries = await getCollection('about');
+const aboutEntry = aboutEntries[0];
+const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null };
+---
+
+<section class="m-profile">
+  <div class="l-wrapper">
+    {Content ? (
+      <div class="m-profile__content">
+        <Content />
+      </div>
+    ) : (
+      <div class="m-profile__content">
+        <p>Nathan Dodson — IT Director, Platform Engineer, MBA.</p>
+      </div>
+    )}
+  </div>
+</section>

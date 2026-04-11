@@ -5,14 +5,12 @@
   &.in-mobile-topbar {
     color: var(--primary-foreground-color);
     font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+    letter-spacing: 0.3px;
   }
 
   &.in-desktop-menu {
     font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    letter-spacing: 0.3px;
   }
 }
 

@@ -4,12 +4,19 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PhotoGallery from '../../components/PhotoGallery.astro';
 
 const photos = (await getCollection('photos') as CollectionEntry<'photos'>[]).sort(
-  (a, b) => a.data.order - b.data.order || b.data.date.getTime() - a.data.date.getTime()
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
 ---
 
 <BaseLayout title="Photos" description="Photography by Nathan Dodson" bodyClass="is-photos">
   <main>
+    <header class="photos-page-header">
+      <div class="l-wrapper">
+        <h1 class="photos-page-header__title">Photos</h1>
+        <p class="photos-page-header__sub">Travel, nature, and the in-between</p>
+      </div>
+    </header>
+
     <div class="l-content">
       <div class="l-wrapper">
         {photos.length > 0 ? (
@@ -28,3 +35,33 @@ const photos = (await getCollection('photos') as CollectionEntry<'photos'>[]).so
     import '../../scripts/photos';
   </script>
 </BaseLayout>
+
+<style lang="scss">
+  @import '../../styles/common/mixins';
+
+  .photos-page-header {
+    padding: 80px 0 48px;
+    border-bottom: 1px solid var(--primary-border-color);
+
+    @include respond-to('medium') {
+      padding: 120px 0 56px;
+    }
+  }
+
+  .photos-page-header__title {
+    font-family: "Lora", serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--primary-foreground-color);
+    margin: 0 0 12px;
+    line-height: 1.1;
+    letter-spacing: 0.3px;
+  }
+
+  .photos-page-header__sub {
+    font-size: 1rem;
+    color: var(--titles-color);
+    margin: 0;
+    letter-spacing: 0.2px;
+  }
+</style>

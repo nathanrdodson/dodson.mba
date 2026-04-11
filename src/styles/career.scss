@@ -14,12 +14,11 @@
 }
 
 .c-career__name {
-  font-family: "bc-alphapipe", sans-serif;
+  font-family: "Lora", serif;
   font-weight: 400;
   font-size: 2.5rem;
   color: var(--primary-foreground-color);
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  letter-spacing: 0.3px;
   margin: 0 0 8px;
 
   @include respond-to('medium') {
@@ -31,7 +30,6 @@
   color: var(--accent-color);
   font-size: 0.9375rem;
   letter-spacing: 1px;
-  text-transform: uppercase;
   margin: 0 0 16px;
 }
 
@@ -64,11 +62,10 @@
 }
 
 .c-career__section-title {
-  font-family: "bc-alphapipe", sans-serif;
+  font-family: "Lora", serif;
   font-weight: 400;
   font-size: 0.75rem;
   letter-spacing: 2.5px;
-  text-transform: uppercase;
   color: var(--accent-color);
   margin: 0 0 32px;
   padding-bottom: 12px;
@@ -200,7 +197,6 @@
   font-size: 0.8125rem;
   color: var(--accent-color);
   letter-spacing: 0.5px;
-  text-transform: uppercase;
   min-width: 120px;
   padding-top: 2px;
   padding-right: 28px;

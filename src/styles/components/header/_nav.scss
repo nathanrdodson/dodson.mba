@@ -53,9 +53,8 @@
 
   li {
     color: var(--titles-color);
-    letter-spacing: 0.8px;
+    letter-spacing: 0.2px;
     font-size: 1rem;
-    text-transform: uppercase;
     margin-bottom: 15px;
 
     @include respond-to('medium') {

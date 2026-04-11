@@ -12,6 +12,19 @@ interface Role {
 
 const roles: Role[] = [
   {
+    title: 'Director of IT',
+    org: 'Regal Distributing',
+    dates: 'July 2025 – Present',
+    location: 'Kansas City, KS',
+    current: true,
+  },
+  {
+    title: 'Technical Solutions Engineer',
+    org: 'Regal Distributing',
+    dates: '2024 – July 2025',
+    location: 'Kansas City, KS',
+  },
+  {
     title: 'Software Developer Intern — SRE',
     org: 'WellSky',
     dates: 'May – Aug. 2023',
@@ -22,18 +35,6 @@ const roles: Role[] = [
     org: 'AscendLearning',
     dates: 'Dec. 2021 – Dec. 2022',
     location: 'Leawood, KS',
-  },
-  {
-    title: 'Software Developer Intern — Backend',
-    org: 'SS&C, Inc.',
-    dates: 'May – Aug. 2021',
-    location: 'Kansas City, KS',
-  },
-  {
-    title: 'Cerner Scholar — Dev/Ops',
-    org: 'Cerner Corporation',
-    dates: 'Jan. – May 2019',
-    location: 'Kansas City, MO',
   },
 ];
 ---
@@ -85,11 +86,10 @@ const roles: Role[] = [
   }
 
   .exp-section__heading {
-    font-family: "bc-alphapipe", sans-serif;
+    font-family: "Lora", serif;
     font-weight: 400;
     font-size: 0.6875rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
+    letter-spacing: 0.3px;
     color: var(--titles-color);
     margin: 0;
   }
@@ -97,7 +97,6 @@ const roles: Role[] = [
   .exp-section__all {
     font-size: 0.8125rem;
     letter-spacing: 1px;
-    text-transform: uppercase;
     color: var(--titles-color);
     text-decoration: none;
     @include transition(color 0.2s ease);

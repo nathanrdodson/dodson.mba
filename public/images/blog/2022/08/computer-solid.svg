@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.4.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 640 640" style="enable-background:new 0 0 640 640;" xml:space="preserve">
+<style type="text/css">
+	.st0{font-family:'Chaloops-Regular';}
+	.st1{font-size:208.4427px;}
+	.st2{font-size:185.4084px;}
+	.st3{letter-spacing:-4.8;}
+	.st4{fill:none;}
+</style>
+<path d="M400,96c26.5,0,48,21.5,48,48v256c0,26.5-21.5,48-48,48H266.7l10.6,32H352c17.7,0,32,14.3,32,32s-14.3,32-32,32H96
+	c-17.7,0-32-14.3-32-32s14.3-32,32-32h74.7l10.6-32H48c-26.5,0-48-21.5-48-48V144c0-26.5,21.5-48,48-48H400z M64,160v224h320V160H64
+	z M592,96c26.5,0,48,21.5,48,48v352c0,26.5-21.5,48-48,48h-64c-26.5,0-48-21.5-48-48V144c0-26.5,21.5-48,48-48H592z M544,160
+	c-8.8,0-16,7.2-16,16s7.2,16,16,16h32c8.8,0,16-7.2,16-16s-7.2-16-16-16H544z M544,256h32c8.8,0,16-7.2,16-16s-7.2-16-16-16h-32
+	c-8.8,0-16,7.2-16,16S535.2,256,544,256z M560,464c17.7,0,32-14.3,32-32s-14.3-32-32-32s-32,14.3-32,32S542.3,464,560,464z"/>
+<text transform="matrix(1.2452 0 0 1 74.8887 335.6992)"><tspan x="0" y="0" class="st0 st1">N</tspan><tspan x="107.1" y="0" class="st0 st2 st3">.</tspan><tspan x="144" y="0" class="st0 st1">D</tspan></text>
+<rect x="91.1" y="234.3" class="st4" width="153.6" height="0"/>
+</svg>

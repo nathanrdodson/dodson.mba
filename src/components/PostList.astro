@@ -23,16 +23,23 @@ function formatDate(d: Date): string {
       <ol class="post-list__items">
         {displayed.map((post) => (
           <li class="post-list__item">
-            <a href={`/blog/${post.id}/`} class="post-list__link">
-              <div class="post-list__meta">
-                {post.data.tags[0] && (
-                  <span class="post-list__tag">{post.data.tags[0]}</span>
+            <a href={`/blog/${post.id}/`} class={`post-list__link${post.data.featureImage ? ' has-thumb' : ''}`}>
+              <div class="post-list__text">
+                <div class="post-list__meta">
+                  {post.data.tags[0] && (
+                    <span class="post-list__tag">{post.data.tags[0]}</span>
+                  )}
+                  <span class="post-list__date">{formatDate(post.data.date)}</span>
+                </div>
+                <h3 class="post-list__title">{post.data.title}</h3>
+                {post.data.excerpt && (
+                  <p class="post-list__excerpt">{post.data.excerpt}</p>
                 )}
-                <span class="post-list__date">{formatDate(post.data.date)}</span>
               </div>
-              <h3 class="post-list__title">{post.data.title}</h3>
-              {post.data.excerpt && (
-                <p class="post-list__excerpt">{post.data.excerpt}</p>
+              {post.data.featureImage && (
+                <div class="post-list__thumb">
+                  <img src={post.data.featureImage} alt={post.data.title} loading="lazy" />
+                </div>
               )}
             </a>
           </li>
@@ -54,10 +61,10 @@ function formatDate(d: Date): string {
   @import '../styles/common/variables';
 
   .post-list {
-    padding: 64px 0 80px;
+    padding: 72px 0 96px;
 
     @include respond-to('medium') {
-      padding: 80px 0 120px;
+      padding: 96px 0 140px;
     }
   }
 
@@ -68,7 +75,7 @@ function formatDate(d: Date): string {
   .post-list__heading {
     font-family: "Lora", serif;
     font-weight: 400;
-    font-size: 0.6875rem;
+    font-size: 0.875rem;
     letter-spacing: 0.3px;
     color: var(--titles-color);
     margin: 0;
@@ -89,22 +96,24 @@ function formatDate(d: Date): string {
   }
 
   .post-list__link {
-    display: block;
-    padding: 24px 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 28px 0;
     text-decoration: none;
-    @include transition(none);
-
-    @include respond-to('medium') {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      grid-template-rows: auto auto;
-      column-gap: 32px;
-      align-items: start;
-    }
 
     &:hover .post-list__title {
       color: var(--accent-color);
     }
+
+    &:hover .post-list__thumb img {
+      opacity: 0.8;
+    }
+  }
+
+  .post-list__text {
+    flex: 1;
+    min-width: 0;
   }
 
   .post-list__meta {
@@ -112,18 +121,11 @@ function formatDate(d: Date): string {
     align-items: center;
     gap: 12px;
     margin-bottom: 6px;
-    order: 2;
-
-    @include respond-to('medium') {
-      margin-bottom: 0;
-      justify-content: flex-end;
-      padding-top: 4px;
-    }
   }
 
   .post-list__tag {
     font-size: 0.75rem;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.3px;
     color: var(--accent-color);
   }
 
@@ -141,11 +143,9 @@ function formatDate(d: Date): string {
     letter-spacing: 0.2px;
     line-height: 1.35;
     @include transition(color 0.15s ease);
-    order: 1;
 
     @include respond-to('medium') {
       font-size: 1.1875rem;
-      margin-bottom: 0;
     }
   }
 
@@ -154,11 +154,25 @@ function formatDate(d: Date): string {
     color: var(--titles-color);
     margin: 4px 0 0;
     line-height: 1.5;
-    order: 3;
-    grid-column: 1;
+  }
+
+  .post-list__thumb {
+    flex-shrink: 0;
+    width: 72px;
+    height: 72px;
+    overflow: hidden;
+    background-color: var(--secondary-subtle-color);
 
     @include respond-to('medium') {
-      grid-column: 1;
+      width: 88px;
+      height: 88px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      @include transition(opacity 0.2s ease);
     }
   }
 
@@ -169,12 +183,12 @@ function formatDate(d: Date): string {
   }
 
   .post-list__more {
-    margin-top: 40px;
+    margin-top: 48px;
   }
 
   .post-list__more-link {
     font-size: 0.875rem;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.3px;
     color: var(--titles-color);
     text-decoration: none;
     @include transition(color 0.2s ease);

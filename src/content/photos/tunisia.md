@@ -1,0 +1,69 @@
+---
+title: "Tunisia"
+date: 2023-03-28
+featureImage: /images/blog/2023/03/_DSC0082.jpg
+featureImageAlt: "Tunisia 2023"
+order: 5
+images:
+  - /images/blog/2023/03/_DSC0040.jpeg
+  - /images/blog/2023/03/_DSC0059.jpeg
+  - /images/blog/2023/03/_DSC0065.jpg
+  - /images/blog/2023/03/_DSC0069.jpg
+  - /images/blog/2023/03/_DSC0076.jpg
+  - /images/blog/2023/03/_DSC0080.jpg
+  - /images/blog/2023/03/_DSC0082.jpg
+  - /images/blog/2023/03/_DSC0100.jpeg
+  - /images/blog/2023/03/_DSC0146.jpeg
+  - /images/blog/2023/03/_DSC0155.jpeg
+  - /images/blog/2023/03/_DSC0160.jpeg
+  - /images/blog/2023/03/_DSC0163.jpeg
+  - /images/blog/2023/03/_DSC0172.jpeg
+  - /images/blog/2023/03/_DSC0180.jpeg
+  - /images/blog/2023/03/_DSC0188.jpeg
+  - /images/blog/2023/03/_DSC0215.jpg
+  - /images/blog/2023/03/_DSC0240.jpg
+  - /images/blog/2023/03/_DSC0257.jpg
+  - /images/blog/2023/03/_DSC0264.jpg
+  - /images/blog/2023/03/_DSC0274.jpg
+  - /images/blog/2023/03/_DSC0282.jpg
+  - /images/blog/2023/03/_DSC0289.jpg
+  - /images/blog/2023/04/_DSC0008.jpg
+  - /images/blog/2023/04/_DSC0613.jpg
+  - /images/blog/2023/04/_DSC0634.jpg
+  - /images/blog/2023/04/_DSC0644.jpg
+  - /images/blog/2023/04/_DSC0663.jpg
+  - /images/blog/2023/04/_DSC0675.jpg
+  - /images/blog/2023/04/_DSC0686.jpg
+  - /images/blog/2023/04/_DSC0697.jpg
+  - /images/blog/2023/04/_DSC0708.jpg
+  - /images/blog/2023/04/_DSC0726.jpg
+  - /images/blog/2023/04/_DSC0883.jpg
+  - /images/blog/2023/04/_DSC0943.jpg
+  - /images/blog/2023/05/_DSC0006.jpg
+  - /images/blog/2023/05/_DSC0083.jpg
+  - /images/blog/2023/05/_DSC0122.jpg
+  - /images/blog/2023/05/_DSC0173.jpg
+  - /images/blog/2023/05/_DSC0190.jpg
+  - /images/blog/2023/05/_DSC0220.jpg
+  - /images/blog/2023/05/_DSC0238.jpg
+  - /images/blog/2023/05/_DSC0267.jpg
+  - /images/blog/2023/05/_DSC0321.jpg
+  - /images/blog/2023/05/_DSC0347.jpg
+  - /images/blog/2023/05/_DSC0364.jpg
+  - /images/blog/2023/05/_DSC0374.jpg
+  - /images/blog/2023/05/_DSC0393.jpg
+  - /images/blog/2023/05/_DSC0402.jpg
+  - /images/blog/2023/05/_DSC0420.jpg
+  - /images/blog/2023/05/_DSC0436.jpg
+  - /images/blog/2023/05/_DSC0551.jpg
+  - /images/blog/2023/05/_DSC0584.jpg
+  - /images/blog/2023/05/_DSC0740.jpg
+  - /images/blog/2023/05/_DSC0790.jpg
+  - /images/blog/2023/05/_DSC0838.jpg
+  - /images/blog/2023/05/_DSC0915.jpg
+  - /images/blog/2023/05/_DSC0931.jpg
+  - /images/blog/2023/05/_DSC0972.jpg
+  - /images/blog/2023/05/_DSC0985.jpg
+---
+
+Field research with ecologists in southern Tunisia — desert ecosystems, Roman ruins, and the Saharan fringe.

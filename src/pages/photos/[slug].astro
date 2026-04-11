@@ -15,8 +15,9 @@ interface Props {
 }
 
 const { photo } = Astro.props;
-const { title, featureImage, featureImageAlt, date } = photo.data;
+const { title, featureImage, featureImageAlt, date, images } = photo.data;
 const { Content } = await render(photo);
+const isAlbum = images.length > 0;
 
 const formattedDate = date.toLocaleDateString('en-US', {
   year: 'numeric',
@@ -24,32 +25,52 @@ const formattedDate = date.toLocaleDateString('en-US', {
 });
 ---
 
-<BaseLayout
-  title={title}
-  image={featureImage}
-  bodyClass="is-photo"
->
+<BaseLayout title={title} image={featureImage} bodyClass="is-photo">
   <main>
     <div class="l-content">
-      <div class="l-wrapper">
+      <div class={`l-wrapper${isAlbum ? ' in-album' : ''}`}>
         <div class="m-heading" data-animate="fade-up">
           <h1 class="m-heading__title">{title}</h1>
           <div class="m-heading__meta">
             <span class="m-heading__meta__time">{formattedDate}</span>
+            {isAlbum && (
+              <span class="m-heading__meta__divider" aria-hidden="true">&bull;</span>
+              <span class="m-heading__meta__time">{images.length} photos</span>
+            )}
           </div>
         </div>
 
-        <div class="m-photo-content js-post-content">
-          <img
-            src={featureImage}
-            alt={featureImageAlt}
-            class="js-zoomable"
-            loading="eager"
-          />
-          <div class="m-photo-blurb">
-            <Content />
+        {isAlbum ? (
+          <div class="photo-album">
+            <div class="photo-album__blurb">
+              <Content />
+            </div>
+            <div class="photo-album__grid" id="photo-list">
+              {images.map((src) => (
+                <div class="photo-album__item">
+                  <img
+                    src={src}
+                    alt=""
+                    class="js-zoomable"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div class="m-photo-content js-post-content">
+            <img
+              src={featureImage}
+              alt={featureImageAlt}
+              class="js-zoomable"
+              loading="eager"
+            />
+            <div class="m-photo-blurb">
+              <Content />
+            </div>
+          </div>
+        )}
 
         <a href="/photos/" class="m-back">
           <span class="icon-arrow-left" aria-hidden="true"></span>
@@ -58,6 +79,50 @@ const formattedDate = date.toLocaleDateString('en-US', {
       </div>
     </div>
   </main>
+
+  <style lang="scss">
+    @import '../../styles/common/mixins';
+    @import '../../styles/common/variables';
+
+    .in-album {
+      max-width: 1400px;
+    }
+
+    .photo-album__blurb {
+      max-width: 680px;
+      margin: 0 auto 48px;
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      color: var(--titles-color);
+
+      :global(p) { margin: 0 0 12px; }
+    }
+
+    .photo-album__grid {
+      columns: 1;
+      column-gap: 8px;
+
+      @include respond-to('small') {
+        columns: 2;
+      }
+
+      @include respond-to('large') {
+        columns: 3;
+      }
+    }
+
+    .photo-album__item {
+      break-inside: avoid;
+      margin-bottom: 8px;
+
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+        cursor: zoom-in;
+      }
+    }
+  </style>
 
   <script>
     import '../../scripts/photos';

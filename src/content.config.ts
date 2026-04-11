@@ -14,6 +14,7 @@ const blog = defineCollection({
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
+    postType: z.enum(['post', 'gallery']).default('post'),
   }),
 });
 
@@ -25,6 +26,7 @@ const photos = defineCollection({
     featureImage: z.string(),
     featureImageAlt: z.string().default(''),
     order: z.number().default(0),
+    images: z.array(z.string()).default([]),
   }),
 });
 

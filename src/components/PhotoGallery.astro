@@ -14,18 +14,171 @@ function formatDate(d: Date): string {
 
 <div class="gallery">
   <div id="photo-list">
-    {photos.map((photo) => (
-      <div class="gallery-item" data-animate="fade-up">
-        <a href={`/photos/${photo.id}/`}>
-          <div class="grainy">
-            <div class="grain-inner">
-              <h2>{photo.data.title}</h2>
-              <p>{formatDate(photo.data.date)}</p>
+    {photos.map((photo) => {
+      const isAlbum = photo.data.images.length > 0;
+      const previewImages = isAlbum ? photo.data.images.slice(0, 4) : [];
+      return (
+        <div class={`gallery-item${isAlbum ? ' is-album' : ''}`} data-animate="fade-up">
+          <a href={`/photos/${photo.id}/`}>
+            {isAlbum ? (
+              <div class="gallery-album-grid">
+                {previewImages.map((src) => (
+                  <div class={`gallery-album-grid__cell${previewImages.length === 1 ? ' full' : ''}`}>
+                    <img src={src} alt="" loading="lazy" />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <img src={photo.data.featureImage} alt={photo.data.featureImageAlt} loading="lazy" />
+            )}
+            <div class="gallery-item__overlay">
+              <div class="gallery-item__info">
+                <h2 class="gallery-item__title">{photo.data.title}</h2>
+                <p class="gallery-item__date">{formatDate(photo.data.date)}</p>
+                {isAlbum && (
+                  <span class="gallery-item__count">{photo.data.images.length} photos</span>
+                )}
+              </div>
             </div>
-          </div>
-          <img src={photo.data.featureImage} alt={photo.data.featureImageAlt} loading="lazy" />
-        </a>
-      </div>
-    ))}
+          </a>
+        </div>
+      );
+    })}
   </div>
 </div>
+
+<style lang="scss">
+  @import '../styles/common/mixins';
+  @import '../styles/common/variables';
+
+  $pad: calc(8px + 1.5625vw);
+
+  .gallery {
+    padding: $pad;
+
+    @media screen and (min-width: 1200px) {
+      columns: 2 auto;
+    }
+
+    columns: 1 auto;
+    column-gap: 0;
+  }
+
+  .gallery-item {
+    padding: $pad;
+    break-inside: avoid;
+    position: relative;
+
+    a {
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  // Album grid — 2×2 thumbnail preview
+  .gallery-album-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2px;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+
+    &__cell {
+      overflow: hidden;
+
+      &.full {
+        grid-column: 1 / -1;
+        grid-row: 1 / -1;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        @include transition(transform 0.4s ease);
+      }
+    }
+
+    // 3 images: first takes left column both rows
+    &:has(> :nth-child(3):last-child) {
+      .gallery-album-grid__cell:first-child {
+        grid-row: 1 / 3;
+      }
+    }
+  }
+
+  // Hover overlay
+  .gallery-item__overlay {
+    position: absolute;
+    inset: 0;
+    background: transparent;
+    display: flex;
+    align-items: flex-end;
+    @include transition(background 0.2s ease);
+  }
+
+  .gallery-item__info {
+    padding: 20px;
+    transform: translateY(8px);
+    opacity: 0;
+    @include transition(all 0.2s ease);
+  }
+
+  .gallery-item__title {
+    font-family: "bc-alphapipe", sans-serif;
+    font-weight: 400;
+    font-size: 1.25rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0 0 4px;
+    line-height: 1.1;
+  }
+
+  .gallery-item__date {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  .gallery-item__count {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  // Hover state
+  .gallery-item a:hover {
+    .gallery-item__overlay {
+      background: rgba(0, 0, 0, 0.55);
+    }
+
+    .gallery-item__info {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-album-grid__cell img {
+      @include transform(scale(1.03));
+    }
+
+    img:not(.gallery-album-grid__cell img) {
+      @include transform(scale(1.03));
+    }
+  }
+</style>

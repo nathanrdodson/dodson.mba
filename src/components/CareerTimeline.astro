@@ -1,6 +1,144 @@
 ---
-// Hardcoded career data — port from nrdliebling/partials/career.hbs
+// Career timeline — all experience versions consolidated
 ---
+
+<section class="c-career__section">
+  <h2 class="c-career__section-title">Work Experience</h2>
+  <div class="c-timeline">
+
+    <div class="c-timeline__entry">
+      <div class="c-timeline__marker"></div>
+      <div class="c-timeline__body">
+        <div class="c-timeline__meta">
+          <span class="c-timeline__dates">2024 – Present</span>
+          <span class="c-timeline__location">Kansas City, KS</span>
+        </div>
+        <h3 class="c-timeline__role">Director of IT</h3>
+        <p class="c-timeline__org">Regal Distributing</p>
+        <ul class="c-timeline__bullets">
+          <li>Built the IT department from scratch, transitioning the company off full MSP dependence to an in-house model with clear ownership and process</li>
+          <li>Lead a small team; manage priorities through daily standups and short sprints</li>
+          <li>Designed and deployed the company's server, storage, and backup infrastructure — including a multi-site 3-2-1 backup strategy with immutable off-site copies</li>
+          <li>Migrated on-premise Active Directory to a hybrid Entra ID model with modern identity governance: role-based access, automated provisioning/deprovisioning, and tiered admin controls</li>
+          <li>Hardened network security across all sites: certificate-based Wi-Fi authentication, Conditional Access policies, and segmented VLANs</li>
+          <li>Built out a new warehouse facility's network from the ground up, including HA firewall pair, dual WAN, and VPN integration into the company's hub-and-spoke topology</li>
+          <li>Deployed internal monitoring, IPAM, orchestration, and help desk tooling; set up automated data pipeline exports for the ERP system</li>
+          <li>Led ERP go-live preparation and a company-wide phone system migration</li>
+          <li>Authored IT strategy, acceptable use policy, and an AI strategy proposal for leadership</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="c-timeline__entry">
+      <div class="c-timeline__marker"></div>
+      <div class="c-timeline__body">
+        <div class="c-timeline__meta">
+          <span class="c-timeline__dates">May 2023 – Aug. 2023</span>
+          <span class="c-timeline__location">Overland Park, KS</span>
+        </div>
+        <h3 class="c-timeline__role">Software Developer Intern — SRE</h3>
+        <p class="c-timeline__org">WellSky</p>
+        <ul class="c-timeline__bullets">
+          <li>Handled on-premise and cloud (GCP) deployments with Terraform</li>
+          <li>Modified and updated existing Helm templates; tracked deployments through ArgoCD</li>
+          <li>Developed extensible Python automation scripts for modifying F5 during application releases</li>
+          <li>Built New Relic SLIs through Terraform Enterprise to reflect team's evolving cloud configuration</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="c-timeline__entry">
+      <div class="c-timeline__marker"></div>
+      <div class="c-timeline__body">
+        <div class="c-timeline__meta">
+          <span class="c-timeline__dates">Dec. 2021 – Dec. 2022</span>
+          <span class="c-timeline__location">Leawood, KS</span>
+        </div>
+        <h3 class="c-timeline__role">InfoSecOps Development Intern</h3>
+        <p class="c-timeline__org">AscendLearning</p>
+        <ul class="c-timeline__bullets">
+          <li>Developed a full-stack security operations web tool in ReactJS for internal use</li>
+          <li>Integrated application into GitLab CI/CD pipeline: Docker builds, unit testing, Kubernetes deployment, dev/staging/production environments</li>
+          <li>Security implementation: CSRF/SQL injection prevention, token-based authentication, TLS</li>
+          <li>Used Kubernetes, GitLab CI/CD, and HashiCorp Vault APIs throughout the role</li>
+          <li>Automated key sec/ops workflows including vulnerability identification, threat mitigation, and blocking scripts</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="c-timeline__entry">
+      <div class="c-timeline__marker"></div>
+      <div class="c-timeline__body">
+        <div class="c-timeline__meta">
+          <span class="c-timeline__dates">May 2021 – Aug. 2021</span>
+          <span class="c-timeline__location">Kansas City, KS</span>
+        </div>
+        <h3 class="c-timeline__role">Software Developer Intern — Backend</h3>
+        <p class="c-timeline__org">SS&amp;C Technologies</p>
+        <ul class="c-timeline__bullets">
+          <li>Developed Java-based RESTful API endpoints for the internal Business Services Library</li>
+          <li>Participated in iterative design sessions with a client for the Fund Transaction Monitoring tool</li>
+          <li>COBOL integration and process development for BSL; performed system integration testing with QA teams</li>
+          <li>Created technical design documentation</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="c-timeline__entry">
+      <div class="c-timeline__marker"></div>
+      <div class="c-timeline__body">
+        <div class="c-timeline__meta">
+          <span class="c-timeline__dates">May 2019 – Aug. 2019 &amp; Dec. 2020 – Feb. 2021</span>
+          <span class="c-timeline__location">Kansas City, MO</span>
+        </div>
+        <h3 class="c-timeline__role">General IT Intern</h3>
+        <p class="c-timeline__org">Mazuma Credit Union</p>
+        <ul class="c-timeline__bullets">
+          <li>Built a web-based internal phonebook from the ground up with LDAP authentication, PHP, SQL, and HTML/CSS</li>
+          <li>Developed a member feedback app for in-person banking interactions — proof-of-concept "feedback slider" with per-branch analytics</li>
+          <li>Database work with call center statistics and live data (IBM Informix)</li>
+          <li>Migrated CRM apps to a new Microsoft PowerApps backend with internal API integration and style guide creation</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="c-timeline__entry">
+      <div class="c-timeline__marker"></div>
+      <div class="c-timeline__body">
+        <div class="c-timeline__meta">
+          <span class="c-timeline__dates">Jan. 2019 – May 2019</span>
+          <span class="c-timeline__location">Kansas City, MO</span>
+        </div>
+        <h3 class="c-timeline__role">Cerner Scholar — DevOps</h3>
+        <p class="c-timeline__org">Cerner Corporation</p>
+        <ul class="c-timeline__bullets">
+          <li>Real-world DevOps experience in an enterprise environment as part of a competitive scholar program</li>
+          <li>Deployed ansible-cmdb for fact-viewing and consolidation of 700+ hosts on the Cerner network</li>
+          <li>Host information consolidation using Ansible, Vagrant, and Docker</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="c-timeline__entry">
+      <div class="c-timeline__marker"></div>
+      <div class="c-timeline__body">
+        <div class="c-timeline__meta">
+          <span class="c-timeline__dates">2018 – 2019</span>
+          <span class="c-timeline__location">Overland Park, KS</span>
+        </div>
+        <h3 class="c-timeline__role">Technology Solutions Student</h3>
+        <p class="c-timeline__org">Blue Valley CAPS</p>
+        <ul class="c-timeline__bullets">
+          <li>Plant growth monitoring: Python on Raspberry Pi with sensors; introduced web-based programming</li>
+          <li>Built Blue Valley Recreation iOS app in Swift/Xcode to help users locate fields, restrooms, and get directions</li>
+          <li>Created a basic networking learning environment for students</li>
+          <li>CyberPatriots competition — 2nd place Gold Tier at State</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 <section class="c-career__section">
   <h2 class="c-career__section-title">Education</h2>
@@ -30,80 +168,16 @@
       </div>
     </div>
 
-  </div>
-</section>
-
-<section class="c-career__section">
-  <h2 class="c-career__section-title">Work Experience</h2>
-  <div class="c-timeline">
-
     <div class="c-timeline__entry">
       <div class="c-timeline__marker"></div>
       <div class="c-timeline__body">
         <div class="c-timeline__meta">
-          <span class="c-timeline__dates">May 2023 – Aug. 2023</span>
-          <span class="c-timeline__location">Overland Park, KS</span>
+          <span class="c-timeline__dates">Graduated 2019</span>
+          <span class="c-timeline__location">Stilwell, KS</span>
         </div>
-        <h3 class="c-timeline__role">Software Developer Intern — SRE</h3>
-        <p class="c-timeline__org">WellSky</p>
-        <ul class="c-timeline__bullets">
-          <li>Handled on-premise and cloud (GCP) deployments with Terraform</li>
-          <li>Modified and updated existing Helm templates; tracked deployments through ArgoCD</li>
-          <li>Developed extensible Python automation scripts for modifying F5 during application releases</li>
-          <li>Built New Relic SLIs through Terraform Enterprise to reflect team's evolving cloud configuration</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="c-timeline__entry">
-      <div class="c-timeline__marker"></div>
-      <div class="c-timeline__body">
-        <div class="c-timeline__meta">
-          <span class="c-timeline__dates">Dec. 2021 – Dec. 2022</span>
-          <span class="c-timeline__location">Leawood, KS</span>
-        </div>
-        <h3 class="c-timeline__role">Software Developer Intern — Security</h3>
-        <p class="c-timeline__org">AscendLearning</p>
-        <ul class="c-timeline__bullets">
-          <li>Developed a full-stack security operations web tool in ReactJS</li>
-          <li>Integrated application into GitLab CI/CD pipeline with Docker builds, unit testing, Kubernetes deployment, and dev/staging/production environments</li>
-          <li>Performed in-depth security analysis: CSRF/SQL injection prevention, token-based authentication, and TLS</li>
-          <li>Automated key sec/ops workflows including vulnerability identification, threat mitigation, and blocking scripts — significantly reducing hours spent by the sec/ops team</li>
-          <li>Designed the tool to be foundational, extensible, and adaptable as the team's needs change</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="c-timeline__entry">
-      <div class="c-timeline__marker"></div>
-      <div class="c-timeline__body">
-        <div class="c-timeline__meta">
-          <span class="c-timeline__dates">May 2021 – Aug. 2021</span>
-          <span class="c-timeline__location">Kansas City, KS</span>
-        </div>
-        <h3 class="c-timeline__role">Software Developer Intern — Backend</h3>
-        <p class="c-timeline__org">SS&amp;C, Inc.</p>
-        <ul class="c-timeline__bullets">
-          <li>Developed Java-based API endpoint for the internal Business Services Library using CI/CD processes</li>
-          <li>Created technical design documentation</li>
-          <li>Performed system integration testing with QA teams</li>
-          <li>Participated in iterative design sessions with a client for the Fund Trade Monitoring tool</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="c-timeline__entry">
-      <div class="c-timeline__marker"></div>
-      <div class="c-timeline__body">
-        <div class="c-timeline__meta">
-          <span class="c-timeline__dates">Jan. 2019 – May 2019</span>
-          <span class="c-timeline__location">Kansas City, MO</span>
-        </div>
-        <h3 class="c-timeline__role">Cerner Scholar — Dev/Ops</h3>
-        <p class="c-timeline__org">Cerner Corporation</p>
-        <ul class="c-timeline__bullets">
-          <li>Deployed Ansible-CMDB for fact-viewing and analysis of 700+ hosts on the Cerner network</li>
-        </ul>
+        <h3 class="c-timeline__role">Blue Valley High School</h3>
+        <p class="c-timeline__org">Blue Valley Unified School District</p>
+        <p class="c-timeline__detail">30 ACT &bull; 3.9+ weighted GPA &bull; National Honor Society &bull; Two-time Blue Valley Letter recipient</p>
       </div>
     </div>
 
@@ -114,27 +188,140 @@
   <h2 class="c-career__section-title">Technical Skills</h2>
   <div class="c-skills">
     <div class="c-skills__group">
-      <span class="c-skills__label">5+ years</span>
-      <span class="c-skills__items">Linux server administration, Docker, Debian, Git, HTML</span>
+      <span class="c-skills__label">Infrastructure</span>
+      <span class="c-skills__items">Hyper-V, Synology, Dell PowerEdge, Ubiquiti, Meraki, Zabbix, NetBox, NinjaOne</span>
     </div>
     <div class="c-skills__group">
-      <span class="c-skills__label">~3 years</span>
-      <span class="c-skills__items">Python, C++, Bash scripting, Nginx</span>
+      <span class="c-skills__label">Networking</span>
+      <span class="c-skills__items">802.1X/EAP-TLS, WPA3-Enterprise, RADIUS/NPS, AutoVPN, OpenVPN, VLAN design, dual WAN</span>
     </div>
     <div class="c-skills__group">
-      <span class="c-skills__label">1 year</span>
-      <span class="c-skills__items">Terraform, Kubernetes/GKE, New Relic, GCP, Microsoft Power Platform, ReactJS, Node.js/Express, MySQL, Ansible, Vagrant, Elasticsearch, LDAP/Samba, PHP, GitLab CI/CD, HashiCorp Vault, Jenkins, ArgoCD</span>
+      <span class="c-skills__label">Identity &amp; Cloud</span>
+      <span class="c-skills__items">Active Directory, Entra ID, Azure AD Connect, Conditional Access, ADGLP, LAPS, Google Workspace</span>
     </div>
+    <div class="c-skills__group">
+      <span class="c-skills__label">DevOps</span>
+      <span class="c-skills__items">Terraform, Kubernetes/GKE, ArgoCD, Helm, GitLab CI/CD, Ansible, Docker, Vagrant, Jenkins</span>
+    </div>
+    <div class="c-skills__group">
+      <span class="c-skills__label">Platforms</span>
+      <span class="c-skills__items">Apache Airflow, HashiCorp Vault, Elasticsearch, New Relic, GCP, Microsoft Power Platform, Jira Service Management, Confluence</span>
+    </div>
+    <div class="c-skills__group">
+      <span class="c-skills__label">Languages</span>
+      <span class="c-skills__items">Python, Java, Bash, C++, PHP, SQL, JavaScript/ReactJS, Node.js/Express, Swift, HTML/CSS</span>
+    </div>
+    <div class="c-skills__group">
+      <span class="c-skills__label">Systems</span>
+      <span class="c-skills__items">Linux (Debian, Ubuntu), Windows Server, Nginx, MySQL, PostgreSQL, LDAP/Samba, IBM Informix</span>
+    </div>
+  </div>
+</section>
+
+<section class="c-career__section">
+  <h2 class="c-career__section-title">Projects</h2>
+  <div class="c-timeline">
+
+    <div class="c-timeline__entry">
+      <div class="c-timeline__marker"></div>
+      <div class="c-timeline__body">
+        <h3 class="c-timeline__role">rescue-reddit</h3>
+        <p class="c-timeline__org">Personal Project</p>
+        <p class="c-timeline__detail">Python CLI tool using PRAW to download photos, videos, and GIFs from personal Reddit saves and subreddits of choice.</p>
+      </div>
+    </div>
+
+    <div class="c-timeline__entry">
+      <div class="c-timeline__marker"></div>
+      <div class="c-timeline__body">
+        <h3 class="c-timeline__role">nrdnas</h3>
+        <p class="c-timeline__org">Personal Homelab</p>
+        <p class="c-timeline__detail">Self-hosted service deployment sandbox for networking and Docker experimentation.</p>
+      </div>
+    </div>
+
+    <div class="c-timeline__entry">
+      <div class="c-timeline__marker"></div>
+      <div class="c-timeline__body">
+        <h3 class="c-timeline__role">dodson.mba</h3>
+        <p class="c-timeline__org">Personal Site</p>
+        <p class="c-timeline__detail">This site — built with Astro, derived from the Ghost theme nrdliebling. Content in Markdown, no CMS.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="c-career__section">
+  <h2 class="c-career__section-title">Earlier Experience</h2>
+  <div class="c-timeline">
+
+    <div class="c-timeline__entry">
+      <div class="c-timeline__marker"></div>
+      <div class="c-timeline__body">
+        <div class="c-timeline__meta">
+          <span class="c-timeline__dates">Jan. 2018 – Oct. 2018</span>
+        </div>
+        <h3 class="c-timeline__role">Crew Member</h3>
+        <p class="c-timeline__org">Chipotle Mexican Grill</p>
+        <ul class="c-timeline__bullets">
+          <li>Consistently top cashier — end-of-shift till accuracy within $0.25 against a $5 store limit</li>
+          <li>Contributed to store performance improvements through better training methods and accountability</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="c-timeline__entry">
+      <div class="c-timeline__marker"></div>
+      <div class="c-timeline__body">
+        <div class="c-timeline__meta">
+          <span class="c-timeline__dates">Nov. 2018 – Mar. 2019</span>
+        </div>
+        <h3 class="c-timeline__role">Customer Service Associate</h3>
+        <p class="c-timeline__org">Walgreens</p>
+      </div>
+    </div>
+
+    <div class="c-timeline__entry">
+      <div class="c-timeline__marker"></div>
+      <div class="c-timeline__body">
+        <div class="c-timeline__meta">
+          <span class="c-timeline__dates">Jun. 2016 – Jan. 2018</span>
+        </div>
+        <h3 class="c-timeline__role">Cashier</h3>
+        <p class="c-timeline__org">Queen's Price Chopper</p>
+        <ul class="c-timeline__bullets">
+          <li>Received early promotion to cashier</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="c-timeline__entry">
+      <div class="c-timeline__marker"></div>
+      <div class="c-timeline__body">
+        <div class="c-timeline__meta">
+          <span class="c-timeline__dates">3+ years, annual</span>
+        </div>
+        <h3 class="c-timeline__role">Sales &amp; Customer Service</h3>
+        <p class="c-timeline__org">American Royal Store</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <section class="c-career__section">
   <h2 class="c-career__section-title">Leadership &amp; Involvement</h2>
   <ul class="c-career__list">
+    <li>President, Environs KU Environmental Coalition &amp; ECO — promoted campus and community sustainability</li>
     <li>HackKU Executive Organizer &amp; Participant (2019, 2023–24)</li>
-    <li>President, Environs KU Environmental Coalition (2021–present)</li>
+    <li>Code with a Cause Hackathon — implemented a Wiki solution for a local bike shop's free bike program</li>
     <li>Graduate Student Advisory Board Member, KU School of Business (2023–present)</li>
-    <li>Counselor, Photographer &amp; Web Manager, Camp Milton / NAI (2018–present)</li>
-    <li>Member: Tau Beta Pi, Upsilon Pi Epsilon, Sunrise Movement, Erell NGO, KUKC</li>
+    <li>Camp Milton (formerly MDA Camp) — annual counselor and photographer for children with neuromuscular diseases</li>
+    <li>Lead organizer of a unifying march against school violence, April 2018</li>
+    <li>Wayside Waifs — former dog caretaker</li>
+    <li>Relay for Life cancer fundraising</li>
+    <li>Presidential Community Service Award — 2016</li>
+    <li>Member: Tau Beta Pi, Upsilon Pi Epsilon, KU Sunrise Project, Engineers Without Borders, FIRST Robotics, UNICEF Club, KU JayHackers, Young Progressives</li>
   </ul>
 </section>

@@ -45,11 +45,12 @@ function balanceColumns() {
 window.addEventListener('load', () => {
   balanceColumns();
   mediumZoom('.js-zoomable');
-});
 
-const resizeObserver = new ResizeObserver(() => {
-  balanceColumns();
+  const photoList = document.getElementById('photo-list');
+  if (photoList) {
+    const resizeObserver = new ResizeObserver(() => {
+      balanceColumns();
+    });
+    resizeObserver.observe(photoList);
+  }
 });
-
-const photoList = document.getElementById('photo-list');
-if (photoList) resizeObserver.observe(photoList);

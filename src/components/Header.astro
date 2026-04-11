@@ -1,29 +1,4 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-
-interface Props {
-  recentPosts: CollectionEntry<'blog'>[];
-}
-
-const { recentPosts } = Astro.props;
-
-function timeAgo(date: Date): string {
-  const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
-  const intervals = [
-    { label: 'year', seconds: 31536000 },
-    { label: 'month', seconds: 2592000 },
-    { label: 'week', seconds: 604800 },
-    { label: 'day', seconds: 86400 },
-    { label: 'hour', seconds: 3600 },
-    { label: 'minute', seconds: 60 },
-  ];
-  for (const interval of intervals) {
-    const count = Math.floor(seconds / interval.seconds);
-    if (count >= 1) return `${count} ${interval.label}${count !== 1 ? 's' : ''} ago`;
-  }
-  return 'just now';
-}
-
 const nav = [
   { label: 'Home', url: '/' },
   { label: 'Writing', url: '/blog/' },
@@ -65,54 +40,11 @@ const currentPath = Astro.url.pathname;
               </li>
 
               {nav.map((item) => (
-                <li>
-                  <a
-                    href={item.url}
-                    class={currentPath === item.url || (item.url !== '/' && currentPath.startsWith(item.url)) ? 'active' : ''}
-                  >
-                    {item.label}
-                  </a>
+                <li class={currentPath === item.url || (item.url !== '/' && currentPath.startsWith(item.url)) ? 'nav-current' : ''}>
+                  <a href={item.url}>{item.label}</a>
                 </li>
               ))}
 
-              <!-- Submenu -->
-              <li class="submenu-option js-submenu-option">
-                <button class="m-icon-button in-menu-main more js-toggle-submenu" aria-label="Open submenu">
-                  <i class="iconoir-pacman" aria-hidden="true"></i>
-                </button>
-                <div class="m-submenu js-submenu">
-                  <div class="l-wrapper in-submenu">
-                    <section class="m-recent-articles">
-                      <h3 class="m-submenu-title in-recent-articles">Recent articles</h3>
-                      {recentPosts.length > 0 ? (
-                        <div class="swiper js-recent-slider">
-                          <div class="swiper-wrapper">
-                            {recentPosts.map((post) => (
-                              <div class="swiper-slide">
-                                <a href={`/blog/${post.id}/`} class="m-recent-article">
-                                  <div class={`m-recent-article__picture${post.data.featureImage ? '' : ' no-picture'}`}>
-                                    {post.data.featureImage ? (
-                                      <img src={post.data.featureImage} loading="lazy" alt={post.data.featureImageAlt} />
-                                    ) : (
-                                      <img src="/images/no-image.png" loading="lazy" alt="" />
-                                    )}
-                                  </div>
-                                  <h3 class="m-recent-article__title js-recent-article-title" title={post.data.title}>
-                                    {post.data.title}
-                                  </h3>
-                                  <span class="m-recent-article__date">{timeAgo(post.data.date)}</span>
-                                </a>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ) : (
-                        <div class="m-not-found in-recent-articles">No recent articles found :(</div>
-                      )}
-                    </section>
-                  </div>
-                </div>
-              </li>
             </ul>
           </nav>
 
@@ -130,11 +62,11 @@ const currentPath = Astro.url.pathname;
               <span class="icon-search" aria-hidden="true"></span>
             </button>
             <div class="m-toggle-darkmode js-toggle-darkmode" title="Toggle dark mode">
-              <label class="m-toggle-darkmode__label" for="dark-mode-toggle" aria-label="Toggle dark mode">
-                <input type="checkbox" id="dark-mode-toggle" class="m-toggle-darkmode__input js-darkmode-input" />
-                <span class="m-toggle-darkmode__track"></span>
-                <span class="m-toggle-darkmode__thumb"></span>
-              </label>
+              <input type="checkbox" class="js-darkmode-input" aria-label="Toggle dark mode" />
+              <div>
+                <span class="moon">&#9790;</span>
+                <span class="sun">&#9788;</span>
+              </div>
             </div>
           </div>
         </div>

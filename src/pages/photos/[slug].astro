@@ -29,7 +29,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
   <main>
     <div class="l-content">
       <div class={`l-wrapper${isAlbum ? ' in-album' : ''}`}>
-        <div class="m-heading" data-animate="fade-up">
+        <div class="m-heading photo-detail-heading" data-animate="fade-up">
           <h1 class="m-heading__title">{title}</h1>
           <div class="m-heading__meta">
             <span class="m-heading__meta__time">{formattedDate}</span>
@@ -83,6 +83,18 @@ const formattedDate = date.toLocaleDateString('en-US', {
   <style lang="scss">
     @import '../../styles/common/mixins';
     @import '../../styles/common/variables';
+
+    .photo-detail-heading {
+      padding-top: 80px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--primary-border-color);
+      margin-bottom: 48px;
+
+      @include respond-to('medium') {
+        padding-top: 120px;
+        padding-bottom: 48px;
+      }
+    }
 
     .in-album {
       max-width: 1400px;

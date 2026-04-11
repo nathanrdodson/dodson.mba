@@ -55,24 +55,22 @@ const pagedPosts = allPosts.slice(
   @import '../../styles/common/variables';
 
   .in-blog-listing {
-    padding-top: 40px;
-
-    @include respond-to('medium') {
-      padding-top: 60px;
-    }
+    padding-top: 0;
   }
 
   .blog-listing-header {
-    padding: 60px 0 40px;
+    padding: 80px 0 48px;
+    border-bottom: 1px solid var(--primary-border-color);
+    margin-bottom: 48px;
 
     @include respond-to('medium') {
-      padding: 80px 0 48px;
+      padding: 120px 0 56px;
     }
   }
 
   .blog-listing-header__title {
     font-family: "Lora", serif;
-    font-weight: 400;
+    font-weight: 700;
     font-size: clamp(2rem, 5vw, 3.5rem);
     letter-spacing: 0.3px;
     color: var(--primary-foreground-color);

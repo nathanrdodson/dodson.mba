@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CareerTimeline from '../components/CareerTimeline.astro';
+import ExperienceTOC from '../components/ExperienceTOC.astro';
 import '../styles/career.scss';
 ---
 
@@ -29,7 +30,12 @@ import '../styles/career.scss';
             </div>
           </header>
 
-          <CareerTimeline />
+          <div class="c-career__body">
+            <ExperienceTOC />
+            <div class="c-career__content">
+              <CareerTimeline />
+            </div>
+          </div>
         </div>
       </div>
     </div>

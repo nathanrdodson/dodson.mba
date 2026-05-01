@@ -8,6 +8,10 @@
     height: 100%;
     object-fit: contain;
 
+    [data-theme="light"] & {
+      filter: brightness(0) saturate(100%);
+    }
+
     &.m-logo__image-light {
       display: var(--toggle-darkmode-button-display-moon);
     }

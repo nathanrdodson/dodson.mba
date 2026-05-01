@@ -6,13 +6,25 @@ Personal site for Nathan Dodson. Built with [Astro](https://astro.build) and SCS
 
 ---
 
+## Deployment
+
+Pushes to `main` automatically deploy to GitHub Pages via `.github/workflows/deploy.yml`. The workflow:
+
+1. Installs Node 22 and runs `npm ci`
+2. Builds the site to `./dist/`
+3. Uploads the artifact and deploys via the GitHub Pages environment
+
+The custom domain `dodson.mba` is configured in `public/CNAME`. To enable GitHub Pages for the first time, go to **Settings → Pages** in the repository and set the source to **GitHub Actions**.
+
+---
+
 ## Commands
 
-| Command         | Action                                  |
-| :-------------- | :-------------------------------------- |
-| `npm run dev`   | Start dev server at `localhost:4321`    |
-| `npm run build` | Build to `./dist/`                      |
-| `npm run preview` | Preview production build locally      |
+| Command           | Action                               |
+| :---------------- | :----------------------------------- |
+| `npm run dev`     | Start dev server at `localhost:4321` |
+| `npm run build`   | Build to `./dist/`                   |
+| `npm run preview` | Preview production build locally     |
 
 ---
 
@@ -93,6 +105,9 @@ The script:
 ## Structure
 
 ```
+.github/
+└── workflows/
+    └── deploy.yml   GitHub Pages deployment (triggers on push to main)
 src/
 ├── components/      Astro components
 ├── content/
@@ -107,6 +122,7 @@ src/
 public/
 ├── fonts/           icomoon icon font
 ├── images/          All images
+├── CNAME            Custom domain (dodson.mba)
 └── grain.svg
 scripts/
 └── migrate-ghost.py Ghost CMS → Astro migration

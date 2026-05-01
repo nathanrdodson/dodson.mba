@@ -1,9 +1,9 @@
 ---
 const nav = [
   { label: 'Home', url: '/' },
+  { label: 'Experience', url: '/experience/' },
   { label: 'Writing', url: '/blog/' },
   { label: 'Photos', url: '/photos/' },
-  { label: 'Experience', url: '/experience/' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -49,14 +49,14 @@ const currentPath = Astro.url.pathname;
           </nav>
 
           <div class="m-nav__right">
-            <a href="https://www.letterboxd.com/nathanrdodson" aria-label="Letterboxd" target="_blank" rel="noopener">
-              <i class="iconoir-movie"></i>
+            <a href="https://www.letterboxd.com/nathanrdodson" class="m-icon-button m-nav__icon-link" aria-label="Letterboxd" target="_blank" rel="noopener">
+              <i class="iconoir-movie" aria-hidden="true"></i>
             </a>
-            <a href="https://www.stats.fm/nrd" aria-label="Stats.fm" target="_blank" rel="noopener">
-              <i class="iconoir-music-note"></i>
+            <a href="https://www.stats.fm/nrd" class="m-icon-button m-nav__icon-link" aria-label="Stats.fm" target="_blank" rel="noopener">
+              <i class="iconoir-music-note" aria-hidden="true"></i>
             </a>
-            <a href="https://www.github.com/nathanrdodson" aria-label="GitHub" target="_blank" rel="noopener">
-              <i class="iconoir-github"></i>
+            <a href="https://www.github.com/nathanrdodson" class="m-icon-button m-nav__icon-link" aria-label="GitHub" target="_blank" rel="noopener">
+              <i class="iconoir-github" aria-hidden="true"></i>
             </a>
             <button class="m-icon-button js-open-search" aria-label="Open search">
               <span class="icon-search" aria-hidden="true"></span>

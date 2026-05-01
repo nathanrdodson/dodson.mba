@@ -209,6 +209,93 @@
   opacity: 0.85;
 }
 
+// Body layout (TOC + content)
+
+.c-career__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  @include respond-to('large') {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 48px;
+  }
+}
+
+.c-career__content {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+// Table of Contents
+
+.c-toc {
+  @include respond-to('large') {
+    position: sticky;
+    top: 80px;
+    flex-shrink: 0;
+    width: 140px;
+    padding-top: 6px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 40px;
+
+    @include respond-to('large') {
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.c-toc__link {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.4px;
+  color: var(--titles-color);
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background-color: var(--secondary-subtle-color);
+  transition: color 0.2s ease, background-color 0.2s ease;
+
+  @include respond-to('large') {
+    padding: 6px 0;
+    border-radius: 0;
+    background-color: transparent;
+    border-left: 2px solid var(--primary-border-color);
+    padding-left: 12px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  &:hover {
+    color: var(--accent-color);
+
+    @include respond-to('large') {
+      border-left-color: var(--accent-color);
+    }
+  }
+
+  &.is-active {
+    color: var(--accent-color);
+    font-weight: 600;
+
+    @include respond-to('large') {
+      border-left-color: var(--accent-color);
+      background-color: transparent;
+    }
+  }
+}
+
 // Leadership list
 
 .c-career__list {

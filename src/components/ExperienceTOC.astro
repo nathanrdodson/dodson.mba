@@ -1,0 +1,37 @@
+---
+const sections = [
+  { id: 'work-experience', label: 'Work Experience' },
+  { id: 'education', label: 'Education' },
+  { id: 'technical-skills', label: 'Skills' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'earlier-experience', label: 'Earlier' },
+  { id: 'leadership', label: 'Leadership' },
+];
+---
+
+<nav class="c-toc" aria-label="Page sections">
+  <ul>
+    {sections.map(s => (
+      <li>
+        <a href={`#${s.id}`} class="c-toc__link" data-section={s.id}>{s.label}</a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<script>
+  const links = document.querySelectorAll<HTMLAnchorElement>('.c-toc__link');
+  const sectionEls = [...links].map(l => document.getElementById(l.dataset.section ?? ''));
+
+  const setActive = (id: string) => {
+    links.forEach(l => l.classList.toggle('is-active', l.dataset.section === id));
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
+
+  sectionEls.forEach(s => s && observer.observe(s));
+</script>

@@ -112,18 +112,11 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-
-	a {
-		display: flex;
-		i {
-			padding: 0 7px;
-			font-size: 1.5em;
-		}
-	}	
+  gap: 2px;
 
   @include respond-to('medium') {
     flex-shrink: 0;
-	justify-content: flex-end;
+    justify-content: flex-end;
     position: relative;
     padding-left: 20px;
     padding-right: 5px;
@@ -141,6 +134,23 @@
       z-index: 2;
       background: linear-gradient(90deg, var(--header-menu-gradient-first-color) 0, var(--header-menu-gradient-second-color));
     }
+  }
+}
+
+.m-nav__icon-link {
+  text-decoration: none;
+  font-size: 1.25rem;
+  width: 32px;
+  height: 32px;
+  color: var(--titles-color);
+  @include transition(color 0.2s ease);
+
+  &:hover {
+    color: var(--accent-color);
+  }
+
+  i {
+    font-size: inherit;
   }
 }
 

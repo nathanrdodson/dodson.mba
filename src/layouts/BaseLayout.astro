@@ -51,6 +51,11 @@ const fullTitle = title === siteTitle ? title : `${title} — ${siteTitle}`;
     <!-- Canonical -->
     <link rel="canonical" href={siteUrl + Astro.url.pathname} />
 
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
     <!-- Fonts / Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

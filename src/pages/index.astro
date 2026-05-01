@@ -23,7 +23,7 @@ const { Content: Bio } = aboutEntry ? await render(aboutEntry) : { Content: null
 <BaseLayout title="Nathan Dodson" bodyClass="is-home">
   <main>
     <HomeHero>
-      {Bio ? <Bio /> : <p>IT Director and platform engineer based in Kansas City.</p>}
+      {Bio ? <Bio /> : <p>IT Manager based in Kansas City.</p>}
     </HomeHero>
 
     {photos.length > 0 && (
@@ -77,10 +77,10 @@ const { Content: Bio } = aboutEntry ? await render(aboutEntry) : { Content: null
 
   .home-photos__heading {
     font-family: "Lora", serif;
-    font-weight: 400;
-    font-size: 0.6875rem;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2rem);
     letter-spacing: 0.3px;
-    color: var(--titles-color);
+    color: var(--primary-foreground-color);
     margin: 0;
   }
 

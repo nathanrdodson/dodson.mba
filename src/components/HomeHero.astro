@@ -10,13 +10,17 @@
       <div class="home-hero__bio">
         <slot />
       </div>
-      <nav class="home-hero__links" aria-label="Quick links">
-        <a href="/blog/">Writing</a>
-        <a href="/experience/">Experience</a>
-        <a href="/photos/">Photos</a>
-        <a href="https://linkedin.com/in/nathanrdodson" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/nathanrdodson" target="_blank" rel="noopener">GitHub</a>
-      </nav>
+      <div class="home-hero__social">
+        <a href="https://github.com/nathanrdodson" class="home-hero__social-link" aria-label="GitHub" target="_blank" rel="noopener">
+          <i class="iconoir-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.letterboxd.com/nathanrdodson" class="home-hero__social-link" aria-label="Letterboxd" target="_blank" rel="noopener">
+          <i class="iconoir-movie" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.stats.fm/nrd" class="home-hero__social-link" aria-label="Stats.fm" target="_blank" rel="noopener">
+          <i class="iconoir-music-note" aria-hidden="true"></i>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -81,21 +85,26 @@
     }
   }
 
-  .home-hero__links {
+  .home-hero__social {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px 24px;
+    align-items: center;
+    gap: 4px;
+  }
 
-    a {
-      font-size: 0.9375rem;
-      letter-spacing: 0.2px;
-      color: var(--titles-color);
-      text-decoration: none;
-      @include transition(color 0.2s ease);
+  .home-hero__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    font-size: 1.25rem;
+    color: var(--titles-color);
+    text-decoration: none;
+    border-radius: 50%;
+    @include transition(color 0.2s ease);
 
-      &:hover {
-        color: var(--primary-foreground-color);
-      }
+    &:hover {
+      color: var(--accent-color);
     }
   }
 </style>

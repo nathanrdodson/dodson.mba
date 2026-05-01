@@ -17,6 +17,35 @@
   }
 }
 
+
+
+.c-career__resume-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: var(--titles-color);
+  border: 1px solid var(--primary-border-color);
+  border-radius: 4px;
+  padding: 7px 14px;
+  text-decoration: none;
+  margin-top: 20px;
+  margin-bottom: 24px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+
+  i {
+    font-size: 0.9375rem;
+  }
+
+  &:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+  }
+}
+
 .c-career__name {
   font-family: "Lora", serif;
   font-weight: 700;

@@ -8,10 +8,6 @@
     height: 100%;
     object-fit: contain;
 
-    [data-theme="light"] & {
-      filter: brightness(0) saturate(100%);
-    }
-
     &.m-logo__image-light {
       display: var(--toggle-darkmode-button-display-moon);
     }
@@ -28,6 +24,16 @@
   &.in-profile {
     height: 256px;
   }
+}
+
+[data-theme="dark"] {
+  .m-logo__image-light { display: none; }
+  .m-logo__image-dark  { display: block; }
+}
+
+[data-theme="light"] {
+  .m-logo__image-light { display: block; }
+  .m-logo__image-dark  { display: none; }
 }
 
 .m-logo__photo {

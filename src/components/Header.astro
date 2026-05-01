@@ -16,8 +16,9 @@ const currentPath = Astro.url.pathname;
       <i class="iconoir-menu icon-md" aria-hidden="true"></i>
     </button>
     <a href="/" class="m-site-name in-mobile-topbar" aria-label="Nathan Dodson">
-        <img src="/images/logo.png" alt="Nathan Dodson" class="m-site-logo" />
-      </a>
+      <img src="/images/logo.png" alt="Nathan Dodson" class="m-site-logo m-logo__image-light" />
+      <img src="/images/logo-dark.png" alt="Nathan Dodson" class="m-site-logo m-logo__image-dark" />
+    </a>
     <button class="m-icon-button in-mobile-topbar js-open-search" aria-label="Open search">
       <span class="icon-search" aria-hidden="true"></span>
     </button>
@@ -35,7 +36,8 @@ const currentPath = Astro.url.pathname;
             <ul>
               <li class="only-desktop">
                 <a href="/" class="m-site-name in-desktop-menu" aria-label="Nathan Dodson">
-                  <img src="/images/logo.png" alt="Nathan Dodson" class="m-site-logo" />
+                  <img src="/images/logo.png" alt="Nathan Dodson" class="m-site-logo m-logo__image-light" />
+                  <img src="/images/logo-dark.png" alt="Nathan Dodson" class="m-site-logo m-logo__image-dark" />
                 </a>
               </li>
 
@@ -49,23 +51,16 @@ const currentPath = Astro.url.pathname;
           </nav>
 
           <div class="m-nav__right">
-            <a href="https://www.letterboxd.com/nathanrdodson" class="m-icon-button m-nav__icon-link" aria-label="Letterboxd" target="_blank" rel="noopener">
-              <i class="iconoir-movie" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.stats.fm/nrd" class="m-icon-button m-nav__icon-link" aria-label="Stats.fm" target="_blank" rel="noopener">
-              <i class="iconoir-music-note" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.github.com/nathanrdodson" class="m-icon-button m-nav__icon-link" aria-label="GitHub" target="_blank" rel="noopener">
-              <i class="iconoir-github" aria-hidden="true"></i>
-            </a>
             <button class="m-icon-button js-open-search" aria-label="Open search">
               <span class="icon-search" aria-hidden="true"></span>
             </button>
             <div class="m-toggle-darkmode js-toggle-darkmode" title="Toggle dark mode">
               <input type="checkbox" class="js-darkmode-input" aria-label="Toggle dark mode" />
-              <div>
-                <span class="moon">&#9790;</span>
-                <span class="sun">&#9788;</span>
+              <div class="m-toggle-darkmode__track">
+                <div class="m-toggle-darkmode__thumb">
+                  <i class="iconoir-sun-light m-toggle-darkmode__icon--sun" aria-hidden="true"></i>
+                  <i class="iconoir-half-moon m-toggle-darkmode__icon--moon" aria-hidden="true"></i>
+                </div>
               </div>
             </div>
           </div>

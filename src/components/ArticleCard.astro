@@ -40,10 +40,7 @@ function timeAgo(d: Date): string {
         alt={featureImageAlt}
       />
     )}
-    <a href="/" class="m-article-card__author" aria-label="Nathan Dodson">
-      <div style="background-image: url(/images/default-avatar-square-small.jpg);"></div>
-    </a>
-    {featured && (
+{featured && (
       <a href={url} class="m-article-card__featured" aria-label="Featured">
         <span class="icon-star" aria-hidden="true"></span>
       </a>

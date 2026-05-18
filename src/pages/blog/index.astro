@@ -6,9 +6,7 @@ import Pagination from '../../components/Pagination.astro';
 import '../../styles/listing.scss';
 
 const POSTS_PER_PAGE = 12;
-const url = Astro.url;
-const pageParam = url.searchParams.get('page');
-const currentPage = pageParam ? Math.max(1, parseInt(pageParam)) : 1;
+const currentPage = 1;
 
 const allPosts = await getCollection('blog', (e: CollectionEntry<'blog'>) => !e.data.draft);
 allPosts.sort(
@@ -17,10 +15,7 @@ allPosts.sort(
 );
 
 const totalPages = Math.max(1, Math.ceil(allPosts.length / POSTS_PER_PAGE));
-const pagedPosts = allPosts.slice(
-  (currentPage - 1) * POSTS_PER_PAGE,
-  currentPage * POSTS_PER_PAGE
-);
+const pagedPosts = allPosts.slice(0, POSTS_PER_PAGE);
 ---
 
 <BaseLayout title="Writing" description="Articles and thoughts by Nathan Dodson">

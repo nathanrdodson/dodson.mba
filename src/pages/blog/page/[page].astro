@@ -1,0 +1,81 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import Pagination from '../../../components/Pagination.astro';
+import '../../../styles/listing.scss';
+
+export async function getStaticPaths() {
+  const POSTS_PER_PAGE = 12;
+  const allPosts = await getCollection('blog', (e: CollectionEntry<'blog'>) => !e.data.draft);
+  allPosts.sort(
+    (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
+      b.data.date.getTime() - a.data.date.getTime()
+  );
+
+  const totalPages = Math.max(1, Math.ceil(allPosts.length / POSTS_PER_PAGE));
+
+  // Generate paths for pages 2 and beyond (page 1 is handled by blog/index.astro)
+  return Array.from({ length: totalPages - 1 }, (_, i) => {
+    const page = i + 2;
+    return {
+      params: { page: String(page) },
+      props: {
+        pagedPosts: allPosts.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE),
+        currentPage: page,
+        totalPages,
+      },
+    };
+  });
+}
+
+const { pagedPosts, currentPage, totalPages } = Astro.props;
+---
+
+<BaseLayout title={`Writing — Page ${currentPage}`} description="Articles and thoughts by Nathan Dodson">
+  <main>
+    <div class="l-content in-blog-listing">
+      <div class="l-wrapper">
+        <header class="blog-listing-header" data-animate="fade-up">
+          <h1 class="blog-listing-header__title">Writing</h1>
+        </header>
+
+        <section class="m-articles-grid l-grid" data-animate="fade-up">
+          {pagedPosts.map((post: CollectionEntry<'blog'>) => (
+            <ArticleCard post={post} />
+          ))}
+        </section>
+
+        <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl="/blog/" />
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  @import '../../../styles/common/mixins';
+  @import '../../../styles/common/variables';
+
+  .in-blog-listing {
+    padding-top: 0;
+  }
+
+  .blog-listing-header {
+    padding: 80px 0 48px;
+    border-bottom: 1px solid var(--primary-border-color);
+    margin-bottom: 48px;
+
+    @include respond-to('medium') {
+      padding: 120px 0 56px;
+    }
+  }
+
+  .blog-listing-header__title {
+    font-family: "Lora", serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: 0.3px;
+    color: var(--primary-foreground-color);
+    margin: 0;
+  }
+</style>

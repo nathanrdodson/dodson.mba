@@ -2,12 +2,15 @@
 interface Props {
   currentPage: number;
   totalPages: number;
-  baseUrl: string;
+  baseUrl: string;      // e.g. "/blog/" — used for page 1 and as prefix
 }
 
 const { currentPage, totalPages, baseUrl } = Astro.props;
-const prevUrl = currentPage > 1 ? `${baseUrl}?page=${currentPage - 1}` : null;
-const nextUrl = currentPage < totalPages ? `${baseUrl}?page=${currentPage + 1}` : null;
+
+// Page 1 lives at baseUrl, subsequent pages at baseUrl + "page/N/"
+const pageUrl = (n: number) => n === 1 ? baseUrl : `${baseUrl}page/${n}/`;
+const prevUrl = currentPage > 1 ? pageUrl(currentPage - 1) : null;
+const nextUrl = currentPage < totalPages ? pageUrl(currentPage + 1) : null;
 ---
 
 {totalPages > 1 && (

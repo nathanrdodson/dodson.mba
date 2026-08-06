@@ -4,7 +4,7 @@
 }
 
 .m-footer__content {
-  color: $white;
+  color: var(--primary-foreground-color);
   text-align: center;
   padding: 50px $mobile-space;
 
@@ -71,7 +71,7 @@
 
   a {
     display: inline-block;
-    color: $white;
+    color: var(--primary-foreground-color);
     margin: 0 15px;
 
     span {

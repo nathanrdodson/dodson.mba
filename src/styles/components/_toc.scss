@@ -1,0 +1,104 @@
+// Table of Contents — sticky scroll-spy sidebar (blog posts, experience page)
+
+.c-toc {
+  @include respond-to('large') {
+    position: sticky;
+    top: 80px;
+    flex-shrink: 0;
+    width: 140px;
+    padding-top: 6px;
+  }
+}
+
+.c-toc__label {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+  font-size: 0.6875rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--titles-color);
+  margin: 0 0 10px;
+
+  @include respond-to('large') {
+    margin: 0 0 14px;
+  }
+}
+
+.c-toc__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 40px;
+
+  @include respond-to('large') {
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 0;
+    counter-reset: toc;
+  }
+}
+
+.c-toc__link {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.4px;
+  color: var(--titles-color);
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background-color: var(--secondary-subtle-color);
+  transition: color 0.2s ease, background-color 0.2s ease;
+
+  @include respond-to('large') {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 6px 0 6px 12px;
+    border-radius: 0;
+    background-color: transparent;
+    border-left: 2px solid var(--primary-border-color);
+    transition: color 0.2s ease, border-color 0.2s ease;
+    counter-increment: toc;
+
+    &::before {
+      content: counter(toc, decimal-leading-zero);
+      flex-shrink: 0;
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 500;
+      font-size: 0.6875rem;
+      color: var(--accent-color);
+      opacity: 0.55;
+      transition: opacity 0.2s ease;
+    }
+  }
+
+  &:hover {
+    color: var(--accent-color);
+
+    @include respond-to('large') {
+      border-left-color: var(--accent-color);
+
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.is-active {
+    color: var(--accent-color);
+    font-weight: 600;
+
+    @include respond-to('large') {
+      border-left-color: var(--accent-color);
+      background-color: transparent;
+
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+}

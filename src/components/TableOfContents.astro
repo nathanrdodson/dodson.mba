@@ -1,19 +1,18 @@
 ---
-const sections = [
-  { id: 'work-experience', label: 'Work Experience' },
-  { id: 'education', label: 'Education' },
-  { id: 'technical-skills', label: 'Skills' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'earlier-experience', label: 'Earlier' },
-  { id: 'leadership', label: 'Leadership' },
-];
+interface Props {
+  items: { id: string; label: string }[];
+  label?: string;
+}
+
+const { items, label = 'Contents' } = Astro.props;
 ---
 
-<nav class="c-toc" aria-label="Page sections">
-  <ul>
-    {sections.map(s => (
+<nav class="c-toc" aria-label="Table of contents">
+  <p class="c-toc__label" aria-hidden="true">{label}</p>
+  <ul class="c-toc__list">
+    {items.map(item => (
       <li>
-        <a href={`#${s.id}`} class="c-toc__link" data-section={s.id}>{s.label}</a>
+        <a href={`#${item.id}`} class="c-toc__link" data-section={item.id}>{item.label}</a>
       </li>
     ))}
   </ul>

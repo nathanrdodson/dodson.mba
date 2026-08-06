@@ -1,8 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CareerTimeline from '../components/CareerTimeline.astro';
-import ExperienceTOC from '../components/ExperienceTOC.astro';
+import TableOfContents from '../components/TableOfContents.astro';
 import '../styles/career.scss';
+
+const sections = [
+  { id: 'work-experience', label: 'Work Experience' },
+  { id: 'education', label: 'Education' },
+  { id: 'technical-skills', label: 'Skills' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'earlier-experience', label: 'Earlier' },
+  { id: 'leadership', label: 'Leadership' },
+];
 ---
 
 <BaseLayout
@@ -35,7 +44,7 @@ import '../styles/career.scss';
           </header>
 
           <div class="c-career__body">
-            <ExperienceTOC />
+            <TableOfContents items={sections} />
             <div class="c-career__content">
               <CareerTimeline />
             </div>

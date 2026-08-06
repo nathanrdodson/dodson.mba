@@ -3,6 +3,7 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
 import RelatedPosts from '../../components/RelatedPosts.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
 import '../../styles/post.scss';
 
 export async function getStaticPaths() {
@@ -35,7 +36,12 @@ interface Props {
 
 const { post, related } = Astro.props;
 const { title, featureImage, featureImageAlt, featureImageCaption, tags, date } = post.data;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+
+const tocItems = headings
+  .filter(h => h.depth >= 2 && h.depth <= 3 && h.text.trim().length > 0)
+  .map(h => ({ id: h.slug, label: h.text }));
+const hasToc = tocItems.length >= 2;
 
 const primaryTag = tags[0] ?? null;
 const formattedDate = date.toLocaleDateString('en-US', {
@@ -62,35 +68,40 @@ const formattedDate = date.toLocaleDateString('en-US', {
 
     <article>
       <div class="l-content in-post">
-        <div class={`l-wrapper in-post${featureImage ? '' : ' no-image'} js-animation-wrapper`} data-animate="fade-up">
-          <div class="l-post-content js-progress-content">
-            <header class="m-heading">
-              <h1 class="m-heading__title in-post">{title}</h1>
-              <div class="m-heading__meta">
-                {primaryTag && (
-                  <>
-                    <a href={`/blog/?tag=${encodeURIComponent(primaryTag)}`} class="m-heading__meta__tag">{primaryTag}</a>
-                    <span class="m-heading__meta__divider" aria-hidden="true">&bull;</span>
-                  </>
-                )}
-                <span class="m-heading__meta__time">{formattedDate}</span>
+        <div class={`l-wrapper in-post${featureImage ? '' : ' no-image'}${hasToc ? ' has-toc' : ''} js-animation-wrapper`} data-animate="fade-up">
+          <div class="l-post-body">
+            {hasToc && <TableOfContents items={tocItems} label="On this page" />}
+            <div class="l-post-body__content">
+              <div class="l-post-content js-progress-content">
+                <header class="m-heading">
+                  <h1 class="m-heading__title in-post">{title}</h1>
+                  <div class="m-heading__meta">
+                    {primaryTag && (
+                      <>
+                        <a href={`/blog/?tag=${encodeURIComponent(primaryTag)}`} class="m-heading__meta__tag">{primaryTag}</a>
+                        <span class="m-heading__meta__divider" aria-hidden="true">&bull;</span>
+                      </>
+                    )}
+                    <span class="m-heading__meta__time">{formattedDate}</span>
+                  </div>
+                </header>
+
+                <div class="pos-relative js-post-content">
+                  <Content />
+
+                  {tags.length > 0 && (
+                    <section class="m-tags in-post">
+                      <ul>
+                        {tags.map((tag: string) => (
+                          <li>
+                            <a href={`/blog/?tag=${encodeURIComponent(tag)}`} title={tag}>{tag}</a>
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  )}
+                </div>
               </div>
-            </header>
-
-            <div class="pos-relative js-post-content">
-              <Content />
-
-              {tags.length > 0 && (
-                <section class="m-tags in-post">
-                  <ul>
-                    {tags.map((tag: string) => (
-                      <li>
-                        <a href={`/blog/?tag=${encodeURIComponent(tag)}`} title={tag}>{tag}</a>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              )}
             </div>
           </div>
         </div>

@@ -1,0 +1,30 @@
+{
+  // Lint config for content markdown. Rules that would require rewriting the prose
+  // itself are switched off — the goal here is structural hygiene, not editing.
+  "config": {
+    "default": true,
+
+    // Prose, not code. Hard-wrapping at 80 would rewrite every paragraph in the site
+    // and markdown collapses the newlines anyway.
+    "MD013": false,
+
+    // Every file opens with YAML frontmatter, so a top-level heading on line 1 is
+    // neither expected nor wanted.
+    "MD041": false,
+
+    // Ghost-migrated posts embed some raw HTML (figures, embeds).
+    "MD033": false,
+
+    // Bold/italic used as a visual heading is an authorial choice in the body copy.
+    "MD036": false,
+
+    // Headings like "### Off we go..." are the author's voice. Autofix strips the
+    // ellipsis, which edits the writing, so this stays off.
+    "MD026": false,
+
+    // Ghost-era posts open at h3 with no h2 above. Renumbering would change the
+    // document outline, which is a content decision rather than a lint fix.
+    "MD001": false
+  },
+  "globs": ["src/content/**/*.md"]
+}

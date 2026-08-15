@@ -19,18 +19,28 @@ const { items, label = 'Contents' } = Astro.props;
 </nav>
 
 <script>
-  const links = document.querySelectorAll<HTMLAnchorElement>('.c-toc__link');
-  const sectionEls = [...links].map(l => document.getElementById(l.dataset.section ?? ''));
+  // Re-runs after each view transition; the previous observer is disconnected so it
+  // doesn't keep watching nodes from the page we just left.
+  let tocObserver: IntersectionObserver | null = null;
 
-  const setActive = (id: string) => {
-    links.forEach(l => l.classList.toggle('is-active', l.dataset.section === id));
-  };
+  document.addEventListener('astro:page-load', () => {
+    tocObserver?.disconnect();
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) setActive(entry.target.id);
-    });
-  }, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
+    const links = document.querySelectorAll<HTMLAnchorElement>('.c-toc__link');
+    if (links.length === 0) return;
 
-  sectionEls.forEach(s => s && observer.observe(s));
+    const setActive = (id: string) => {
+      links.forEach(l => l.classList.toggle('is-active', l.dataset.section === id));
+    };
+
+    tocObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
+
+    [...links]
+      .map(l => document.getElementById(l.dataset.section ?? ''))
+      .forEach(s => s && tocObserver!.observe(s));
+  });
 </script>

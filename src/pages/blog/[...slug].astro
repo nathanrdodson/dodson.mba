@@ -61,14 +61,6 @@ const formattedDate = date.toLocaleDateString('en-US', {
   bodyClass="is-post"
 >
   <main>
-    <Hero image={featureImage} imageAlt={featureImageAlt} inPost={true} />
-
-    {featureImage && featureImageCaption && (
-      <div class="l-wrapper in-caption">
-        <p class="m-small-text align-center">{featureImageCaption}</p>
-      </div>
-    )}
-
     <article>
       <ReadingProgress />
 
@@ -116,6 +108,12 @@ const formattedDate = date.toLocaleDateString('en-US', {
             </aside>
             <div class="l-post-body__content">
               <div class="l-post-content js-progress-content">
+                <Hero image={featureImage} imageAlt={featureImageAlt} inPost={true} />
+
+                {featureImage && featureImageCaption && (
+                  <p class="m-small-text m-hero__caption">{featureImageCaption}</p>
+                )}
+
                 <header class="m-heading">
                   <h1 class="m-heading__title in-post">{title}</h1>
                   <div class="m-heading__meta">

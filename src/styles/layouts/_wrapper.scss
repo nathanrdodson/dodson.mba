@@ -56,14 +56,5 @@
   }
 }
 
-.l-wrapper.in-post.no-image {
-  padding-top: 40px;
-
-  @include respond-to('medium') {
-    padding-top: 80px;
-  }
-}
-
-.l-wrapper.in-caption {
-  padding-top: 10px;
-}
+// Top clearance now lives on .l-content.in-post for every post, image or not, so the
+// two no longer stack up on image-less posts.

@@ -1,6 +1,7 @@
 ---
 title: "Normal People - Media Mosaic"
 date: 2000-01-01
+tags: ["essays"]
 draft: true
 ---
 
@@ -10,7 +11,7 @@ I am often casually, and regrettably, behind the hype trains and bandwagons whic
 
 ---
 
-A show like this depends heavily on thematic relatability; luckily, when the theme is love, heartbreak, friendship, and human connection, most people have a word to share or an experience to draw from that enables them to relate. Then, you develop the timeless notion of *naive* love - not just the romantic relationships between young people, but those of people who are *new to love - *which a largely young audience is actively living through and which an older audience can reflect on with fondness, passion, or maybe even regret and despondency. Finally, place it on a timeline that spans years, fill it with sensuality, and develop *just* enough conflict to tempt frustration. What you are left with is a very 'relatable' (and consumable) love story that, by virtue of simply being a human person, you are likely to enjoy. This is the mindset with which I went into my binge of *Normal People*. I was choosing to believe that this show was designed from the ground-up with this audience in mind, and because I think leaning into your personal connection with love is the best way to enjoy romance, I was fully ready to fill that expectation.
+A show like this depends heavily on thematic relatability; luckily, when the theme is love, heartbreak, friendship, and human connection, most people have a word to share or an experience to draw from that enables them to relate. Then, you develop the timeless notion of *naive* love - not just the romantic relationships between young people, but those of people who are *new to love -*which a largely young audience is actively living through and which an older audience can reflect on with fondness, passion, or maybe even regret and despondency. Finally, place it on a timeline that spans years, fill it with sensuality, and develop *just* enough conflict to tempt frustration. What you are left with is a very 'relatable' (and consumable) love story that, by virtue of simply being a human person, you are likely to enjoy. This is the mindset with which I went into my binge of *Normal People*. I was choosing to believe that this show was designed from the ground-up with this audience in mind, and because I think leaning into your personal connection with love is the best way to enjoy romance, I was fully ready to fill that expectation.
 
 I am always intrigued by the viability of romance-centric media because of how uniquely personal love is. Yet, it is really a mysterious dichotomy of universal understanding and personal experience; I believe most people have in their life felt something that they consider to be love. In that sense, we as humans can perceive love, point it out, recognize it, experience it - at the same time, though, our personal versions of love can vary so widely, and with such passion and purpose, that it seems nearly impossible to create something so universally, emphatically appreciated. Nonetheless, *Normal People* manages to assert that appeal.
 

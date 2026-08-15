@@ -1,7 +1,7 @@
 ---
 title: "Tune-Up Café"
 date: 2021-05-18
-tags: ["photography"]
+tags: ["New Mexico 2021", "travel", "photography"]
 ---
 
 Food is this magical, diverse necessity that will - for the rest of my life - never cease to bring me joy. Each dish can have infinite variations, infinite possibilities for new flavor pairs and ideas. Often times food is an expression of something else; a deeper (or more shallow) meaning behind each dish brings with it fresh taste and renewed soul. Maybe we sit down to eat some pancakes at the local breakfast favorite; these moist disks of syrup-sponge are now the foundation upon which you will build your day, or perhaps even your entire weekend. The butter-ball slowly melts as you ready the Canadian maple syrup, and as you drizzle that liquid gold evenly across the fluffy disks and sliced strawberries, you think to yourself how lucky you are to be sitting here today, eating with your friends and family a humble breakfast, ready to take the world by storm.

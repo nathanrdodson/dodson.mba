@@ -2,7 +2,7 @@ import Swiper from 'swiper';
 import { Navigation, A11y } from 'swiper/modules';
 import 'swiper/css';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('astro:page-load', () => {
   const featuredSlider = document.querySelector<HTMLElement>('.js-featured-slider');
   if (!featuredSlider) return;
 

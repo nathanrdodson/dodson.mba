@@ -1,5 +1,5 @@
 import mediumZoom from 'medium-zoom';
 
-window.addEventListener('load', () => {
+document.addEventListener('astro:page-load', () => {
   mediumZoom('.js-zoomable');
 });

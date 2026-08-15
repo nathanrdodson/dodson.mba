@@ -2,7 +2,7 @@
 title: "Ethical Considerations in Haiku"
 date: 2023-12-05
 excerpt: "A collection of corporate ethics haiku."
-tags: ["blog"]
+tags: ["essays"]
 ---
 
 Haiku (俳句) is a succinct presentation of three phrases comprising 17 total phonetic units (in English, we use the notion of syllables but other phonemes are used for counting in Japanese). Traditional Japanese haiku will make use of *kireji* to indicate rhythmic divisions as well as a seasonal reference of some kind. Westernized and other interpretations of the modern haiku will disregard these stricter rules that one would find in traditional haiku.

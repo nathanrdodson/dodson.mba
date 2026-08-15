@@ -25,7 +25,7 @@ function escapeHtml(value: string): string {
   );
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('astro:page-load', () => {
   const roots = document.querySelectorAll<HTMLElement>('.js-hs');
   if (roots.length === 0) return;
 
@@ -113,11 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    document.addEventListener('click', (e) => {
-      if (root.classList.contains('is-active') && !root.contains(e.target as Node)) {
-        reset();
-      }
-    });
+    // Outside-click closing is handled once at module scope — see below. Binding it
+    // here would add a fresh document listener on every view transition.
+    root.addEventListener('hs:reset', reset);
   });
 
   // The mobile top bar has no room to expand inline, so its button opens the menu
@@ -130,5 +128,16 @@ document.addEventListener('DOMContentLoaded', () => {
         window.setTimeout(() => target.focus(), 60);
       }
     });
+  });
+});
+
+// Registered once. The module is evaluated a single time even across view
+// transitions, so this can't stack — and it resolves the current search instances at
+// click time rather than closing over stale ones.
+document.addEventListener('click', (e) => {
+  document.querySelectorAll<HTMLElement>('.js-hs.is-active').forEach((root) => {
+    if (!root.contains(e.target as Node)) {
+      root.dispatchEvent(new CustomEvent('hs:reset'));
+    }
   });
 });

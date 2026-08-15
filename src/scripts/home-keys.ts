@@ -4,14 +4,21 @@
 // screen readers travel the same path and Enter needs no handler at all — a focused
 // <a href> activates natively.
 
-const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.js-wl-link'));
-if (links.length > 0) {
+// Elements are resolved at event time rather than captured once — the list is
+// replaced wholesale on every view transition.
+const getLinks = () => Array.from(document.querySelectorAll<HTMLAnchorElement>('.js-wl-link'));
+
+{
   let index = -1;
 
-  // Keep our position in sync when focus arrives some other way (Tab, click).
-  links.forEach((link, i) => {
-    link.addEventListener('focus', () => {
-      index = i;
+  // Reset position when a new page swaps in, and keep it in sync when focus arrives
+  // some other way (Tab, click).
+  document.addEventListener('astro:page-load', () => {
+    index = -1;
+    getLinks().forEach((link, i) => {
+      link.addEventListener('focus', () => {
+        index = i;
+      });
     });
   });
 
@@ -25,6 +32,9 @@ if (links.length > 0) {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     if (isTyping(document.activeElement)) return;
     if (searchIsOpen()) return;
+
+    const links = getLinks();
+    if (links.length === 0) return;
 
     if (e.key === 'j' || e.key === 'k') {
       e.preventDefault();

@@ -1,11 +1,10 @@
+// Post feature image. Sits inside the content column rather than full-bleed, so it
+// aligns with the body text and the title instead of centring on the page.
+
 .m-hero {
   position: relative;
-  flex-direction: column;
-  
-  overflow: hidden;
-  padding: 80px 0 0;
-
-  @extend .content-centered;
+  display: block;
+  margin-bottom: 30px;
 
   &.no-picture.in-post {
     display: none;
@@ -13,69 +12,27 @@
 }
 
 .m-hero__picture {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 0;
-  left: 0;
+  display: block;
   width: 100%;
-  z-index: 1;
-  opacity: 0.7;
-	
-  &.in-post {
-    opacity: 1;
-  }
-
-  @include respond-to('medium') {
-    max-width: calc($break-medium - 40px);
-  }
-
-  @include respond-to('large') {
-    max-width: calc($break-large - 40px);
-  }
-
-  @include respond-to('large') {
-    max-width: calc($break-extra-large - 40px);
-  }
 
   img {
-	// in feature-image for posts, lock height and width to fit within the viewport
-	// This is so that tall images are in full-view on desktops
-	max-height: 75vh;
-	max-width: 95vw;
-	width: auto;
+    display: block;
+    width: 100%;
+    height: auto;
+    // Keeps very tall images from pushing the title off screen while still showing
+    // the whole frame on load.
+    max-height: 68vh;
     object-fit: cover;
+    background-color: var(--secondary-subtle-color);
   }
 }
 
-.m-hero__content {
-
-  position: relative;
-  text-align: center;
-  padding: 0 $mobile-space;
-  z-index: 2;
-
-  @include respond-to('medium') {
-    max-width: 700px;
-  }
-
-  @include respond-to('extra-large') {
-    padding: 0;
-  }
-}
-
-.m-hero__meta {
-  margin: 0 auto;
-
-  @include respond-to('medium') {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.rtl {
-  .m-hero__meta {
-    direction: ltr;
-  }
+.m-hero__caption {
+  margin: 10px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--titles-color);
+  opacity: 0.75;
 }

@@ -83,9 +83,16 @@ function initReadingProgress() {
   };
 
   update();
+  // Replaces any handler left from a previous page — window survives view
+  // transitions, so re-adding without removing would stack one per navigation.
+  window.removeEventListener('scroll', activeScrollHandler);
+  window.removeEventListener('resize', activeScrollHandler);
+  activeScrollHandler = onScroll;
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
 }
+
+let activeScrollHandler: EventListener = () => {};
 
 // ─── Recommended posts slider ─────────────────────────────────────────────────
 
@@ -111,7 +118,7 @@ function initRecommendedSlider() {
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('astro:page-load', () => {
   fitVids();
   adjustGalleryImages();
   markZoomableImages();

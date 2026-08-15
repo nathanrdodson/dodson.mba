@@ -4,4 +4,14 @@
   @include respond-to('medium') {
     padding: 60px 0 40px;
   }
+
+  // Posts clear the fixed header with room to spare, so the feature image is fully
+  // visible on load rather than tucked under the bar.
+  &.in-post {
+    padding-top: 124px;
+
+    @include respond-to('medium') {
+      padding-top: 156px;
+    }
+  }
 }

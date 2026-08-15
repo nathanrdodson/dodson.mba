@@ -21,18 +21,28 @@ const { years } = Astro.props;
 </nav>
 
 <script>
-  const links = document.querySelectorAll<HTMLAnchorElement>('.c-chrono__link');
-  const sectionEls = [...links].map(l => document.getElementById(`y${l.dataset.year}`));
+  // Re-runs after each view transition; the previous observer is disconnected so it
+  // doesn't keep watching nodes from the page we just left.
+  let chronoObserver: IntersectionObserver | null = null;
 
-  const setActive = (id: string) => {
-    links.forEach(l => l.classList.toggle('is-active', `y${l.dataset.year}` === id));
-  };
+  document.addEventListener('astro:page-load', () => {
+    chronoObserver?.disconnect();
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) setActive(entry.target.id);
-    });
-  }, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
+    const links = document.querySelectorAll<HTMLAnchorElement>('.c-chrono__link');
+    if (links.length === 0) return;
 
-  sectionEls.forEach(s => s && observer.observe(s));
+    const setActive = (id: string) => {
+      links.forEach(l => l.classList.toggle('is-active', `y${l.dataset.year}` === id));
+    };
+
+    chronoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
+
+    [...links]
+      .map(l => document.getElementById(`y${l.dataset.year}`))
+      .forEach(s => s && chronoObserver!.observe(s));
+  });
 </script>

@@ -9,9 +9,9 @@ The next step in our European adventure takes place in the lovely city of Granad
 
 Our driver was prompt, and spoke little English which was to be expected. It seemed as though he and his wife were traveling together. Once we arrived at one of the principle streets in downtown Granada, we were told that we must continue our journey to the hotel on foot. We tipped the driver, and his wife accompanied us all the way to the entrance of the hotel. This is where we got our first glimpse of the labyrinth of streets that zig-zag all over Granada. As you turn the first corner, the hustle and bustle of the principle street disappears, and you are me with a much quieter, serene walk. The streets are just wide enough to fit a small car, although I would never want to be tasked with driving down them.
 
-![](/images/blog/2021/12/europe2019-2-1-1.jpg)
+![Landed in Spain](/images/blog/2021/12/europe2019-2-1-1.jpg)
 
-![](/images/blog/2021/12/europe2019-2-2-1.jpg)
+![Landed in Spain](/images/blog/2021/12/europe2019-2-2-1.jpg)
 
 Within minutes, we were at the hotel. We checked ourselves in, and decided that we should go out and try some of the famous tapas that we had read so much about.
 

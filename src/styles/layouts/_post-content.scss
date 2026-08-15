@@ -129,17 +129,69 @@
     margin-bottom: 20px;
   }
 
-  img,
-  .kg-image {
-    display: block;
-    max-width: 100%;
-    margin: 0 auto 35px;
+img,
+.kg-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 36px auto;
 
-    @include respond-to("medium") {
-      margin-bottom: 40px;
-    }
+  @include respond-to("medium") {
+    margin: 48px auto;
+  }
+}
+
+// Images promoted to figures by the rehype plugin.
+// The figure controls spacing; the image itself stays flush.
+.m-figure {
+  margin: 44px 0;
+  padding: 0;
+
+  @include respond-to("medium") {
+    margin: 56px 0;
   }
 
+  img {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
+}
+
+// Editorial figure caption.
+// Quiet typography with a restrained accent marker.
+.m-figure__caption {
+  display: block;
+  width: 100%;
+  margin: 14px 0 0;
+  padding: 0;
+
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: 0.015em;
+  text-align: center;
+  color: color-mix(
+    in srgb,
+    var(--titles-color) 72%,
+    transparent
+  );
+
+  a {
+    color: var(--accent-color);
+    text-decoration: none;
+    border-bottom: 1px solid
+      color-mix(in srgb, var(--accent-color) 35%, transparent);
+    transition: border-color 160ms ease, color 160ms ease;
+
+    &:hover {
+      color: var(--titles-color);
+      border-color: var(--accent-color);
+    }
+  }
+}
   iframe {
     display: block;
     margin: 0 auto;

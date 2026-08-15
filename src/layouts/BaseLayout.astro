@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import GrainOverlay from '../components/GrainOverlay.astro';
+import { ClientRouter } from 'astro:transitions';
 import '../styles/app.scss';
 
 interface Props {
@@ -67,6 +68,13 @@ const fullTitle = title === siteTitle ? title : `${title} — ${siteTitle}`;
 
     <!-- Page-specific styles injected from page components -->
     {pageStyles && <style set:html={pageStyles} />}
+
+    <!-- Cross-document view transitions — swaps content in place instead of a full
+         white repaint on every navigation. The default cross-fade is switched off in
+         _global.scss; this is here for the instant swap, not for an animation.
+         fallback="swap" keeps browsers without view-transition support from
+         simulating the fade in JS. -->
+    <ClientRouter fallback="swap" />
   </head>
   <body class={bodyClass}>
     <div class="main-wrap">

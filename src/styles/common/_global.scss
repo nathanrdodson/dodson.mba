@@ -51,6 +51,15 @@ a {
   outline-offset: 3px;
 }
 
+// View transitions carry the navigation without a full white repaint, but without
+// the default cross-fade — pages swap instantly rather than dissolving into each
+// other. The benefit here is the absence of a flash, not an animation.
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
 fieldset {
   padding: 0;
   margin: 0;

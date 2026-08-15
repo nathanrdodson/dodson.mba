@@ -17,7 +17,7 @@
   margin: 0 auto;
 
   p {
-    font-family: "Lora", serif;
+    font-family: var(--font-display);
     font-weight: 400;
     font-size: clamp(1.75rem, 4vw, 3rem);
     line-height: 1.25;

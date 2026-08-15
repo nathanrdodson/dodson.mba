@@ -1,0 +1,22 @@
+---
+import { cardArt } from '../lib/card-art';
+
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+const art = cardArt(id);
+---
+
+<div
+  class="c-art"
+  style={`--art-angle:${art.angle}deg;--art-from:${art.from};--art-to:${art.to};`}
+  aria-hidden="true"
+>
+  <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" focusable="false">
+    {art.paths.map((d, i) => (
+      <path d={d} class={`c-art__line c-art__line--${i % 3}`} />
+    ))}
+  </svg>
+</div>

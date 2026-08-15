@@ -1,14 +1,54 @@
 ---
 const year = new Date().getFullYear();
+
+const site = [
+  { label: 'Home', url: '/' },
+  { label: 'Experience', url: '/experience/' },
+  { label: 'Writing', url: '/blog/' },
+  { label: 'Photos', url: '/photos/' },
+];
+
+const elsewhere = [
+  { label: 'GitHub', url: 'https://github.com/nathanrdodson', icon: 'iconoir-github' },
+  { label: 'Letterboxd', url: 'https://www.letterboxd.com/nathanrdodson', icon: 'iconoir-movie' },
+  { label: 'Stats.fm', url: 'https://www.stats.fm/nrd', icon: 'iconoir-music-note' },
+];
 ---
 
 <footer class="m-footer">
-  <div class="m-footer__content">
-    <p class="m-footer-copyright">
-      <span>IT Director &bull; Platform Engineer &bull; MBA</span>
-    </p>
-    <p class="m-footer-copyright">
-      <span>Nathan Dodson &copy; {year}</span>
-    </p>
+  <div class="l-wrapper">
+    <div class="m-footer__top">
+      <a href="/" class="m-footer__mark">dodson.mba</a>
+
+      <div class="m-footer__cols">
+        <div class="m-footer__col">
+          <p class="m-footer__label">Site</p>
+          <ul class="c-actions">
+            {site.map((i) => (
+              <li><a href={i.url} class="c-chip">{i.label}</a></li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="m-footer__col">
+          <p class="m-footer__label">Elsewhere</p>
+          <ul class="c-actions">
+            {elsewhere.map((i) => (
+              <li>
+                <a href={i.url} class="c-chip" target="_blank" rel="noopener">
+                  <i class={i.icon} aria-hidden="true"></i>
+                  {i.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="m-footer__bottom">
+      <p>Nathan Dodson &mdash; IT Director / Platform Engineer / MBA</p>
+      <p>Kansas City &middot; &copy; {year}</p>
+    </div>
   </div>
 </footer>

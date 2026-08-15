@@ -8,9 +8,13 @@
 
 @import "layouts/wrapper";
 @import "layouts/content";
+// Card grid primitive — global, since .m-article-card is used on /blog, /photos and /design.
+@import "layouts/grid";
 
 // Components — explicit imports replacing glob
+@import "components/chip";
 @import "components/footer";
+@import "components/generative-art";
 @import "components/photo-elements";
 @import "components/profile";
 @import "components/toc";
@@ -30,9 +34,6 @@
 @import "components/articles/share";
 
 // Author
-@import "components/author/author";
-@import "components/author/links";
-@import "components/author/picture";
 
 // Comments
 @import "components/comments/comments";
@@ -51,7 +52,6 @@
 @import "components/header/submenu-title";
 @import "components/header/submenu";
 @import "components/header/tags";
-@import "components/header/toggle-darkmode";
 
 // Heading
 @import "components/heading/description";
@@ -68,9 +68,7 @@
 @import "components/hero/title";
 
 // Search
-@import "components/search/icon";
-@import "components/search/result";
-@import "components/search/search";
+@import "components/header-search";
 
 // Subscribe
 @import "components/subscribe/subscribe-section";
@@ -84,6 +82,5 @@
 @import "components/ui/icon-button";
 @import "components/ui/input";
 @import "components/ui/not-found";
-@import "components/ui/pagination";
 @import "components/ui/section-title";
 @import "components/ui/small-text";

@@ -1,88 +1,89 @@
+// Footer — left-aligned and typographic, echoing the hero rather than sitting in the
+// page as a centred block of small print.
+
 .m-footer {
   flex-shrink: 0;
   background-color: var(--footer-background-color);
-}
-
-.m-footer__content {
-  color: var(--primary-foreground-color);
-  text-align: center;
-  padding: 50px $mobile-space;
+  border-top: 1px solid var(--primary-border-color);
+  padding: 64px 0 36px;
 
   @include respond-to('medium') {
-    padding: 75px 0;
-    max-width: 680px;
-    margin: 0 auto;
+    padding: 88px 0 44px;
   }
 }
 
-.m-footer__nav-secondary {
-  margin-bottom: 25px;
-
-  .m-secondary-menu {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-
-    li {
-      @include respond-to('medium') {
-        margin: 0 5px;
-      }
-    }
-  }
-}
-
-.m-footer-copyright {
-  font-size: 0.875rem;
-  letter-spacing: 0.3px;
-  line-height: 1.7;
-  margin-bottom: $mobile-space;
-
-  span {
-    display: block;
-
-    @include respond-to('medium') {
-      display: inline;
-    }
-
-    &:nth-child(2n) {
-      display: none;
-
-      @include respond-to('medium') {
-        display: inline;
-      }
-    }
-  }
-
-  a {
-    text-decoration: underline;
-  }
-
-  &.jslicense {
-    opacity: 0.7;
-    margin-bottom: 0;
-  }
-}
-
-.m-footer-social {
+.m-footer__top {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
+  flex-direction: column;
+  gap: 44px;
 
-  a {
-    display: inline-block;
-    color: var(--primary-foreground-color);
-    margin: 0 15px;
-
-    span {
-      color: inherit;
-      font-size: 1rem;
-    }
+  @include respond-to('medium') {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 56px;
   }
 }
 
-.rtl {
-  .m-footer-social {
-    direction: ltr;
+// Restates the hero wordmark at the close of the page.
+.m-footer__mark {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: clamp(2.25rem, 6vw, 4rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: var(--primary-foreground-color);
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: var(--accent-color);
+  }
+}
+
+.m-footer__cols {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px 48px;
+}
+
+.m-footer__col {
+  min-width: 148px;
+}
+
+.m-footer__label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--titles-color);
+  opacity: 0.65;
+  margin: 0 0 12px;
+}
+
+.m-footer__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 52px;
+  padding-top: 22px;
+  border-top: 1px solid var(--primary-border-color);
+
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+  color: var(--titles-color);
+
+  @include respond-to('medium') {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  p {
+    margin: 0;
   }
 }

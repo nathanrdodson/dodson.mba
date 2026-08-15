@@ -1,0 +1,75 @@
+// Link + action primitives.
+//
+// Replaces the uppercase-underlined treatment used site-wide for secondary links.
+// Squared-off chips (no radius, in keeping with the rest of the site) read as discrete
+// objects rather than as more horizontal rules, and sentence case keeps them quiet.
+
+.c-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  color: var(--titles-color);
+
+  padding: 7px 11px;
+  background-color: var(--secondary-subtle-color);
+  // Border is always present but transparent, so the hover state can't shift layout.
+  border: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+
+  i {
+    font-size: 0.875rem;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    background-color: transparent;
+  }
+}
+
+// Primary action — solid ink, inverts on hover. Deliberately a different object from
+// the chips so it doesn't read as one more link in the row.
+.c-btn-solid {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1;
+
+  padding: 10px 16px;
+  color: var(--background-color);
+  background-color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  transition: color 0.15s ease, background-color 0.15s ease;
+
+  i {
+    font-size: 0.9375rem;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--accent-color);
+    background-color: transparent;
+  }
+}
+
+// Horizontal group for chips / actions sitting on one line.
+.c-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}

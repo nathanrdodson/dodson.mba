@@ -12,171 +12,101 @@ function formatDate(d: Date): string {
 }
 ---
 
-<div class="gallery">
-  <div id="photo-list">
-    {photos.map((photo) => {
-      const isAlbum = photo.data.images.length > 0;
-      const previewImages = isAlbum ? photo.data.images.slice(0, 4) : [];
-      return (
-        <div class={`gallery-item${isAlbum ? ' is-album' : ''}`} data-animate="fade-up">
-          <a href={`/photos/${photo.id}/`}>
-            {isAlbum ? (
-              <div class="gallery-album-grid">
-                {previewImages.map((src) => (
-                  <div class={`gallery-album-grid__cell${previewImages.length === 1 ? ' full' : ''}`}>
-                    <img src={src} alt="" loading="lazy" />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <img src={photo.data.featureImage} alt={photo.data.featureImageAlt} loading="lazy" />
+<div class="pg" id="photo-list">
+  {photos.map((photo) => {
+    const { title, featureImage, featureImageAlt, date, images } = photo.data;
+    const count = images.length;
+
+    return (
+      <a href={`/photos/${photo.id}/`} class="pg__item">
+        <span class="pg__frame">
+          <img src={featureImage} alt={featureImageAlt} loading="lazy" />
+        </span>
+        <span class="pg__info">
+          <span class="pg__title">{title}</span>
+          <span class="pg__meta">
+            <span>{formatDate(date)}</span>
+            {count > 0 && (
+              <>
+                <span class="pg__meta-sep" aria-hidden="true">/</span>
+                <span>{count} photos</span>
+              </>
             )}
-            <div class="gallery-item__overlay">
-              <div class="gallery-item__info">
-                <h2 class="gallery-item__title">{photo.data.title}</h2>
-                <p class="gallery-item__date">{formatDate(photo.data.date)}</p>
-                {isAlbum && (
-                  <span class="gallery-item__count">{photo.data.images.length} photos</span>
-                )}
-              </div>
-            </div>
-          </a>
-        </div>
-      );
-    })}
-  </div>
+          </span>
+        </span>
+      </a>
+    );
+  })}
 </div>
 
 <style lang="scss">
   @import '../styles/common/mixins';
   @import '../styles/common/variables';
 
-  $pad: calc(8px + 1.5625vw);
+  // Photo-first: no surface, no border, no badge. The image is the whole card and the
+  // caption sits directly on the paper beneath it.
+  .pg {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 56px;
 
-  .gallery {
-    padding: $pad;
-
-    @media screen and (min-width: 1200px) {
-      columns: 2 auto;
+    @include respond-to('medium') {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 64px 40px;
     }
-
-    columns: 1 auto;
-    column-gap: 0;
   }
 
-  .gallery-item {
-    padding: $pad;
-    break-inside: avoid;
-    position: relative;
+  .pg__item {
+    display: block;
 
-    a {
-      display: block;
-      position: relative;
-      overflow: hidden;
+    &:hover .pg__title {
+      color: var(--accent-color);
     }
+  }
+
+  .pg__frame {
+    display: block;
+    overflow: hidden;
+    background-color: var(--secondary-subtle-color);
 
     img {
       display: block;
       width: 100%;
-      height: auto;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
     }
   }
 
-  // Album grid — 2×2 thumbnail preview
-  .gallery-album-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 2px;
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-
-    &__cell {
-      overflow: hidden;
-
-      &.full {
-        grid-column: 1 / -1;
-        grid-row: 1 / -1;
-      }
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        @include transition(transform 0.4s ease);
-      }
-    }
-
-    // 3 images: first takes left column both rows
-    &:has(> :nth-child(3):last-child) {
-      .gallery-album-grid__cell:first-child {
-        grid-row: 1 / 3;
-      }
-    }
+  .pg__info {
+    display: block;
+    padding-top: 16px;
   }
 
-  // Hover overlay
-  .gallery-item__overlay {
-    position: absolute;
-    inset: 0;
-    background: transparent;
-    display: flex;
-    align-items: flex-end;
-    @include transition(background 0.2s ease);
+  .pg__title {
+    display: block;
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: clamp(1.375rem, 2.4vw, 1.875rem);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    color: var(--primary-foreground-color);
+    margin-bottom: 6px;
+    @include transition(color 90ms linear);
   }
 
-  .gallery-item__info {
-    padding: 20px;
-    transform: translateY(8px);
-    opacity: 0;
-    @include transition(all 0.2s ease);
+  .pg__meta {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--titles-color);
   }
 
-  .gallery-item__title {
-    font-family: "Lora", serif;
-    font-weight: 400;
-    font-size: 1.25rem;
-    letter-spacing: 1.5px;
-    color: #fff;
-    margin: 0 0 4px;
-    line-height: 1.1;
-  }
-
-  .gallery-item__date {
-    font-size: 0.8125rem;
-    color: rgba(255, 255, 255, 0.7);
-    letter-spacing: 0.5px;
-    margin: 0;
-  }
-
-  .gallery-item__count {
+  .pg__meta-sep {
     display: inline-block;
-    margin-top: 6px;
-    font-size: 0.75rem;
-    letter-spacing: 1.5px;
-    color: var(--accent-color);
-    background: rgba(0, 0, 0, 0.5);
-    padding: 2px 8px;
-    border-radius: 2px;
-  }
-
-  // Hover state
-  .gallery-item a:hover {
-    .gallery-item__overlay {
-      background: rgba(0, 0, 0, 0.55);
-    }
-
-    .gallery-item__info {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .gallery-album-grid__cell img {
-      @include transform(scale(1.03));
-    }
-
-    img:not(.gallery-album-grid__cell img) {
-      @include transform(scale(1.03));
-    }
+    margin: 0 8px;
+    opacity: 0.45;
   }
 </style>

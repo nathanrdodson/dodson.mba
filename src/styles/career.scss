@@ -7,84 +7,41 @@
   padding: 0 0 60px;
 }
 
+// Header — page title first, then one mono identity line, then one mono utility row.
+// Everything secondary shares a single face, size and rhythm so the block reads as
+// composed rather than as four unrelated things stacked up.
 .c-career__header {
-  padding: 80px 0 48px;
-  margin-bottom: 60px;
+  padding: 96px 0 40px;
+  margin-bottom: 56px;
   border-bottom: 1px solid var(--primary-border-color);
-  text-align: center;
+  text-align: left;
 
   @include respond-to('medium') {
-    padding: 120px 0 56px;
+    padding: 140px 0 48px;
   }
 }
 
-
-
-.c-career__resume-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-  font-size: 0.8125rem;
+.c-career__pagetitle {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
   font-weight: 500;
-  letter-spacing: 0.3px;
-  color: var(--titles-color);
-  border: 1px solid var(--primary-border-color);
-  border-radius: 4px;
-  padding: 7px 14px;
-  text-decoration: none;
-  margin-top: 20px;
-  margin-bottom: 24px;
-  transition: color 0.2s ease, border-color 0.2s ease;
-
-  i {
-    font-size: 0.9375rem;
-  }
-
-  &:hover {
-    color: var(--accent-color);
-    border-color: var(--accent-color);
-  }
-}
-
-.c-career__name {
-  font-family: "Lora", serif;
-  font-weight: 700;
   font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
   color: var(--primary-foreground-color);
-  letter-spacing: 0.3px;
-  margin: 0 0 10px;
+  margin: 0 0 18px;
 }
 
-.c-career__title {
-  color: var(--accent-color);
-  font-size: 1rem;
-  letter-spacing: 0.2px;
-  margin: 0 0 16px;
-}
-
-.c-career__contact {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.875rem;
+.c-career__whois {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
   color: var(--titles-color);
-
-  a {
-    color: var(--titles-color);
-    @include transition(color 0.2s ease);
-
-    &:hover {
-      color: var(--accent-color);
-    }
-  }
-
-  span {
-    color: var(--primary-border-color);
-  }
+  margin: 0 0 26px;
 }
+
+// Actions row uses the shared .c-actions / .c-chip / .c-btn-solid primitives.
 
 // Section
 
@@ -92,15 +49,17 @@
   margin-bottom: 52px;
 }
 
+// No rule under section titles — six of them stacked down the page was the main
+// source of horizontal noise. Scale and weight carry the hierarchy instead.
 .c-career__section-title {
-  font-family: "Lora", serif;
-  font-weight: 400;
-  font-size: 0.8125rem;
-  letter-spacing: 0.3px;
-  color: var(--accent-color);
-  margin: 0 0 32px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--primary-border-color);
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: 1.4375rem;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+  color: var(--primary-foreground-color);
+  margin: 0 0 26px;
 }
 
 // Timeline

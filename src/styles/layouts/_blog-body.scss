@@ -1,0 +1,35 @@
+// Blog archive layout (chronology sidebar + year-grouped grid)
+
+.l-blog-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  @include respond-to('large') {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 48px;
+  }
+}
+
+.l-blog-body__content {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.blog-year-group {
+  margin-bottom: 56px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.blog-year-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--primary-foreground-color);
+  margin: 0 0 24px;
+  scroll-margin-top: 100px;
+}

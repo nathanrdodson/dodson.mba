@@ -50,67 +50,41 @@ function adjustGalleryImages() {
   });
 }
 
-// ─── Scroll progress circle ───────────────────────────────────────────────────
+// ─── Reading progress rail ────────────────────────────────────────────────────
 
-function initProgressCircle() {
-  const progressCircle = document.querySelector<SVGCircleElement>('.js-progress');
-  if (!progressCircle) return;
+function initReadingProgress() {
+  const fill = document.querySelector<HTMLElement>('.js-progress-fill');
+  const pct = document.querySelector<HTMLElement>('.js-progress-pct');
+  const article = document.querySelector<HTMLElement>('.js-progress-content');
+  if (!fill || !article) return;
 
-  const svg = progressCircle.parentElement as SVGSVGElement | null;
-  if (!svg) return;
+  let ticking = false;
 
-  let circumference = 0;
-  let isTicking = false;
+  const update = () => {
+    const rect = article.getBoundingClientRect();
+    const top = rect.top + window.scrollY;
 
-  const setCircleStyles = () => {
-    const svgWidth = svg.clientWidth;
-    const radius = svgWidth / 2;
-    const borderWidth = window.innerWidth < 768 ? 2 : 3;
+    // Measure against the article itself, not the document — the footer and the
+    // recommended-posts strip below it shouldn't count as unread content.
+    // Progress starts as the article's top reaches the viewport top and completes as
+    // its bottom clears the bottom.
+    const span = Math.max(1, rect.height - window.innerHeight);
+    const ratio = Math.min(1, Math.max(0, (window.scrollY - top) / span));
 
-    svg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgWidth}`);
-    progressCircle.setAttribute('stroke-width', String(borderWidth));
-    progressCircle.setAttribute('r', String(radius - (borderWidth - 1)));
-    progressCircle.setAttribute('cx', String(radius));
-    progressCircle.setAttribute('cy', String(radius));
-
-    circumference = radius * 2 * Math.PI;
-    progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
-    progressCircle.style.strokeDashoffset = String(circumference);
+    fill.style.transform = `scaleY(${ratio})`;
+    if (pct) pct.textContent = `${Math.round(ratio * 100)}%`;
+    ticking = false;
   };
 
-  const updateProgress = () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight;
-    const winHeight = window.innerHeight;
-    const progressMax = docHeight - winHeight;
-    const percent = Math.min(100, Math.ceil((scrollTop / progressMax) * 100));
-    const offset = circumference - (percent / 100) * circumference;
-    progressCircle.style.strokeDashoffset = String(offset);
-    isTicking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
   };
 
-  setCircleStyles();
-  setTimeout(() => {
-    svg.style.opacity = '1';
-  }, 300);
-
-  window.addEventListener(
-    'scroll',
-    () => {
-      if (!isTicking) {
-        requestAnimationFrame(updateProgress);
-        isTicking = true;
-      }
-    },
-    { passive: true }
-  );
-
-  window.addEventListener('resize', () => {
-    setTimeout(() => {
-      setCircleStyles();
-      updateProgress();
-    }, 200);
-  });
+  update();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
 }
 
 // ─── Recommended posts slider ─────────────────────────────────────────────────
@@ -144,5 +118,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   mediumZoom('.js-zoomable');
   initRecommendedSlider();
-  initProgressCircle();
+  initReadingProgress();
 });

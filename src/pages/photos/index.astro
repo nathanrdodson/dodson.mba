@@ -49,7 +49,7 @@ const photos = (await getCollection('photos') as CollectionEntry<'photos'>[]).so
   }
 
   .photos-page-header__title {
-    font-family: "Lora", serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: clamp(2rem, 5vw, 3.5rem);
     color: var(--primary-foreground-color);

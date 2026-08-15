@@ -46,7 +46,7 @@ $padding: calc(8px + 1.5625vw);
 }
 
 .gallery-blurb-title {
-	font-family: "Lora", serif;
+	font-family: var(--font-display);
 	font-weight: 200;
 	font-style: italic;
 	font-size: clamp(70px, 12vw, 140px);

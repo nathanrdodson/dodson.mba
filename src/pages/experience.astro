@@ -24,27 +24,35 @@ const sections = [
       <div class="l-wrapper">
         <div class="c-career" data-animate="fade-up">
           <header class="c-career__header">
-            <h1 class="c-career__name">Nathan Dodson</h1>
-            <p class="c-career__title">IT Director &bull; Platform Engineer &bull; MBA</p>
-            <a href="/files/resume.pdf" download class="c-career__resume-btn" aria-label="Download resume PDF">
-              <i class="iconoir-download" aria-hidden="true"></i>
-              Resume
-            </a>
-            <div class="c-career__contact">
-              <a href="mailto:nrdod@icloud.com">nrdod@icloud.com</a>
-              <span>&bull;</span>
-              <a href="https://linkedin.com/in/nathanrdodson" target="_blank" rel="noopener">
-                linkedin.com/in/nathanrdodson
-              </a>
-              <span>&bull;</span>
-              <a href="https://github.com/nathanrdodson" target="_blank" rel="noopener">
-                github.com/nathanrdodson
-              </a>
-            </div>
+            <h1 class="c-career__pagetitle">Professional Experience</h1>
+            <p class="c-career__whois">Nathan Dodson / IT Director / Platform Engineer / MBA</p>
+            <ul class="c-actions">
+              <li>
+                <a href="/files/resume.pdf" download class="c-btn-solid" aria-label="Download resume PDF">
+                  <i class="iconoir-download" aria-hidden="true"></i>
+                  Download resume
+                </a>
+              </li>
+              <li><a href="mailto:nrdod@icloud.com" class="c-chip">nrdod@icloud.com</a></li>
+              <li>
+                <a href="https://linkedin.com/in/nathanrdodson" class="c-chip" target="_blank" rel="noopener">
+                  <i class="iconoir-linkedin" aria-hidden="true"></i>
+                  linkedin.com/in/nathanrdodson
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/nathanrdodson" class="c-chip" target="_blank" rel="noopener">
+                  <i class="iconoir-github" aria-hidden="true"></i>
+                  github.com/nathanrdodson
+                </a>
+              </li>
+            </ul>
           </header>
 
           <div class="c-career__body">
-            <TableOfContents items={sections} />
+            <aside class="c-side">
+              <TableOfContents items={sections} />
+            </aside>
             <div class="c-career__content">
               <CareerTimeline />
             </div>

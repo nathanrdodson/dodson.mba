@@ -1,6 +1,6 @@
 ---
 ---
 
-I run IT and platform engineering at a small company — infrastructure, systems administration, DevOps, and everything in between. When I'm not at a keyboard I'm usually camping, taking photos, or working on environmental causes I care about.
+I run IT infrastructure and strategy at a regional distributor based in Kansas City — cloud, sysadmin, DevOps, and everything in between. When I'm not working or at my keyboard, I'm usually out taking photos, camping, or seeing a show.
 
-Based in Kansas City.
+Explore my [photography](/photos/) and [personal writing](/blog/) around the site, or head to the [experience](/experience/) page for my full professional history.

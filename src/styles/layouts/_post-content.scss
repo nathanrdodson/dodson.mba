@@ -391,7 +391,7 @@
     font-size: 0.9rem;
     font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     padding: 0 5px;
-    border-radius: 5px;
+    border-radius: 0;
     background-color: var(--secondary-subtle-color);
   }
 
@@ -400,7 +400,7 @@
     font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     margin: 0 0 25px;
     overflow-x: auto;
-    border-radius: 5px;
+    border-radius: 0;
     background-color: var(--secondary-subtle-color);
     white-space: pre;
     word-spacing: normal;
@@ -517,7 +517,7 @@
     min-height: 148px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px,
       rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
-    border-radius: 3px;
+    border-radius: 0;
     @include transition(opacity linear 0.2s);
   }
 
@@ -558,7 +558,7 @@
     width: 100% !important;
     height: 100% !important;
     object-fit: cover;
-    border-radius: 0 3px 3px 0;
+    border-radius: 0;
   }
 
   .kg-bookmark-metadata {
@@ -598,7 +598,7 @@
     }
 
     .kg-bookmark-thumbnail img {
-      border-radius: 3px 3px 0 0;
+      border-radius: 0;
     }
 
     .kg-bookmark-content {
@@ -608,17 +608,17 @@
 
   .kg-nft-card {
     .kg-nft-card-container {
-      border-radius: 20px;
+      border-radius: 0;
       background-color: var(--background-color);
     }
 
     .kg-ntf-image-container {
-      border-radius: 20px 20px 0 0;
+      border-radius: 0;
       overflow: hidden;
     }
 
     .kg-nft-metadata {
-      border-radius: 0 0 20px 20px;
+      border-radius: 0;
     }
 
     .kg-nft-header {
@@ -754,7 +754,7 @@
     .kg-product-card-image {
       height: auto;
       margin-bottom: 0;
-      border-radius: 5px;
+      border-radius: 0;
     }
 
     .kg-product-card-title {

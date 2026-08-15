@@ -1,4 +1,6 @@
 ---
+import HeaderSearch from './HeaderSearch.astro';
+
 const nav = [
   { label: 'Home', url: '/' },
   { label: 'Experience', url: '/experience/' },
@@ -9,18 +11,20 @@ const nav = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="m-header js-header" data-animate="fade-down">
+<header class="m-header js-header">
   <!-- Mobile top bar -->
   <div class="m-mobile-topbar">
     <button class="m-icon-button in-mobile-topbar js-open-menu" aria-label="Open menu">
       <i class="iconoir-menu icon-md" aria-hidden="true"></i>
     </button>
     <a href="/" class="m-site-name in-mobile-topbar" aria-label="Nathan Dodson">
-      <img src="/images/logo.png" alt="Nathan Dodson" class="m-site-logo m-logo__image-light" />
-      <img src="/images/logo-dark.png" alt="Nathan Dodson" class="m-site-logo m-logo__image-dark" />
+      <img src="/images/logo.png" alt="Nathan Dodson" class="m-site-logo" />
     </a>
-    <button class="m-icon-button in-mobile-topbar js-open-search" aria-label="Open search">
-      <span class="icon-search" aria-hidden="true"></span>
+    <button
+      class="m-icon-button in-mobile-topbar in-search-toggle js-open-menu js-open-search-in-menu"
+      aria-label="Open search"
+    >
+      <span class="iconoir-search" aria-hidden="true"></span>
     </button>
   </div>
 
@@ -36,8 +40,7 @@ const currentPath = Astro.url.pathname;
             <ul>
               <li class="only-desktop">
                 <a href="/" class="m-site-name in-desktop-menu" aria-label="Nathan Dodson">
-                  <img src="/images/logo.png" alt="Nathan Dodson" class="m-site-logo m-logo__image-light" />
-                  <img src="/images/logo-dark.png" alt="Nathan Dodson" class="m-site-logo m-logo__image-dark" />
+                  <img src="/images/logo.png" alt="Nathan Dodson" class="m-site-logo" />
                 </a>
               </li>
 
@@ -51,18 +54,7 @@ const currentPath = Astro.url.pathname;
           </nav>
 
           <div class="m-nav__right">
-            <button class="m-icon-button js-open-search" aria-label="Open search">
-              <span class="icon-search" aria-hidden="true"></span>
-            </button>
-            <div class="m-toggle-darkmode js-toggle-darkmode" title="Toggle dark mode">
-              <input type="checkbox" class="js-darkmode-input" aria-label="Toggle dark mode" />
-              <div class="m-toggle-darkmode__track">
-                <div class="m-toggle-darkmode__thumb">
-                  <i class="iconoir-sun-light m-toggle-darkmode__icon--sun" aria-hidden="true"></i>
-                  <i class="iconoir-half-moon m-toggle-darkmode__icon--moon" aria-hidden="true"></i>
-                </div>
-              </div>
-            </div>
+            <HeaderSearch />
           </div>
         </div>
       </div>

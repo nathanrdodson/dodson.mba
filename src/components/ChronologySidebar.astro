@@ -1,0 +1,38 @@
+---
+interface Props {
+  years: { year: number; count: number }[];
+}
+
+const { years } = Astro.props;
+---
+
+<nav class="c-chrono" aria-label="Post chronology">
+  <p class="c-chrono__label" aria-hidden="true">Archive</p>
+  <ul class="c-chrono__list">
+    {years.map(({ year, count }) => (
+      <li>
+        <a href={`#y${year}`} class="c-chrono__link" data-year={year}>
+          <span class="c-chrono__year">{year}</span>
+          <span class="c-chrono__count">{count}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<script>
+  const links = document.querySelectorAll<HTMLAnchorElement>('.c-chrono__link');
+  const sectionEls = [...links].map(l => document.getElementById(`y${l.dataset.year}`));
+
+  const setActive = (id: string) => {
+    links.forEach(l => l.classList.toggle('is-active', `y${l.dataset.year}` === id));
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
+
+  sectionEls.forEach(s => s && observer.observe(s));
+</script>

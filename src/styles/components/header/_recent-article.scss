@@ -28,7 +28,7 @@
   height: 130px;
   position: relative;
   margin-bottom: 15px;
-  border-radius: 5px;
+  border-radius: 0;
   background-color: var(--secondary-subtle-color);
   overflow: hidden;
   @include transform(translateZ(0));

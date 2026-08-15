@@ -6,7 +6,6 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
-    updated: z.coerce.date().optional(),
     excerpt: z.string().optional(),
     featureImage: z.string().optional(),
     featureImageAlt: z.string().default(''),
@@ -14,7 +13,6 @@ const blog = defineCollection({
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
-    postType: z.enum(['post', 'gallery']).default('post'),
   }),
 });
 

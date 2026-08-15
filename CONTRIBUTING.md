@@ -4,6 +4,8 @@ How to make changes to dodson.mba. This is a personal site, so "contributing" mo
 
 Agent-specific guidance lives in [CLAUDE.md](CLAUDE.md) — read that too if you are an LLM working in this repo.
 
+Known problems and planned improvements are tracked in [ISSUES.md](ISSUES.md). Check it before starting work, and add an entry for anything you find but don't fix.
+
 ---
 
 ## Setup
@@ -165,6 +167,7 @@ If you touched styles or components, load the site in both light and dark mode, 
   Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
   ```
 
+- Reference an [ISSUES.md](ISSUES.md) ID when a commit closes one (`Fixes SEO-1`), and move the entry to the Resolved table in the same commit.
 - Open a PR into `main`. Merging to `main` deploys immediately — there is no staging environment.
 
 ---

@@ -6,6 +6,7 @@ Personal site for Nathan Dodson. Built with [Astro](https://astro.build) and SCS
 
 - [CONTRIBUTING.md](CONTRIBUTING.md) — setup, how to add posts and albums, conventions, pre-commit checks
 - [CLAUDE.md](CLAUDE.md) — architecture notes and guardrails for AI agents working in this repo
+- [ISSUES.md](ISSUES.md) — known problems and planned improvements, with a resolved log
 
 ---
 

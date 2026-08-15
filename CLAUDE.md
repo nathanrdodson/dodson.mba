@@ -85,7 +85,16 @@ The markdownlint config intentionally disables every rule that would rewrite pro
 
 Push to `main` → `.github/workflows/deploy.yml` builds on Node 22 and deploys to GitHub Pages. Custom domain via `public/CNAME`. CI builds from a clean checkout, so gitignored local files (`.DS_Store`, `dist/`) never reach production.
 
-## Known gaps
+## Issue tracking
 
-- `src/pages/experience.astro` links `/files/resume.pdf` for download. That file has never existed in the repo and 404s in production — supplying it requires the actual PDF.
-- Career/experience content is hardcoded in `src/pages/experience.astro`, not a data file or collection.
+[ISSUES.md](ISSUES.md) is the backlog of known problems and planned improvements, with stable IDs (`PERF-1`, `SEO-2`, …), measured evidence, and a Resolved log.
+
+**Read it before proposing work** — it records what is already known, what was deliberately left alone and why, and which items are blocked on the author rather than on code.
+
+**Keep it current:**
+
+- Find a problem you aren't fixing in the same change? Add an entry. Don't leave it to be rediscovered.
+- Fix something that has an entry? Move it to Resolved with the date and commit, and reference the ID in the commit message (`Fixes SEO-1`).
+- New entries take the next unused number in their prefix. IDs are never reused.
+
+One non-obvious gap not worth an issue: career/experience content is hardcoded in `src/pages/experience.astro` rather than living in a data file or collection.

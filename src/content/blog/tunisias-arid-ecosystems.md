@@ -13,7 +13,7 @@ My trip to Tunisia was at the cusp of Spring, bringing about beautiful weather w
 
 *Friday, March 9th & Saturday, March 10th*
 
-My flight travel from Kansas City to Tunis consisted of a little over 16 hours of total travel time, but Tunis was not my final destination. After landing, we had an additional six hour journey south towards Medenine and ultimately to the Institut des Régions Arides of Tunisia (معهد المناطق القاحلة), colloquially called IRA (phoneticaly, "EERA"). You can see the journey we took in a light teal color we took on the reference map at the [bottom of the page](#map).
+My flight travel from Kansas City to Tunis consisted of a little over 16 hours of total travel time, but Tunis was not my final destination. After landing, we had an additional six hour journey south towards Medenine and ultimately to the Institut des Régions Arides of Tunisia (معهد المناطق القاحلة), colloquially called IRA (phoneticaly, "EERA"). You can see the journey we took in a light teal color we took on the reference map at the [bottom of the page](#mapbox).
 
 Gas stations are surprisingly robust here, which was unexpected. There were multiple food options, from gelato to "pizza" (more on the pizza later), to other snacks, to pastries. I got this spinach wrap and a cold mocha which was satisfying.
 

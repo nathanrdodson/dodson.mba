@@ -117,13 +117,13 @@ No prettier, eslint, stylelint, or `.editorconfig`. Markdown is the only linted 
 
 | ID | Issue | Resolved | Commit |
 | :--- | :--- | :--- | :--- |
-| `SEO-1` | 27 of 29 posts shared one meta description; posts without `excerpt` now derive one from the body via `src/lib/summarize.ts` | 2026-08-15 | _pending_ |
-| `SEO-2` | No sitemap, robots.txt, or RSS; added `@astrojs/sitemap` (excluding the `noindex` `/design`), `public/robots.txt`, and `/rss.xml` | 2026-08-15 | _pending_ |
-| `CI-1` | No PR validation; added `.github/workflows/ci.yml` running check + lint + build on every PR into `main` | 2026-08-15 | _pending_ |
-| `CI-2` | Nothing enforced type-checking; added `@astrojs/check` + `typescript` and `npm run check`, which found and fixed 2 real errors (`fuse.js` v7 namespace types, untyped `headroom.js`) | 2026-08-15 | _pending_ |
-| `A11Y-2` | No skip-to-content link; added `.c-skip-link` and `id="main-content"` on all 8 page `<main>` landmarks | 2026-08-15 | _pending_ |
-| `DX-1` | No `.nvmrc`; added one pinning Node 22, and both workflows now read the version from it | 2026-08-15 | _pending_ |
-| `CONTENT-2` | 9 markdownlint findings blocking the new `CI-1` gate. `MD003`/`MD024`/`MD028` disabled with rationale, matching the existing precedent that rules which would rewrite prose are switched off; only `MD059` was fixed in prose (`[here]` → `[about LEED certification]`), being a real quality issue rather than a style preference | 2026-08-15 | _pending_ |
+| `SEO-1` | 27 of 29 posts shared one meta description; posts without `excerpt` now derive one from the body via `src/lib/summarize.ts` | 2026-08-15 | `d79763e` |
+| `SEO-2` | No sitemap, robots.txt, or RSS; added `@astrojs/sitemap` (excluding the `noindex` `/design`), `public/robots.txt`, and `/rss.xml` | 2026-08-15 | `d79763e` |
+| `CI-1` | No PR validation; added `.github/workflows/ci.yml` running check + lint + build on every PR into `main` | 2026-08-15 | `d79763e` |
+| `CI-2` | Nothing enforced type-checking; added `@astrojs/check` + `typescript` and `npm run check`, which found and fixed 2 real errors (`fuse.js` v7 namespace types, untyped `headroom.js`) | 2026-08-15 | `d79763e` |
+| `A11Y-2` | No skip-to-content link; added `.c-skip-link` and `id="main-content"` on all 8 page `<main>` landmarks | 2026-08-15 | `d79763e` |
+| `DX-1` | No `.nvmrc`; added one pinning Node 22, and both workflows now read the version from it | 2026-08-15 | `d79763e` |
+| `CONTENT-2` | 9 markdownlint findings blocking the new `CI-1` gate. `MD003`/`MD024`/`MD028` disabled with rationale, matching the existing precedent that rules which would rewrite prose are switched off; only `MD059` was fixed in prose (`[here]` → `[about LEED certification]`), being a real quality issue rather than a style preference | 2026-08-15 | `d79763e` |
 | `CONTENT-0` | 16 gallery photos 404ing in production after a cleanup pass scanned only `featureImage` and missed the `images:` arrays | 2026-08-15 | `e5bb55c` |
 | `CONTENT-4` | Broken in-page anchor `#map` in the Tunisia post; heading id is `mapbox` | 2026-08-15 | `9db6657` |
 | `DX-4` | Orphaned files (`logo.png` root duplicate, `no-image.png`, one-off `fix-content.mjs`, conflicting `.claude/launch.json`) and dead `updated` / `postType` schema fields | 2026-08-15 | `6a2530d` |

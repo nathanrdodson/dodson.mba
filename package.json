@@ -9,7 +9,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint:md": "markdownlint-cli2",
+    "lint:md:fix": "markdownlint-cli2 --fix"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.3",
@@ -20,6 +22,7 @@
     "swiper": "^12.1.3"
   },
   "devDependencies": {
+    "markdownlint-cli2": "^0.23.2",
     "sass": "^1.99.0"
   }
 }

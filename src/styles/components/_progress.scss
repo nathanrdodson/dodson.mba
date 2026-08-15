@@ -1,0 +1,53 @@
+// Reading-progress rail — fixed to the right edge of the viewport.
+//
+// Intentionally unlike the left sidebar: a hairline track with a rotated percentage
+// rather than the sidebar's stacked mono labels, so the two never read as the same
+// component. Desktop only; on narrower screens it would crowd the text column.
+
+.c-progress {
+  display: none;
+
+  @include respond-to('large') {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    position: fixed;
+    right: 26px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    pointer-events: none;
+  }
+}
+
+.c-progress__pct {
+  writing-mode: vertical-rl;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  color: var(--titles-color);
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+}
+
+.c-progress__track {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 34vh;
+  background-color: var(--primary-border-color);
+}
+
+.c-progress__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--accent-color);
+  transform: scaleY(0);
+  transform-origin: top center;
+  // Short enough to track scroll closely, long enough not to look stepped.
+  transition: transform 0.12s linear;
+}

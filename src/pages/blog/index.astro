@@ -2,11 +2,8 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
-import Pagination from '../../components/Pagination.astro';
+import ChronologySidebar from '../../components/ChronologySidebar.astro';
 import '../../styles/listing.scss';
-
-const POSTS_PER_PAGE = 12;
-const currentPage = 1;
 
 const allPosts = await getCollection('blog', (e: CollectionEntry<'blog'>) => !e.data.draft);
 allPosts.sort(
@@ -14,8 +11,20 @@ allPosts.sort(
     b.data.date.getTime() - a.data.date.getTime()
 );
 
-const totalPages = Math.max(1, Math.ceil(allPosts.length / POSTS_PER_PAGE));
-const pagedPosts = allPosts.slice(0, POSTS_PER_PAGE);
+const yearGroups = new Map<number, CollectionEntry<'blog'>[]>();
+for (const post of allPosts) {
+  const year = post.data.date.getFullYear();
+  const group = yearGroups.get(year);
+  if (group) {
+    group.push(post);
+  } else {
+    yearGroups.set(year, [post]);
+  }
+}
+
+const years = [...yearGroups.entries()]
+  .sort((a, b) => b[0] - a[0])
+  .map(([year, posts]) => ({ year, posts, count: posts.length }));
 ---
 
 <BaseLayout title="Writing" description="Articles and thoughts by Nathan Dodson">
@@ -26,20 +35,29 @@ const pagedPosts = allPosts.slice(0, POSTS_PER_PAGE);
           <h1 class="blog-listing-header__title">Writing</h1>
         </header>
 
-        {pagedPosts.length > 0 ? (
-          <section class="m-articles-grid l-grid" data-animate="fade-up">
-            {pagedPosts.map((post: CollectionEntry<'blog'>) => (
-              <ArticleCard post={post} />
-            ))}
-          </section>
+        {years.length > 0 ? (
+          <div class="l-blog-body" data-animate="fade-up">
+            <ChronologySidebar years={years.map(({ year, count }) => ({ year, count }))} />
+
+            <div class="l-blog-body__content">
+              {years.map(({ year, posts }) => (
+                <section class="blog-year-group" id={`y${year}`}>
+                  <h2 class="blog-year-heading">{year}</h2>
+                  <div class="m-articles-grid l-grid">
+                    {posts.map((post: CollectionEntry<'blog'>) => (
+                      <ArticleCard post={post} />
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </div>
         ) : (
           <div class="m-heading no-margin">
             <h3>No posts yet.</h3>
             <p>Check back soon.</p>
           </div>
         )}
-
-        <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl="/blog/" />
       </div>
     </div>
   </main>
@@ -64,7 +82,7 @@ const pagedPosts = allPosts.slice(0, POSTS_PER_PAGE);
   }
 
   .blog-listing-header__title {
-    font-family: "Lora", serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: clamp(2rem, 5vw, 3.5rem);
     letter-spacing: 0.3px;

@@ -11,9 +11,13 @@
     margin: 0 -5px;
   }
 
-  &.toggle-overflow {
+  // The fixed height + overflow-y above clips the search results panel, which is
+  // absolutely positioned below the bar. Open the nav up whenever search is in use.
+  &:has(.hs:hover),
+  &:has(.hs:focus-within),
+  &:has(.hs.is-active) {
     @include respond-to('medium') {
-      overflow-y: initial;
+      overflow: visible;
     }
   }
 }
@@ -33,12 +37,6 @@
     padding-left: 5px;
     margin-bottom: 0;
     -webkit-overflow-scrolling: touch;
-  }
-
-  &.toggle-overflow {
-    @include respond-to('medium') {
-      overflow-x: hidden;
-    }
   }
 
   ul:not(.m-secondary-menu) {

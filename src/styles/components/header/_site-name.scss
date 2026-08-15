@@ -19,8 +19,18 @@
   width: auto;
   display: block;
   object-fit: contain;
+  transition: height 0.32s cubic-bezier(0.4, 0, 0.2, 1);
 
   .in-desktop-menu & {
     height: 32px;
+  }
+
+  // Shrinks with the header as it condenses on scroll.
+  .headroom--not-top & {
+    height: 23px;
+  }
+
+  .headroom--not-top .in-desktop-menu & {
+    height: 25px;
   }
 }

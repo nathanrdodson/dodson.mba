@@ -1,6 +1,6 @@
 .m-header {
 
-  font-family: "Lora", serif;
+  font-family: var(--font-display);
   font-weight: 400;
   font-style: normal;
   
@@ -9,13 +9,18 @@
   left: 0;
   width: 100%;
   z-index: 4;
-  will-change: transform;
-  background-color: var(--background-color);
+
+  // Persistently a frosted paper bar. The background used to fade in on scroll, but
+  // that read as a flicker on the way past the threshold — only the size changes now,
+  // so there's nothing to flash. No shadow; a hairline rule does the separating.
+  background-color: var(--transparent-background-color);
   border-bottom: 1px solid var(--primary-border-color);
-  @include transition(transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1));
+  backdrop-filter: saturate(150%) blur(10px);
+  -webkit-backdrop-filter: saturate(150%) blur(10px);
+  transition: padding 0.32s cubic-bezier(0.4, 0, 0.2, 1);
 
   @include respond-to('medium') {
-    padding: 15px 0;
+    padding: 26px 0;
   }
 
   &.with-announcement-bar {
@@ -32,33 +37,23 @@
 
   &.mobile-menu-opened {
     height: 100%;
+    background-color: var(--background-color);
+    border-bottom-color: transparent;
 
     @include respond-to('medium') {
       height: auto;
     }
   }
 
-  &.headroom--pinned {
-    @include bs(0 4px 8px rgba(0, 0, 0, 0.05));
-    @include transform(translateY(0%));
-
-    .m-header__shadow {
-      display: none;
+  // Once scrolled — in either direction — it tightens. Size is the only thing that
+  // animates, which is what keeps the effect from flickering.
+  &.headroom--not-top {
+    @include respond-to('medium') {
+      padding: 10px 0;
     }
   }
 
-  &.headroom--unpinned {
-    @include transform(translateY(-100%));
-  }
-
-  &.submenu-is-active {
-    background-color: var(--background-color);
-
-    .m-header__shadow {
-      display: none;
-    }
-  }
-
+  &.submenu-is-active,
   &.with-picture {
     background-color: var(--background-color);
   }

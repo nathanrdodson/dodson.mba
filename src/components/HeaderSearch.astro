@@ -1,0 +1,26 @@
+---
+// Inline header search. Collapsed to an icon; clicking expands the field in place.
+// Styles live in styles/components/_header-search.scss rather than a scoped block —
+// the results list is injected by JS and so never receives Astro's scoping attribute.
+---
+
+<div class="hs js-hs">
+  <button type="button" class="hs__toggle js-hs-toggle" aria-label="Search">
+    <span class="iconoir-search" aria-hidden="true"></span>
+  </button>
+
+  <div class="hs__field">
+    <input
+      type="search"
+      class="hs__input js-hs-input"
+      placeholder="Search writing"
+      aria-label="Search writing"
+      autocomplete="off"
+    />
+    <button type="button" class="hs__close js-hs-close" aria-label="Close search">
+      <span class="iconoir-xmark" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div class="hs__results js-hs-results"></div>
+</div>

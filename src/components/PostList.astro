@@ -1,5 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import GenerativeArt from './GenerativeArt.astro';
+import { readingMinutes } from '../lib/reading-time';
 
 interface Props {
   posts: CollectionEntry<'blog'>[];
@@ -10,47 +12,67 @@ const { posts, showAll = false } = Astro.props;
 const displayed = showAll ? posts : posts.slice(0, 8);
 
 function formatDate(d: Date): string {
-  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 ---
 
-<section class="post-list">
+<!--
+  Keyboard: j / k move through the list, Enter opens the focused post, Esc clears.
+  Wired in src/scripts/home-keys.ts against real focus, so Tab and screen readers
+  travel the same path.
+-->
+<section class="wl">
   <div class="l-wrapper">
-    <header class="post-list__header">
-      <h2 class="post-list__heading">Writing</h2>
+    <header class="wl__header">
+      <h2 class="wl__heading">Writing</h2>
     </header>
+
     {displayed.length > 0 ? (
-      <ol class="post-list__items">
-        {displayed.map((post) => (
-          <li class="post-list__item">
-            <a href={`/blog/${post.id}/`} class={`post-list__link${post.data.featureImage ? ' has-thumb' : ''}`}>
-              <div class="post-list__text">
-                <div class="post-list__meta">
-                  {post.data.tags[0] && (
-                    <span class="post-list__tag">{post.data.tags[0]}</span>
+      <ol class="wl__items">
+        {displayed.map((post) => {
+          const minutes = readingMinutes(post.body);
+          return (
+            <li class="wl__item">
+              <a href={`/blog/${post.id}/`} class="wl__link js-wl-link">
+                <span class="wl__marker" aria-hidden="true"></span>
+
+                <span class="wl__text">
+                  <span class="wl__title">{post.data.title}</span>
+                  <span class="wl__meta">
+                    <span>{formatDate(post.data.date)}</span>
+                    <span class="wl__meta-sep" aria-hidden="true">/</span>
+                    <span>{minutes} min</span>
+                    {post.data.tags[0] && (
+                      <>
+                        <span class="wl__meta-sep" aria-hidden="true">/</span>
+                        <span>{post.data.tags[0]}</span>
+                      </>
+                    )}
+                  </span>
+                </span>
+
+                <span class="wl__thumb">
+                  {post.data.featureImage ? (
+                    <img src={post.data.featureImage} alt="" loading="lazy" />
+                  ) : (
+                    <GenerativeArt id={post.id} />
                   )}
-                  <span class="post-list__date">{formatDate(post.data.date)}</span>
-                </div>
-                <h3 class="post-list__title">{post.data.title}</h3>
-                {post.data.excerpt && (
-                  <p class="post-list__excerpt">{post.data.excerpt}</p>
-                )}
-              </div>
-              {post.data.featureImage && (
-                <div class="post-list__thumb">
-                  <img src={post.data.featureImage} alt={post.data.title} loading="lazy" />
-                </div>
-              )}
-            </a>
-          </li>
-        ))}
+                </span>
+              </a>
+            </li>
+          );
+        })}
       </ol>
     ) : (
-      <p class="post-list__empty">No posts yet — check back soon.</p>
+      <p class="wl__empty">No posts yet — check back soon.</p>
     )}
+
     {!showAll && posts.length > 8 && (
-      <div class="post-list__more">
-        <a href="/blog/" class="post-list__more-link">All writing &rarr;</a>
+      <div class="wl__more">
+        <a href="/blog/" class="c-chip">
+          All writing
+          <i class="iconoir-arrow-right" aria-hidden="true"></i>
+        </a>
       </div>
     )}
   </div>
@@ -60,34 +82,34 @@ function formatDate(d: Date): string {
   @import '../styles/common/mixins';
   @import '../styles/common/variables';
 
-  .post-list {
-    padding: 72px 0 96px;
-
-    @include respond-to('medium') {
-      padding: 96px 0 140px;
-    }
+  .wl {
+    padding-top: clamp(96px, 15vh, 200px);
+    padding-bottom: 72px;
   }
 
-  .post-list__header {
+  .wl__header {
     margin-bottom: 40px;
   }
 
-  .post-list__heading {
-    font-family: "Lora", serif;
-    font-weight: 700;
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    letter-spacing: 0.3px;
+  .wl__heading {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: clamp(1.875rem, 5vw, 3.25rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
     color: var(--primary-foreground-color);
     margin: 0;
   }
 
-  .post-list__items {
+  .wl__items {
     list-style: none;
     padding: 0;
     margin: 0;
   }
 
-  .post-list__item {
+  // Aligned index: every row flush left so the rules line up across the whole list.
+  .wl__item {
     border-top: 1px solid var(--primary-border-color);
 
     &:last-child {
@@ -95,106 +117,129 @@ function formatDate(d: Date): string {
     }
   }
 
-  .post-list__link {
+  .wl__link {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 20px;
-    padding: 28px 0;
-    text-decoration: none;
+    gap: 28px;
+    padding: 22px 0;
+    padding-left: 0;
+    @include transition(padding-left 90ms linear);
+  }
 
-    &:hover .post-list__title {
-      color: var(--accent-color);
+  // Selection indicator — the row indents and a rule appears at its left edge. Shape
+  // and position rather than color, so it survives grayscale and colorblindness, and
+  // it sits inside the row so it can never be clipped at the viewport edge.
+  .wl__marker {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 14px;
+    height: 1px;
+    background-color: var(--accent-color);
+    opacity: 0;
+    @include transition(opacity 90ms linear);
+  }
+
+  .wl__link:focus-visible {
+    outline: none;
+    padding-left: 26px;
+
+    .wl__marker {
+      opacity: 1;
     }
 
-    &:hover .post-list__thumb img {
-      opacity: 0.8;
+    .wl__title {
+      color: var(--accent-color);
     }
   }
 
-  .post-list__text {
+  .wl__text {
     flex: 1;
     min-width: 0;
   }
 
-  .post-list__meta {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 6px;
-  }
-
-  .post-list__tag {
-    font-size: 0.75rem;
-    letter-spacing: 0.3px;
-    color: var(--accent-color);
-  }
-
-  .post-list__date {
-    font-size: 0.8125rem;
-    color: var(--titles-color);
-    white-space: nowrap;
-  }
-
-  .post-list__title {
-    font-size: 1.125rem;
-    font-weight: 600;
+  .wl__title {
+    display: block;
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: clamp(1.25rem, 2.6vw, 1.75rem);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
     color: var(--primary-foreground-color);
-    margin: 0 0 4px;
-    letter-spacing: 0.2px;
-    line-height: 1.35;
-    @include transition(color 0.15s ease);
-
-    @include respond-to('medium') {
-      font-size: 1.1875rem;
-    }
+    @include transition(color 90ms linear);
   }
 
-  .post-list__excerpt {
-    font-size: 0.9375rem;
-    color: var(--titles-color);
-    margin: 4px 0 0;
-    line-height: 1.5;
+  // Metadata reveals on hover/focus. Height is always reserved and only opacity
+  // animates, so nothing reflows underneath.
+  .wl__meta {
+    display: block;
+    margin-top: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    opacity: 0;
+    @include transition(opacity 90ms linear);
   }
 
-  .post-list__thumb {
+  .wl__meta-sep {
+    display: inline-block;
+    margin: 0 8px;
+    opacity: 0.45;
+  }
+
+  .wl__link:hover .wl__meta,
+  .wl__link:focus-visible .wl__meta {
+    opacity: 1;
+  }
+
+  .wl__thumb {
+    // Positioned so the generative-art fallback (absolute, inset 0) fills it.
+    position: relative;
+    display: block;
     flex-shrink: 0;
-    width: 72px;
-    height: 72px;
+    width: 88px;
+    height: 64px;
     overflow: hidden;
     background-color: var(--secondary-subtle-color);
 
     @include respond-to('medium') {
-      width: 88px;
-      height: 88px;
+      width: 124px;
+      height: 84px;
     }
 
     img {
+      display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      @include transition(opacity 0.2s ease);
     }
   }
 
-  .post-list__empty {
+  .wl__empty {
     color: var(--titles-color);
     font-size: 0.9375rem;
     padding: 32px 0;
   }
 
-  .post-list__more {
-    margin-top: 48px;
+  .wl__more {
+    margin-top: 36px;
   }
 
-  .post-list__more-link {
-    font-size: 0.875rem;
-    letter-spacing: 0.3px;
-    color: var(--titles-color);
-    text-decoration: none;
-    @include transition(color 0.2s ease);
+  // "All writing" uses the shared .c-chip primitive.
 
-    &:hover {
-      color: var(--accent-color);
+  @media (max-width: 32rem) {
+    .wl__link {
+      gap: 18px;
+      padding: 18px 0;
+    }
+
+    .wl__thumb {
+      width: 68px;
+      height: 52px;
     }
   }
 </style>

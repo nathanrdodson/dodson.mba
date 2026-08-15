@@ -69,7 +69,7 @@
   border: 2px solid $white;
   border-radius: 50%;
   margin-bottom: 20px;
-  @include transition(all .25s cubic-bezier(.02,.01,.47,1));
+  @include transition(all .15s ease);
 
   div {
     width: 100%;
@@ -111,7 +111,7 @@
     padding: 0 7px;
     font-size: 0.875rem;
     font-weight: 600;
-    border-radius: 15px;
+    border-radius: 0;
   }
 
   span {

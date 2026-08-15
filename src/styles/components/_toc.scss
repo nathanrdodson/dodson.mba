@@ -1,12 +1,126 @@
 // Table of Contents — sticky scroll-spy sidebar (blog posts, experience page)
 
-.c-toc {
+// Sticky sidebar column, shared by blog posts and /experience. Stickiness lives here
+// rather than on .c-toc so the column can hold more than one thing — on posts it
+// carries the reading-progress rail whether or not there's a table of contents.
+.c-side {
   @include respond-to('large') {
     position: sticky;
-    top: 80px;
+    top: 104px;
     flex-shrink: 0;
-    width: 140px;
-    padding-top: 6px;
+    width: 172px;
+    align-self: flex-start;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+  }
+}
+
+.c-toc {
+  @include respond-to('large') {
+    width: 100%;
+  }
+}
+
+// Sidebar metadata — always present on posts, so the column carries real content even
+// when a post has no headings to build a contents list from.
+.c-side__meta {
+  display: none;
+
+  @include respond-to('large') {
+    display: block;
+    padding-top: 26px;
+    margin-top: 26px;
+    border-top: 1px solid var(--primary-border-color);
+  }
+
+  .c-toc + & {
+    margin-top: 30px;
+  }
+}
+
+.c-side__label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.6875rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--titles-color);
+  opacity: 0.65;
+  margin: 0 0 4px;
+
+  & + .c-side__value,
+  & + .c-side__tags {
+    margin-bottom: 18px;
+  }
+}
+
+.c-side__value {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--primary-foreground-color);
+  margin: 0;
+}
+
+.c-side__tags {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin-bottom: 5px;
+  }
+
+  a {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--titles-color);
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: var(--accent-color);
+    }
+  }
+}
+
+// Byline, relocated out of the old full-width block at the foot of the post.
+.c-side__author {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: var(--primary-foreground-color);
+  margin: 0 0 5px;
+
+  a {
+    color: inherit;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: var(--accent-color);
+    }
+  }
+}
+
+.c-side__author-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 12px;
+
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--titles-color);
+  transition: color 0.15s ease;
+
+  i {
+    font-size: 0.875rem;
+  }
+
+  &:hover {
+    color: var(--accent-color);
   }
 }
 
@@ -49,7 +163,7 @@
   color: var(--titles-color);
   text-decoration: none;
   padding: 4px 10px;
-  border-radius: 4px;
+  border-radius: 0;
   background-color: var(--secondary-subtle-color);
   transition: color 0.2s ease, background-color 0.2s ease;
 

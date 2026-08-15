@@ -1,5 +1,32 @@
 $animation-distance: 100px !default;
 
+// Reduced motion.
+//
+// Scoped to the large positional movement the preference actually exists for —
+// entrance animations, keyframed loops, the header's slide, smooth scrolling. Small
+// deliberate UI transitions (the header search expanding, hover colour shifts, the
+// focus indicator) are left intact: they're short, user-initiated, and suppressing
+// them removes affordance without reducing vestibular load.
+//
+// `--show-fade-animation: 0` collapses the translate distance and starting opacity of
+// every [data-animate] on the site through the variable that already drives them.
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --show-fade-animation: 0;
+  }
+
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
 [data-animate^='fade'] {
   opacity: calc((var(--show-fade-animation) + (-1)) * -1);
 

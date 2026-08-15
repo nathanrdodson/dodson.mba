@@ -3,6 +3,7 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeHero from '../components/HomeHero.astro';
 import PostList from '../components/PostList.astro';
+import { hashString } from '../lib/seed';
 
 const allPosts = await getCollection('blog', (e: CollectionEntry<'blog'>) => !e.data.draft);
 const posts = allPosts.sort(
@@ -18,6 +19,21 @@ const photos = (await getCollection('photos'))
 const aboutEntries = await getCollection('about');
 const aboutEntry = aboutEntries[0];
 const { Content: Bio } = aboutEntry ? await render(aboutEntry) : { Content: null };
+
+// Crop-mark overhangs, seeded per photo so all four sides differ and no two frames
+// match — the marks read as struck by hand rather than mechanically centred. Stable
+// across rebuilds because it's derived from the entry id.
+//
+// Collision budget: a hovered frame extends to MAX_OVERHANG + HOVER_GROWTH while its
+// neighbour sits at up to MAX_OVERHANG, so the grid gap must exceed the sum of the
+// two. 26 + 14 + 26 = 66 against a 72px gutter, which can never touch.
+const OVERHANG = [8, 14, 20, 26];
+
+function cropMarks(id: string) {
+  const s = hashString(id);
+  const pick = (shift: number) => OVERHANG[(s >> shift) % OVERHANG.length];
+  return { t: pick(0), b: pick(3), l: pick(6), r: pick(9) };
+}
 ---
 
 <BaseLayout title="Nathan Dodson" bodyClass="is-home">
@@ -26,33 +42,45 @@ const { Content: Bio } = aboutEntry ? await render(aboutEntry) : { Content: null
       {Bio ? <Bio /> : <p>IT Manager based in Kansas City.</p>}
     </HomeHero>
 
+    <PostList posts={posts} />
+
     {photos.length > 0 && (
       <section class="home-photos">
         <div class="l-wrapper">
           <header class="home-photos__header">
             <h2 class="home-photos__heading">Photos</h2>
-            <a href="/photos/" class="home-photos__all">All albums &rarr;</a>
+            <a href="/photos/" class="c-chip">
+              All albums
+              <i class="iconoir-arrow-right" aria-hidden="true"></i>
+            </a>
           </header>
           <div class="home-photos__row">
-            {photos.map((photo) => (
-              <a href={`/photos/${photo.id}/`} class="home-photos__item">
-                <div class="home-photos__img-wrap">
-                  <img
-                    src={photo.data.featureImage}
-                    alt={photo.data.featureImageAlt || photo.data.title}
-                    loading="lazy"
-                  />
-                </div>
-                <span class="home-photos__label">{photo.data.title}</span>
-              </a>
-            ))}
+            {photos.map((photo) => {
+              const m = cropMarks(photo.id);
+              return (
+                <a href={`/photos/${photo.id}/`} class="home-photos__item" aria-label={photo.data.title}>
+                  <span
+                    class="home-photos__frame"
+                    style={`--mk-t:${m.t}px;--mk-b:${m.b}px;--mk-l:${m.l}px;--mk-r:${m.r}px;`}
+                  >
+                    <img
+                      src={photo.data.featureImage}
+                      alt={photo.data.featureImageAlt || photo.data.title}
+                      loading="lazy"
+                    />
+                  </span>
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>
     )}
-
-    <PostList posts={posts} />
   </main>
+
+  <script>
+    import '../scripts/home-keys';
+  </script>
 </BaseLayout>
 
 <style lang="scss">
@@ -60,49 +88,44 @@ const { Content: Bio } = aboutEntry ? await render(aboutEntry) : { Content: null
   @import '../styles/common/variables';
 
   .home-photos {
-    padding: 64px 0;
-    border-bottom: 1px solid var(--primary-border-color);
-
-    @include respond-to('medium') {
-      padding: 80px 0;
-    }
+    // Matches the Writing section's rhythm.
+    padding-top: clamp(96px, 15vh, 200px);
+    padding-bottom: 96px;
   }
 
   .home-photos__header {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    margin-bottom: 32px;
+    gap: 24px;
+    margin-bottom: 40px;
   }
 
   .home-photos__heading {
-    font-family: "Lora", serif;
-    font-weight: 700;
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    letter-spacing: 0.3px;
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: clamp(1.875rem, 5vw, 3.25rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
     color: var(--primary-foreground-color);
     margin: 0;
   }
 
-  .home-photos__all {
-    font-size: 0.8125rem;
-    letter-spacing: 1px;
-    color: var(--titles-color);
-    text-decoration: none;
-    @include transition(color 0.2s ease);
-
-    &:hover {
-      color: var(--accent-color);
-    }
-  }
+  // "All albums" uses the shared .c-chip primitive.
 
   .home-photos__row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    // Must exceed max-overhang + hover-growth + max-overhang (26+14+26 = 66).
+    gap: 72px;
 
-    @media (max-width: 500px) {
+    @media (max-width: 32rem) {
       grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      // Scales every overhang down so the same guarantee holds in the tighter gutter:
+      // (26+14)*0.45 + 26*0.45 = 29.7 against 32px.
+      --mk-scale: 0.45;
 
       :global(:nth-child(3)) {
         display: none;
@@ -112,35 +135,71 @@ const { Content: Bio } = aboutEntry ? await render(aboutEntry) : { Content: null
 
   .home-photos__item {
     display: block;
-    text-decoration: none;
-
-    &:hover .home-photos__img-wrap img {
-      opacity: 0.75;
-    }
-
-    &:hover .home-photos__label {
-      color: var(--accent-color);
-    }
   }
 
-  .home-photos__img-wrap {
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-    background-color: var(--secondary-subtle-color);
-    margin-bottom: 10px;
+  // Crop marks — two pseudo-elements whose rules cross and overshoot at all four
+  // corners, like a press proof. No extra DOM, no rounded corners, no shadow.
+  .home-photos__frame {
+    position: relative;
+    display: block;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      pointer-events: none;
+      border-style: solid;
+      border-color: var(--primary-foreground-color);
+      border-width: 0;
+
+      // Length only — thickness stays at 1px throughout.
+      transition: top 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+        bottom 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+        left 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+        right 0.34s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    // Vertical rules — top and bottom overhang differ, seeded per photo.
+    &::before {
+      top: calc(var(--mk-t, 12px) * var(--mk-scale, 1) * -1);
+      bottom: calc(var(--mk-b, 12px) * var(--mk-scale, 1) * -1);
+      left: 0;
+      right: 0;
+      border-left-width: 1px;
+      border-right-width: 1px;
+    }
+
+    // Horizontal rules — left and right overhang differ, seeded per photo.
+    &::after {
+      left: calc(var(--mk-l, 12px) * var(--mk-scale, 1) * -1);
+      right: calc(var(--mk-r, 12px) * var(--mk-scale, 1) * -1);
+      top: 0;
+      bottom: 0;
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+    }
 
     img {
+      display: block;
       width: 100%;
-      height: 100%;
+      aspect-ratio: 4 / 3;
       object-fit: cover;
-      @include transition(opacity 0.2s ease);
+      background-color: var(--secondary-subtle-color);
     }
   }
 
-  .home-photos__label {
-    font-size: 0.8125rem;
-    color: var(--titles-color);
-    letter-spacing: 0.3px;
-    @include transition(color 0.2s ease);
+  // Hover draws every overhang further out. Length is the only thing that changes —
+  // weight and colour hold — so the photo sits still while the marks extend past it.
+  .home-photos__item:hover .home-photos__frame,
+  .home-photos__item:focus-visible .home-photos__frame {
+    &::before {
+      top: calc((var(--mk-t, 12px) + 14px) * var(--mk-scale, 1) * -1);
+      bottom: calc((var(--mk-b, 12px) + 14px) * var(--mk-scale, 1) * -1);
+    }
+
+    &::after {
+      left: calc((var(--mk-l, 12px) + 14px) * var(--mk-scale, 1) * -1);
+      right: calc((var(--mk-r, 12px) + 14px) * var(--mk-scale, 1) * -1);
+    }
   }
 </style>

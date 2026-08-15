@@ -1,13 +1,13 @@
-[data-theme="light"] {
+:root {
   --background-color: #F5F4F0;
   --surface-color: #FFFFFF;
   --primary-foreground-color: #1A1A1A;
   --secondary-foreground-color: #1A1A1A;
-  --primary-subtle-color: #A07840;
+  --primary-subtle-color: #2C4A5E;
   --secondary-subtle-color: #ECEAE4;
   --titles-color: #444444;
-  --link-color: #A07840;
-  --accent-color: #A07840;
+  --link-color: #2C4A5E;
+  --accent-color: #2C4A5E;
   --primary-border-color: #DEDAD2;
   --secondary-border-color: #D0CCBF;
   --article-shadow-normal: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -19,41 +19,7 @@
   --button-shadow-color-hover: rgba(0, 0, 0, 0.2);
   --table-background-color-odd: #ECEAE4;
   --table-head-border-bottom: #DEDAD2;
-  --toggle-darkmode-button-display-moon: block;
-  --toggle-darkmode-button-display-sun: none;
-  --toggle-darkmode-background-color: rgba(0, 0, 0, 0.08);
-  --toggle-track-color: rgba(0, 0, 0, 0.18);
   --header-menu-gradient-first-color: rgba(245, 244, 240, 0);
   --header-menu-gradient-second-color: rgba(245, 244, 240, 0.85);
   --kg-card-img-invert-color: 0;
-}
-
-[data-theme="dark"] {
-  --background-color: #0A0A0A;
-  --surface-color: #111111;
-  --primary-foreground-color: #FFFFFF;
-  --secondary-foreground-color: #FFFFFF;
-  --primary-subtle-color: #D4B483;
-  --secondary-subtle-color: #1A1A1A;
-  --titles-color: #AAAAAA;
-  --link-color: #D4B483;
-  --accent-color: #D4B483;
-  --primary-border-color: #1E1E1E;
-  --secondary-border-color: #2A2A2A;
-  --article-shadow-normal: 0 2px 8px rgba(0, 0, 0, 0.4);
-  --article-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.6);
-  --transparent-background-color: rgba(10, 10, 10, 0.98);
-  --footer-background-color: #050505;
-  --submenu-shadow-color-opacity: 0.7;
-  --button-shadow-color-normal: rgba(0, 0, 0, 0.5);
-  --button-shadow-color-hover: rgba(0, 0, 0, 0.7);
-  --table-background-color-odd: #0E0E0E;
-  --table-head-border-bottom: #1E1E1E;
-  --toggle-darkmode-button-display-moon: none;
-  --toggle-darkmode-button-display-sun: block;
-  --toggle-darkmode-background-color: rgba(0, 0, 0, 0.4);
-  --toggle-track-color: #D4B483;
-  --header-menu-gradient-first-color: rgba(10, 10, 10, 0);
-  --header-menu-gradient-second-color: rgba(10, 10, 10, 0.85);
-  --kg-card-img-invert-color: 1;
 }

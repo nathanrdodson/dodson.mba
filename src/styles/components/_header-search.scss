@@ -1,0 +1,202 @@
+// Inline header search — icon collapses/expands a field in place.
+
+.hs {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.hs__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--titles-color);
+  font-size: 1.125rem;
+  @extend .no-appearance;
+
+  span {
+    display: inline-block;
+    transform-origin: center;
+    transition: transform 0.15s ease, color 0.15s ease;
+  }
+
+  &:hover span,
+  &:focus-visible span {
+    transform: scale(1.3);
+    color: var(--accent-color);
+  }
+}
+
+// Once the field is out, the glyph settles back to its resting size and just takes
+// the accent colour — keeping it scaled up next to an open field reads as jitter.
+.hs:hover .hs__toggle span,
+.hs:focus-within .hs__toggle span,
+.hs.is-active .hs__toggle span {
+  transform: none;
+  color: var(--accent-color);
+}
+
+.hs__field {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  width: 0;
+  opacity: 0;
+  border-bottom: 1px solid transparent;
+  // Same transition on the base class, so it collapses with the same motion it
+  // expanded with rather than snapping shut.
+  transition: width 0.34s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.24s ease,
+    border-color 0.34s ease;
+}
+
+// Hover expands it. :focus-within covers keyboard and touch, which have no hover at
+// all, and .is-active holds it open once something has been typed so the field can't
+// collapse out from under a query when the pointer drifts away.
+.hs:hover .hs__field,
+.hs:focus-within .hs__field,
+.hs.is-active .hs__field {
+  width: min(220px, 52vw);
+  opacity: 1;
+  border-bottom-color: var(--primary-border-color);
+}
+
+.hs__input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  padding: 5px 4px 5px 8px;
+  background-color: transparent;
+  color: var(--primary-foreground-color);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  @extend .no-appearance;
+
+  &::placeholder {
+    color: var(--titles-color);
+    opacity: 0.55;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.6875rem;
+  }
+
+  // Safari's native clear affordance duplicates .hs__close
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+}
+
+.hs__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--titles-color);
+  font-size: 0.75rem;
+  @extend .no-appearance;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--accent-color);
+  }
+}
+
+// Animated both directions. `display: none` can't be transitioned, so visibility is
+// what removes it from interaction — delayed on the way out so the fade completes
+// first, and zeroed on the way in so it's immediately usable.
+.hs__results {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 20;
+  width: min(320px, calc(100vw - 56px));
+  max-height: 60vh;
+  overflow-y: auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--primary-border-color);
+  box-shadow: var(--article-shadow-normal);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear 0.2s;
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+      visibility 0s linear 0s;
+  }
+}
+
+.hs__result {
+  display: block;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--primary-border-color);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--secondary-subtle-color);
+
+    .hs__result-title {
+      color: var(--accent-color);
+    }
+  }
+}
+
+.hs__result-title {
+  display: block;
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  line-height: 1.25;
+  color: var(--primary-foreground-color);
+  margin-bottom: 3px;
+  transition: color 0.15s ease;
+}
+
+.hs__result-date {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--titles-color);
+}
+
+.hs__empty {
+  margin: 0;
+  padding: 14px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--titles-color);
+}

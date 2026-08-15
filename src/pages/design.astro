@@ -1,0 +1,738 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import ChronologySidebar from '../components/ChronologySidebar.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import PhotoGallery from '../components/PhotoGallery.astro';
+import FeaturedSlider from '../components/FeaturedSlider.astro';
+import GenerativeArt from '../components/GenerativeArt.astro';
+import '../styles/listing.scss';
+import '../styles/career.scss';
+
+const allPosts = await getCollection('blog', (e: CollectionEntry<'blog'>) => !e.data.draft);
+const postWithImage = allPosts.find((p) => p.id === 'atx') ?? allPosts.find((p) => p.data.featureImage);
+const postNoImage = allPosts.find((p) => p.id === 'ethical-considerations-in-haiku') ?? allPosts.find((p) => !p.data.featureImage);
+const featuredSample = allPosts.filter((p) => p.data.featureImage).slice(0, 3);
+
+const photos = (await getCollection('photos') as CollectionEntry<'photos'>[])
+  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0))
+  .slice(0, 2);
+
+// Reference-code generator — one running counter per section prefix, so every
+// swatch on the page gets a stable "SECTION-NN" tag we can point at in conversation.
+const counters: Record<string, number> = {};
+function code(prefix: string): string {
+  counters[prefix] = (counters[prefix] ?? 0) + 1;
+  return `${prefix}-${String(counters[prefix]).padStart(2, '0')}`;
+}
+
+const colorTokens = [
+  { name: '--background-color', desc: 'Page background' },
+  { name: '--surface-color', desc: 'Card / raised surface background' },
+  { name: '--primary-foreground-color', desc: 'Primary text' },
+  { name: '--secondary-foreground-color', desc: 'Secondary text' },
+  { name: '--titles-color', desc: 'Headings, meta text' },
+  { name: '--accent-color', desc: 'Links, accents, active states' },
+  { name: '--link-color', desc: 'Inline links' },
+  { name: '--primary-subtle-color', desc: 'Subtle brand tone (avatars, buttons)' },
+  { name: '--secondary-subtle-color', desc: 'Subtle fill (empty states, chips)' },
+  { name: '--primary-border-color', desc: 'Default border' },
+  { name: '--secondary-border-color', desc: 'Hover / emphasis border' },
+  { name: '--footer-background-color', desc: 'Footer background' },
+];
+
+const sections = [
+  { id: 'colors', label: 'Colors' },
+  { id: 'typography', label: 'Typography' },
+  { id: 'buttons', label: 'Buttons' },
+  { id: 'inputs', label: 'Inputs' },
+  { id: 'icon-buttons', label: 'Icon Buttons' },
+  { id: 'cards', label: 'Cards' },
+  { id: 'sidebars', label: 'Sidebar Nav' },
+  { id: 'tags', label: 'Tags & Badges' },
+  { id: 'hero', label: 'Hero Sections' },
+  { id: 'homepage', label: 'Homepage' },
+  { id: 'featured', label: 'Featured Slider' },
+  { id: 'timeline', label: 'Timeline' },
+];
+---
+
+<BaseLayout title="Design" description="Internal style guide and component workspace" bodyClass="is-design" noindex>
+  <main>
+    <div class="l-content in-design">
+      <div class="l-wrapper">
+        <header class="design-header" data-animate="fade-up">
+          <h1 class="design-header__title">Design Workspace</h1>
+          <p class="design-header__sub">
+            Every element in use across dodson.mba, in one place. Each swatch is tagged with a
+            reference code (e.g. <code>BTN-02</code>) — use it to point at a specific element when
+            we're discussing changes.
+          </p>
+        </header>
+
+        <div class="design-body">
+          <TableOfContents items={sections} label="Sections" />
+
+          <div class="design-body__content">
+            <!-- ═══════════════════════ COLORS ═══════════════════════ -->
+            <section class="design-section" id="colors">
+              <h2 class="design-section__title">Colors</h2>
+              <p class="design-section__desc">Light-mode only. Every color on the site resolves to one of these CSS custom properties.</p>
+              <div class="design-grid">
+                {colorTokens.map((t) => (
+                  <div class="design-item">
+                    <span class="design-code">{code('COLOR')}</span>
+                    <div class="design-swatch" style={`background-color: var(${t.name});`}></div>
+                    <p class="design-item__label">{t.name}</p>
+                    <p class="design-item__note">{t.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <!-- ═══════════════════════ TYPOGRAPHY ═══════════════════════ -->
+            <section class="design-section" id="typography">
+              <h2 class="design-section__title">Typography</h2>
+              <p class="design-section__desc">
+                Three roles, three tokens. <code>--font-display</code> (Bodoni Moda, a didone) for
+                headings and titles, <code>--font-body</code> (Inter) for copy, and
+                <code>--font-mono</code> (IBM Plex Mono) reserved strictly for labels, metadata,
+                and dates — never for body or navigation.
+              </p>
+
+              <div class="design-item design-item--full">
+                <span class="design-code">{code('TYPE')}</span>
+                <p class="design-item__label">Display / H1 — Bodoni Moda 500</p>
+                <p class="design-type design-type--h1">Nathan Dodson</p>
+              </div>
+
+              <div class="design-item design-item--full">
+                <span class="design-code">{code('TYPE')}</span>
+                <p class="design-item__label">H2 — Bodoni Moda 500</p>
+                <p class="design-type design-type--h2">Section Heading</p>
+              </div>
+
+              <div class="design-item design-item--full">
+                <span class="design-code">{code('TYPE')}</span>
+                <p class="design-item__label">H3 — Inter 600</p>
+                <p class="design-type design-type--h3">Card / Timeline Title</p>
+              </div>
+
+              <div class="design-item design-item--full">
+                <span class="design-code">{code('TYPE')}</span>
+                <p class="design-item__label">Body — Inter 400</p>
+                <p class="design-type design-type--body">
+                  The quick brown fox jumps over the lazy dog. Body copy runs at 1.0625rem with a
+                  1.7 line-height across the site, in Inter.
+                </p>
+              </div>
+
+              <div class="design-item design-item--full">
+                <span class="design-code">{code('TYPE')}</span>
+                <p class="design-item__label">Mono label — IBM Plex Mono 500, uppercase</p>
+                <p class="design-type design-type--mono">On This Page</p>
+              </div>
+
+              <div class="design-item design-item--full">
+                <span class="design-code">{code('TYPE')}</span>
+                <p class="design-item__label">Accent link</p>
+                <p class="design-type design-type--body"><a href="#typography" class="design-type--link">This is a link</a> inline with body copy.</p>
+              </div>
+            </section>
+
+            <!-- ═══════════════════════ BUTTONS ═══════════════════════ -->
+            <section class="design-section" id="buttons">
+              <h2 class="design-section__title">Buttons</h2>
+              <div class="design-grid design-grid--loose">
+                <div class="design-item">
+                  <span class="design-code">{code('BTN')}</span>
+                  <p class="design-item__label">Default</p>
+                  <button class="m-button" type="button">Button</button>
+                </div>
+                <div class="design-item">
+                  <span class="design-code">{code('BTN')}</span>
+                  <p class="design-item__label">Outlined</p>
+                  <button class="m-button outlined" type="button">Button</button>
+                </div>
+                <div class="design-item">
+                  <span class="design-code">{code('BTN')}</span>
+                  <p class="design-item__label">Filled</p>
+                  <button class="m-button filled" type="button">Button</button>
+                </div>
+                <div class="design-item">
+                  <span class="design-code">{code('BTN')}</span>
+                  <p class="design-item__label">Primary</p>
+                  <button class="m-button primary" type="button">Button</button>
+                </div>
+                <div class="design-item">
+                  <span class="design-code">{code('BTN')}</span>
+                  <p class="design-item__label">Loading</p>
+                  <button class="m-button filled loading" type="button">Button</button>
+                </div>
+                <div class="design-item">
+                  <span class="design-code">{code('BTN')}</span>
+                  <p class="design-item__label">
+                    Mono utility link — the site's standard secondary action. Used for Resume,
+                    contacts, &ldquo;All writing&rdquo;, &ldquo;All albums&rdquo; and the hero's elsewhere row
+                  </p>
+                  <ul class="c-actions">
+                    <li>
+                      <a href="#buttons">
+                        <i class="iconoir-download" aria-hidden="true"></i>
+                        Resume
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <!-- ═══════════════════════ INPUTS ═══════════════════════ -->
+            <section class="design-section" id="inputs">
+              <h2 class="design-section__title">Inputs</h2>
+              <div class="design-grid design-grid--loose">
+                <div class="design-item">
+                  <span class="design-code">{code('INPUT')}</span>
+                  <p class="design-item__label">Text input</p>
+                  <input class="m-input" type="text" placeholder="you@example.com" />
+                </div>
+                <div class="design-item">
+                  <span class="design-code">{code('INPUT')}</span>
+                  <p class="design-item__label">Search input</p>
+                  <input class="m-input in-search" type="text" placeholder="Search…" />
+                </div>
+              </div>
+            </section>
+
+            <!-- ═══════════════════════ ICON BUTTONS ═══════════════════════ -->
+            <section class="design-section" id="icon-buttons">
+              <h2 class="design-section__title">Icon Buttons</h2>
+              <div class="design-grid design-grid--loose">
+                <div class="design-item">
+                  <span class="design-code">{code('ICON')}</span>
+                  <p class="design-item__label">Default</p>
+                  <button class="m-icon-button" type="button" aria-label="Search">
+                    <span class="iconoir-search" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="design-item">
+                  <span class="design-code">{code('ICON')}</span>
+                  <p class="design-item__label">Outlined</p>
+                  <button class="m-icon-button outlined" type="button" aria-label="Close">
+                    <span class="iconoir-xmark" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="design-item">
+                  <span class="design-code">{code('ICON')}</span>
+                  <p class="design-item__label">Filled</p>
+                  <button class="m-icon-button filled" type="button" aria-label="Previous">
+                    <span class="iconoir-arrow-left" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </div>
+              <p class="design-section__desc">All icons on the site come from the iconoir set (loaded via CDN) — e.g. <code>iconoir-search</code>, <code>iconoir-xmark</code>, <code>iconoir-arrow-left</code>, <code>iconoir-arrow-right</code>, <code>iconoir-star</code>, <code>iconoir-github</code>, <code>iconoir-menu</code>, <code>iconoir-download</code>.</p>
+            </section>
+
+            <!-- ═══════════════════════ CARDS ═══════════════════════ -->
+            <section class="design-section" id="cards">
+              <h2 class="design-section__title">Cards</h2>
+              <p class="design-section__desc">
+                Blog cards use <code>.m-article-card</code>; posts with no feature image fall back to
+                deterministic generative art. Photo entries deliberately diverge from this family —
+                see the note below the pair.
+              </p>
+
+              <div class="design-item design-item--full">
+                <span class="design-code">{code('CARD')}</span>
+                <p class="design-item__label">Blog post card — with image</p>
+              </div>
+              <div class="design-item design-item--full">
+                <span class="design-code">{code('CARD')}</span>
+                <p class="design-item__label">Blog post card — no image (generative art)</p>
+              </div>
+
+              <div class="m-articles-grid l-grid">
+                {postWithImage && <ArticleCard post={postWithImage} />}
+                {postNoImage && <ArticleCard post={postNoImage} />}
+              </div>
+
+              <div class="design-item design-item--full" style="margin-top: 40px;">
+                <span class="design-code">{code('CARD')}</span>
+                <p class="design-item__label">
+                  Photo entry — deliberately <em>not</em> a card. No surface, no border, no badge:
+                  the image is the whole unit and the caption sits on the paper beneath it. Runs
+                  two-up so the featured image carries the page
+                </p>
+              </div>
+
+              {photos.length > 0 && <PhotoGallery photos={photos} />}
+            </section>
+
+            <!-- ═══════════════════════ SIDEBAR NAV ═══════════════════════ -->
+            <section class="design-section" id="sidebars">
+              <h2 class="design-section__title">Sidebar Navigation</h2>
+              <p class="design-section__desc">Two sticky scroll-spy sidebars used site-wide: the post/experience table of contents, and the blog archive chronology.</p>
+
+              <div class="design-grid design-grid--loose">
+                <div class="design-item">
+                  <span class="design-code">{code('NAV')}</span>
+                  <p class="design-item__label">Table of Contents (blog posts, /experience)</p>
+                  <div class="design-nav-demo">
+                    <TableOfContents items={[{ id: 'colors', label: 'Colors' }, { id: 'typography', label: 'Typography' }, { id: 'buttons', label: 'Buttons' }]} />
+                  </div>
+                </div>
+                <div class="design-item">
+                  <span class="design-code">{code('NAV')}</span>
+                  <p class="design-item__label">Chronology (/blog archive)</p>
+                  <div class="design-nav-demo">
+                    <ChronologySidebar years={[{ year: 2026, count: 4 }, { year: 2025, count: 6 }, { year: 2024, count: 3 }]} />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ═══════════════════════ TAGS & BADGES ═══════════════════════ -->
+            <section class="design-section" id="tags">
+              <h2 class="design-section__title">Tags &amp; Badges</h2>
+              <div class="design-grid design-grid--loose">
+                <div class="design-item">
+                  <span class="design-code">{code('TAG')}</span>
+                  <p class="design-item__label">Card tag (top-left of image cards)</p>
+                  <a href="#tags" class="m-article-card__tag" style="position: static; display: inline-block;">Travel</a>
+                </div>
+                <div class="design-item">
+                  <span class="design-code">{code('TAG')}</span>
+                  <p class="design-item__label">Post meta tag (post header)</p>
+                  <a href="#tags" class="m-heading__meta__tag">New Mexico 2021</a>
+                </div>
+                <div class="design-item">
+                  <span class="design-code">{code('TAG')}</span>
+                  <p class="design-item__label">Featured / count badge</p>
+                  <span class="m-article-card__featured" style="position: static; display: inline-flex;" aria-hidden="true">
+                    <span class="iconoir-star" aria-hidden="true"></span>
+                  </span>
+                </div>
+              </div>
+            </section>
+
+            <!-- ═══════════════════════ HERO ═══════════════════════ -->
+            <section class="design-section" id="hero">
+              <h2 class="design-section__title">Hero Sections</h2>
+              <div class="design-item design-item--full">
+                <span class="design-code">{code('HERO')}</span>
+                <p class="design-item__label">
+                  Page header — display title, one mono identity line, one mono utility row.
+                  Used on /experience; /blog and /photos use the title alone
+                </p>
+                <div class="design-hero-demo">
+                  <h1 class="c-career__pagetitle">Professional Experience</h1>
+                  <p class="c-career__whois">Nathan Dodson / IT Director / Platform Engineer / MBA</p>
+                  <ul class="c-actions">
+                    <li>
+                      <a href="#hero">
+                        <i class="iconoir-download" aria-hidden="true"></i>
+                        Resume
+                      </a>
+                    </li>
+                    <li><a href="#hero">nrdod@icloud.com</a></li>
+                  </ul>
+                </div>
+              </div>
+              <p class="design-section__desc">
+                The homepage hero is a different animal — <code>clamp(3.75rem, 20vw, 20rem)</code>,
+                pulled <code>-0.05em</code> past the left grid line so it reads as set on a press
+                rather than centered in a div. Too large to specimen honestly at this width; see
+                <a href="/" class="design-type--link">the homepage</a>.
+              </p>
+            </section>
+
+            <!-- ═══════════════════════ HOMEPAGE ═══════════════════════ -->
+            <section class="design-section" id="homepage">
+              <h2 class="design-section__title">Homepage Elements</h2>
+              <p class="design-section__desc">
+                Built for the homepage rebuild and currently scoped to it. Hover or keyboard-focus
+                a writing row to see the metadata reveal.
+              </p>
+
+              <div class="design-item design-item--full">
+                <span class="design-code">{code('HOME')}</span>
+                <p class="design-item__label">
+                  Writing row — aligned index, rules flush across the list, thumbnail always right,
+                  mono metadata revealed on hover/focus with its height pre-reserved so nothing reflows
+                </p>
+              </div>
+
+              <div class="design-item design-item--full">
+                <span class="design-code">{code('HOME')}</span>
+                <p class="design-item__label">
+                  Selection marker — on focus the row indents and a rule appears at its left edge.
+                  Shape and position rather than color, so it survives colorblindness, and it sits
+                  inside the row so it can never be clipped at the viewport edge
+                </p>
+              </div>
+
+              <div class="design-item design-item--full">
+                <span class="design-code">{code('HOME')}</span>
+                <p class="design-item__label">
+                  Generative art — deterministic stand-in for posts with no feature image. Same post
+                  always resolves to the same composition; variation comes from geometry and tone,
+                  not hue, so it holds to the single ink accent. Shared by the writing list and the
+                  blog cards
+                </p>
+                <div class="design-art-demo">
+                  {postNoImage && <GenerativeArt id={postNoImage.id} />}
+                </div>
+              </div>
+
+              <div class="design-item design-item--full">
+                <span class="design-code">{code('HOME')}</span>
+                <p class="design-item__label">
+                  Crop-mark frame — 2px rules overshooting 12px past all four corners. On hover the
+                  homepage version pulls out to 22px, thickens to 4px and inks to the accent; the
+                  photo itself never moves
+                </p>
+                <div class="design-crop-demo">
+                  <span class="design-crop-frame">
+                    <img src="/images/profile.webp" alt="" loading="lazy" />
+                  </span>
+                </div>
+              </div>
+
+              <div class="design-item design-item--full">
+                <span class="design-code">{code('HOME')}</span>
+                <p class="design-item__label">
+                  Paper grain — inline <code>feTurbulence</code>, multiply blend, fixed to the
+                  viewport. It is on this page right now. Strength is the <code>--grain-opacity</code>
+                  custom property on <code>.c-grain</code> (currently <code>0.13</code>); coarseness
+                  is <code>baseFrequency</code> on the filter
+                </p>
+              </div>
+            </section>
+
+            <!-- ═══════════════════════ FEATURED SLIDER ═══════════════════════ -->
+            <section class="design-section" id="featured">
+              <h2 class="design-section__title">Featured Slider</h2>
+              <p class="design-section__desc">
+                <strong>Not currently placed on any live page</strong> — the component and its styles
+                still exist in the codebase from an earlier homepage layout. Shown here so we can decide
+                whether to revive or remove it.
+              </p>
+              <div class="design-item design-item--full">
+                <span class="design-code">{code('FEATURED')}</span>
+                <p class="design-item__label">Swiper-based featured slider</p>
+                {featuredSample.length > 0 && <FeaturedSlider posts={featuredSample} />}
+              </div>
+            </section>
+
+            <!-- ═══════════════════════ TIMELINE ═══════════════════════ -->
+            <section class="design-section" id="timeline">
+              <h2 class="design-section__title">Timeline</h2>
+              <p class="design-section__desc">Used on /experience for work history, education, and projects.</p>
+              <div class="design-item design-item--full">
+                <span class="design-code">{code('TIMELINE')}</span>
+                <p class="design-item__label">Timeline entry</p>
+                <div class="c-timeline design-timeline-demo">
+                  <div class="c-timeline__entry">
+                    <div class="c-timeline__marker"></div>
+                    <div class="c-timeline__body">
+                      <div class="c-timeline__meta">
+                        <span class="c-timeline__dates">Jan. 2024 – Present</span>
+                        <span class="c-timeline__location">Kansas City, KS</span>
+                      </div>
+                      <h3 class="c-timeline__role">Role Title</h3>
+                      <p class="c-timeline__org">Organization</p>
+                      <ul class="c-timeline__bullets">
+                        <li>Example bullet describing an accomplishment</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    import '../scripts/blog';
+  </script>
+</BaseLayout>
+
+<style lang="scss">
+  @import '../styles/common/mixins';
+  @import '../styles/common/variables';
+
+  .in-design {
+    padding-top: 0;
+  }
+
+  .design-header {
+    padding: 80px 0 48px;
+    border-bottom: 1px solid var(--primary-border-color);
+    margin-bottom: 48px;
+
+    @include respond-to('medium') {
+      padding: 120px 0 56px;
+    }
+  }
+
+  .design-header__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: 0.3px;
+    color: var(--primary-foreground-color);
+    margin: 0 0 12px;
+  }
+
+  .design-header__sub {
+    max-width: 640px;
+    color: var(--titles-color);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+
+    code {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.85em;
+      background: var(--secondary-subtle-color);
+      padding: 1px 5px;
+      border-radius: 0;
+    }
+  }
+
+  .design-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding-bottom: 100px;
+
+    @include respond-to('large') {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 48px;
+    }
+  }
+
+  .design-body__content {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .design-section {
+    padding-top: 24px;
+    margin-bottom: 64px;
+    border-top: 1px solid var(--primary-border-color);
+    scroll-margin-top: 100px;
+
+    &:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+  }
+
+  .design-section__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.375rem, 2.5vw, 1.75rem);
+    color: var(--primary-foreground-color);
+    margin: 0 0 10px;
+  }
+
+  .design-section__desc {
+    color: var(--titles-color);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    max-width: 680px;
+    margin: 0 0 28px;
+
+    code {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.85em;
+      background: var(--secondary-subtle-color);
+      padding: 1px 5px;
+      border-radius: 0;
+    }
+  }
+
+  .design-code {
+    display: inline-block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--accent-color);
+    background: var(--secondary-subtle-color);
+    border: 1px solid var(--primary-border-color);
+    padding: 2px 7px;
+    border-radius: 0;
+    margin-bottom: 10px;
+  }
+
+  .design-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 20px 16px;
+  }
+
+  .design-grid--loose {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    align-items: end;
+  }
+
+  .design-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .design-item--full {
+    grid-column: 1 / -1;
+    margin-bottom: 16px;
+  }
+
+  .design-item__label {
+    font-size: 0.8125rem;
+    color: var(--titles-color);
+    margin: 0 0 8px;
+  }
+
+  .design-item__note {
+    font-size: 0.75rem;
+    color: var(--titles-color);
+    opacity: 0.7;
+    margin: 2px 0 0;
+  }
+
+  .design-swatch {
+    width: 100%;
+    height: 56px;
+    border: 1px solid var(--primary-border-color);
+  }
+
+  .design-type {
+    margin: 0;
+    color: var(--primary-foreground-color);
+  }
+
+  .design-type--h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+
+  .design-type--h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.75rem;
+  }
+
+  .design-type--h3 {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 1.125rem;
+  }
+
+  .design-type--body {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--titles-color);
+    max-width: 640px;
+  }
+
+  .design-type--mono {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 500;
+    font-size: 0.6875rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--titles-color);
+  }
+
+  .design-type--link {
+    color: var(--accent-color);
+    text-decoration: underline;
+  }
+
+  .design-nav-demo {
+    position: relative;
+    width: 100%;
+    padding: 4px 0;
+
+    :global(.c-toc),
+    :global(.c-chrono) {
+      position: static;
+      width: 100%;
+    }
+  }
+
+  .design-hero-demo {
+    padding: 24px 0;
+    border: 1px dashed var(--primary-border-color);
+    padding-left: 24px;
+  }
+
+  .design-timeline-demo {
+    max-width: 640px;
+  }
+
+  // Generative-art specimen — needs a positioned box, same as a card picture slot.
+  .design-art-demo {
+    position: relative;
+    width: 240px;
+    height: 160px;
+    overflow: hidden;
+  }
+
+  // Crop-mark frame specimen — same two-pseudo-element technique the homepage uses.
+  .design-crop-demo {
+    padding: 20px 0 20px 20px;
+  }
+
+  .design-crop-frame {
+    position: relative;
+    display: block;
+    width: 200px;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      pointer-events: none;
+      border-style: solid;
+      border-color: var(--primary-foreground-color);
+      border-width: 0;
+    }
+
+    &::before {
+      top: -12px;
+      bottom: -12px;
+      left: 0;
+      right: 0;
+      border-left-width: 2px;
+      border-right-width: 2px;
+    }
+
+    &::after {
+      left: -12px;
+      right: -12px;
+      top: 0;
+      bottom: 0;
+      border-top-width: 2px;
+      border-bottom-width: 2px;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background-color: var(--secondary-subtle-color);
+    }
+  }
+</style>

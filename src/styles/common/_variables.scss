@@ -9,8 +9,14 @@ $accent: #D4B483;
 /** Config  */
 $mobile-space: 28px;
 $mobile-bar-height: 50px;
+$card-radius: 0;
 
 :root {
   --announcement-bar-height: 0px;
   --show-fade-animation: 1;
+
+  /** Type roles — display for headings, body for copy, mono for labels/meta only */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 }

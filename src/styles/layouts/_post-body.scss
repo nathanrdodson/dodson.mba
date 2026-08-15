@@ -16,3 +16,6 @@
   flex: 1 1 0;
   min-width: 0;
 }
+
+// The sticky sidebar column itself is .c-side, defined in components/_toc.scss so
+// both blog posts and /experience can share it.

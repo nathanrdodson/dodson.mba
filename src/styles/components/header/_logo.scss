@@ -7,14 +7,6 @@
     max-width: 150px;
     height: 100%;
     object-fit: contain;
-
-    &.m-logo__image-light {
-      display: var(--toggle-darkmode-button-display-moon);
-    }
-
-    &.m-logo__image-dark {
-      display: var(--toggle-darkmode-button-display-sun);
-    }
   }
 
   &.in-mobile-topbar {
@@ -24,16 +16,6 @@
   &.in-profile {
     height: 256px;
   }
-}
-
-[data-theme="dark"] {
-  .m-logo__image-light { display: none; }
-  .m-logo__image-dark  { display: block; }
-}
-
-[data-theme="light"] {
-  .m-logo__image-light { display: block; }
-  .m-logo__image-dark  { display: none; }
 }
 
 .m-logo__photo {

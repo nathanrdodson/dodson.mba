@@ -4,6 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
 import RelatedPosts from '../../components/RelatedPosts.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
+import ReadingProgress from '../../components/ReadingProgress.astro';
+import { readingMinutes } from '../../lib/reading-time';
 import '../../styles/post.scss';
 
 export async function getStaticPaths() {
@@ -44,6 +46,7 @@ const tocItems = headings
 const hasToc = tocItems.length >= 2;
 
 const primaryTag = tags[0] ?? null;
+const minutes = readingMinutes(post.body);
 const formattedDate = date.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
@@ -67,10 +70,50 @@ const formattedDate = date.toLocaleDateString('en-US', {
     )}
 
     <article>
+      <ReadingProgress />
+
       <div class="l-content in-post">
-        <div class={`l-wrapper in-post${featureImage ? '' : ' no-image'}${hasToc ? ' has-toc' : ''} js-animation-wrapper`} data-animate="fade-up">
+        <div class={`l-wrapper in-post has-toc${featureImage ? '' : ' no-image'} js-animation-wrapper`} data-animate="fade-up">
           <div class="l-post-body">
-            {hasToc && <TableOfContents items={tocItems} label="On this page" />}
+            <aside class="c-side">
+              {hasToc && <TableOfContents items={tocItems} label="On this page" />}
+
+              <div class="c-side__meta">
+                <p class="c-side__label">Published</p>
+                <p class="c-side__value">{formattedDate}</p>
+
+                <p class="c-side__label">Length</p>
+                <p class="c-side__value">{minutes} min read</p>
+
+                {tags.length > 0 && (
+                  <>
+                    <p class="c-side__label">Tagged</p>
+                    <ul class="c-side__tags">
+                      {tags.map((tag: string) => (
+                        <li>
+                          <a href={`/blog/?tag=${encodeURIComponent(tag)}`}>{tag}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+              </div>
+
+              <div class="c-side__meta">
+                <p class="c-side__label">Written by</p>
+                <p class="c-side__author"><a href="/">Nathan Dodson</a></p>
+                <p class="c-side__value">IT Director / Platform Engineer / MBA</p>
+                <a
+                  href="https://github.com/nathanrdodson"
+                  class="c-side__author-link"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <i class="iconoir-github" aria-hidden="true"></i>
+                  GitHub
+                </a>
+              </div>
+            </aside>
             <div class="l-post-body__content">
               <div class="l-post-content js-progress-content">
                 <header class="m-heading">
@@ -106,23 +149,6 @@ const formattedDate = date.toLocaleDateString('en-US', {
           </div>
         </div>
 
-        <section class="m-author">
-          <div class="m-author__content">
-            <div class="m-author__info">
-              <h4 class="m-author__name">
-                <a href="/">Nathan Dodson</a>
-              </h4>
-              <p class="m-author__bio">IT Director &bull; Platform Engineer &bull; MBA</p>
-              <ul class="m-author-links">
-                <li>
-                  <a href="https://github.com/nathanrdodson" target="_blank" rel="noopener" aria-label="GitHub">
-                    <span class="icon-globe" aria-hidden="true"></span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
 
         <RelatedPosts posts={related} />
       </div>

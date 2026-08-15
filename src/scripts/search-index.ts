@@ -1,4 +1,6 @@
-import Fuse from 'fuse.js/min-basic';
+// Fuse 7 exports its option types as named exports; the `Fuse.IFuseOptions`
+// namespace form only worked up to v6.
+import Fuse, { type IFuseOptions } from 'fuse.js/min-basic';
 
 interface SearchItem {
   title: string;
@@ -8,7 +10,7 @@ interface SearchItem {
   date: string;
 }
 
-const fuseOptions: Fuse.IFuseOptions<SearchItem> = {
+const fuseOptions: IFuseOptions<SearchItem> = {
   shouldSort: true,
   ignoreLocation: true,
   findAllMatches: true,

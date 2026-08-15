@@ -1,0 +1,38 @@
+/**
+ * Keyboard-only affordance. Hidden off the top of the viewport until focused,
+ * so it costs pointer users nothing but is the first stop on a fresh tab press.
+ *
+ * Deliberately not `display: none` / `visibility: hidden` — either would take it
+ * out of the tab order entirely and defeat the purpose.
+ */
+.c-skip-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  // Above the header (4) and the inline search overlay (20), the two things that
+  // would otherwise cover it once focused.
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 4px 0;
+  background-color: var(--accent-color);
+  color: var(--background-color);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1;
+  transform: translateY(-100%);
+  @include transition(transform linear 0.15s);
+
+  &:focus {
+    transform: translateY(0);
+  }
+}
+
+/**
+ * The skip link moves focus to the `<main>` landmark, which carries
+ * `tabindex="-1"` so it can receive it. Without this the global `:focus-visible`
+ * ring would draw a 2px outline around the entire page region — the jump itself
+ * is the feedback, so the ring is noise.
+ */
+#main-content:focus {
+  outline: none;
+}

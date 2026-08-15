@@ -26,7 +26,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
 ---
 
 <BaseLayout title={title} image={featureImage} bodyClass="is-photo">
-  <main>
+  <main id="main-content" tabindex="-1">
     <div class="l-content">
       <div class={`l-wrapper${isAlbum ? ' in-album' : ''}`}>
         <div class="m-heading photo-detail-heading" data-animate="fade-up">

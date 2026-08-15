@@ -55,33 +55,6 @@ Zero `width=` or `height=` attributes sitewide, so every image reflows the page 
 - **Detail:** Google Fonts has `preconnect`; **jsDelivr does not**. Iconoir is pinned to `@main`, a moving upstream target — the icon set can change without a commit here.
 - **Fix:** self-host fonts via Fontsource and subset Iconoir to the ~10 icons actually used. Removes both third-party round trips and the `@main` risk together.
 
-#### `SEO-1` — 27 of 29 posts share an identical meta description
-
-Only 2 posts set `excerpt`, so the rest fall back to the site tagline. This propagates to `og:description` and `twitter:description`, making every shared post link look identical.
-
-- **Measured:** 27 posts emit `"IT Director · Platform Engineer · MBA"`.
-- **Verify:** `grep -h -oE '<meta name="description" content="[^"]*"' dist/blog/*/index.html | sort | uniq -c`
-- **Fix:** in `BaseLayout.astro`, fall back to the first ~155 characters of the post body rather than the site default. Small change, disproportionate SEO payoff.
-
-#### `SEO-2` — No sitemap, robots.txt, or RSS feed
-
-None of `sitemap.xml`, `robots.txt`, `rss.xml` exist in the build. A photo/travel blog with no feed is the notable omission.
-
-- **Fix:** add `@astrojs/sitemap` and `@astrojs/rss`; commit a `public/robots.txt` pointing at the sitemap.
-
-#### `CI-1` — No PR validation; a broken build is discovered in production
-
-`deploy.yml` triggers only on `push` to `main` and `workflow_dispatch`. Merging to `main` deploys immediately, so nothing verifies a change before it is live.
-
-- **Where:** [.github/workflows/deploy.yml](.github/workflows/deploy.yml)
-- **Fix:** add a `pull_request` trigger running `npm run build` and `npm run lint:md`. Highest-value CI change; blocks the class of failure the rest of this list keeps producing.
-
-#### `CI-2` — Nothing enforces linting or type-checking
-
-`tsconfig.json` extends `astro/tsconfigs/strict`, but no type check has ever run — `@astrojs/check` and `typescript` are not installed. `lint:md` exists but no workflow calls it.
-
-- **Fix:** install `@astrojs/check` + `typescript`, add `npm run check`, and run it alongside the build in `CI-1`.
-
 #### `A11Y-1` — Album photos cannot have alt text at all
 
 The `photos` schema types `images` as `z.array(z.string())`, so there is nowhere to put alt text for the ~180 album photos. They all render `alt=""`.
@@ -104,6 +77,15 @@ Social cards point at the untouched 2000px source (up to 1.5MB). Scrapers want r
 
 No JSON-LD anywhere. `BlogPosting` on posts and `Person` on the home page are the useful ones.
 
+#### `A11Y-3` — Two components drop the alt text the schema already carries
+
+`featureImageAlt` is authored per post but two components discard it, so images that carry meaning render with no accessible name.
+
+- **Where:** [src/components/FeaturedSlider.astro](src/components/FeaturedSlider.astro) paints the feature image as a CSS `background-image` on a `<div>`, which has nowhere to put alt text. [src/components/PostList.astro](src/components/PostList.astro) renders `<img alt="">` literally, ignoring the field.
+- **Context:** every other component (`ArticleCard`, `Hero`, `PhotoGallery`) does this correctly with `<img alt={featureImageAlt}>` — these two are the outliers, not the convention.
+- **Fix:** decide per component whether the image is decorative (leave `alt=""`, and drop the unused field) or meaningful (switch the slider to a real `<img>`, and pass the field through in `PostList`). The slider change touches `m-featured-article__picture-bg` styling, so it is not a one-liner.
+- Distinct from `A11Y-1`, which is about album photos having no schema field at all.
+
 #### `CI-3` — No dependency automation, with advisories open
 
 No dependabot or renovate config. `npm audit` currently reports 9 high-severity advisories (astro, esbuild, js-yaml, nanoid, devalue, immutable).
@@ -114,25 +96,9 @@ No dependabot or renovate config. `npm audit` currently reports 9 high-severity 
 
 Upload and deploy dominate the ~50s workflow runtime. Resolved as a side effect of `PERF-1`.
 
-#### `DX-1` — No `.nvmrc`
-
-Node 22.12+ is a hard requirement documented as a trap in three places, but nothing pins it — `nvm use` alone picks the machine default (currently Node 18, which hard-aborts the build).
-
-- **Fix:** one-line `.nvmrc` containing `22`. Best effort-to-value ratio in this file.
-
 #### `DX-2` — No formatter or linter outside Markdown
 
 No prettier, eslint, stylelint, or `.editorconfig`. Markdown is the only linted format in a repo that is mostly Astro, TypeScript, and SCSS.
-
-#### `A11Y-2` — No skip-to-content link
-
-No skip link on any page, so keyboard users traverse the full header and nav on every navigation.
-
-#### `CONTENT-2` — 9 markdownlint findings in post prose
-
-`npm run lint:md` reports 9 issues across 4 posts: setext headings in `charleston-sc.md`, a duplicate heading in `its-been-a-while-airport.md`, non-descriptive `[here]` link text and 5 blockquote-spacing warnings in `seeds-leadership-2022.md`.
-
-- **Deliberately unfixed.** These are personal essays and the lint config exists for structural hygiene, not prose editing. Fix only with the author's sign-off — `lint:md:fix` is not automatically safe here.
 
 #### `CONTENT-3` — 10 pairs of byte-identical duplicate images
 
@@ -151,6 +117,13 @@ No skip link on any page, so keyboard users traverse the full header and nav on 
 
 | ID | Issue | Resolved | Commit |
 | :--- | :--- | :--- | :--- |
+| `SEO-1` | 27 of 29 posts shared one meta description; posts without `excerpt` now derive one from the body via `src/lib/summarize.ts` | 2026-08-15 | _pending_ |
+| `SEO-2` | No sitemap, robots.txt, or RSS; added `@astrojs/sitemap` (excluding the `noindex` `/design`), `public/robots.txt`, and `/rss.xml` | 2026-08-15 | _pending_ |
+| `CI-1` | No PR validation; added `.github/workflows/ci.yml` running check + lint + build on every PR into `main` | 2026-08-15 | _pending_ |
+| `CI-2` | Nothing enforced type-checking; added `@astrojs/check` + `typescript` and `npm run check`, which found and fixed 2 real errors (`fuse.js` v7 namespace types, untyped `headroom.js`) | 2026-08-15 | _pending_ |
+| `A11Y-2` | No skip-to-content link; added `.c-skip-link` and `id="main-content"` on all 8 page `<main>` landmarks | 2026-08-15 | _pending_ |
+| `DX-1` | No `.nvmrc`; added one pinning Node 22, and both workflows now read the version from it | 2026-08-15 | _pending_ |
+| `CONTENT-2` | 9 markdownlint findings blocking the new `CI-1` gate. `MD003`/`MD024`/`MD028` disabled with rationale, matching the existing precedent that rules which would rewrite prose are switched off; only `MD059` was fixed in prose (`[here]` → `[about LEED certification]`), being a real quality issue rather than a style preference | 2026-08-15 | _pending_ |
 | `CONTENT-0` | 16 gallery photos 404ing in production after a cleanup pass scanned only `featureImage` and missed the `images:` arrays | 2026-08-15 | `e5bb55c` |
 | `CONTENT-4` | Broken in-page anchor `#map` in the Tunisia post; heading id is `mapbox` | 2026-08-15 | `9db6657` |
 | `DX-4` | Orphaned files (`logo.png` root duplicate, `no-image.png`, one-off `fix-content.mjs`, conflicting `.claude/launch.json`) and dead `updated` / `postType` schema fields | 2026-08-15 | `6a2530d` |

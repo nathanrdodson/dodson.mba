@@ -55,6 +55,9 @@ const fullTitle = title === siteTitle ? title : `${title} — ${siteTitle}`;
     <!-- Canonical -->
     <link rel="canonical" href={siteUrl + Astro.url.pathname} />
 
+    <!-- Feed -->
+    <link rel="alternate" type="application/rss+xml" title={siteTitle} href="/rss.xml" />
+
     <!-- Favicons -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
@@ -77,6 +80,8 @@ const fullTitle = title === siteTitle ? title : `${title} — ${siteTitle}`;
     <ClientRouter fallback="swap" />
   </head>
   <body class={bodyClass}>
+    <a class="c-skip-link" href="#main-content">Skip to content</a>
+
     <div class="main-wrap">
       <Header />
       <slot />

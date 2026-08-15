@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# /design is the live style guide — publicly reachable but not a search result.
+# It also sends `noindex`; this saves crawlers the fetch.
+Disallow: /design/
+
+Sitemap: https://dodson.mba/sitemap-index.xml

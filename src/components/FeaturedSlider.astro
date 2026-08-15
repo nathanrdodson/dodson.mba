@@ -29,7 +29,10 @@ function timeAgo(d: Date): string {
   <div class="m-featured-slider swiper js-featured-slider">
     <div class="m-featured-slider__list swiper-wrapper">
       {posts.map((post) => {
-        const { title, featureImage, featureImageAlt, tags, date } = post.data;
+        // No `featureImageAlt` here: this slider paints the image as a CSS
+        // background rather than an <img>, so there is nowhere to put it. See
+        // A11Y-3 in ISSUES.md.
+        const { title, featureImage, tags, date } = post.data;
         const url = `/blog/${post.id}/`;
         const primaryTag = tags[0] ?? null;
         return (

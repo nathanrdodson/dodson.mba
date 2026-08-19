@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Greetings from Tunisia"
 date: 2023-03-28
 featureImage: "/images/blog/2023/03/39A6C5F2-704F-40CD-AE16-C696585AAC84_1_105_c.jpeg"

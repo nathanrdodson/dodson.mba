@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Austin, Texas"
 date: 2022-07-18
 featureImage: "/images/blog/2022/07/DSC_0004.jpg"

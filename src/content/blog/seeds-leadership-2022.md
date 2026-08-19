@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "SEEDS Leadership Meeting"
 date: 2022-11-22
 featureImage: "/images/blog/2022/11/DSC_0002.jpg"

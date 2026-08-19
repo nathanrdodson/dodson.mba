@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "More Medenine Wildlife"
 date: 2023-03-28
 tags: ["Tunisia 2023", "wildlife", "photography"]

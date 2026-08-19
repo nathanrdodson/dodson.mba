@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Georgia O'Keefe's Ghost Ranch"
 date: 2021-05-20
 featureImage: "/images/blog/2021/12/newmexico2021-5-18.jpg"

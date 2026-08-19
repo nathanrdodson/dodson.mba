@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Eureka Springs, Arkansas"
 date: 2022-06-14
 featureImage: "/images/blog/2022/06/DSC_0136.jpg"

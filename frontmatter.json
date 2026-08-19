@@ -1,0 +1,155 @@
+{
+  "$schema": "https://frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.framework.id": "astro",
+  "frontMatter.preview.host": "http://localhost:4321",
+  "frontMatter.content.publicFolder": "public",
+  "frontMatter.content.pageFolders": [
+    {
+      "title": "blog",
+      "path": "[[workspace]]/src/content/blog",
+      "previewPath": "blog",
+      "contentTypes": [
+        "blog"
+      ]
+    },
+    {
+      "title": "photos",
+      "path": "[[workspace]]/src/content/photos",
+      "previewPath": "photos",
+      "contentTypes": [
+        "photos"
+      ]
+    },
+    {
+      "title": "about",
+      "path": "[[workspace]]/src/content/about",
+      "previewPath": "",
+      "contentTypes": [
+        "about"
+      ]
+    }
+  ],
+  "frontMatter.content.draftField": {
+    "name": "draft",
+    "type": "boolean"
+  },
+  "frontMatter.taxonomy.contentTypes": [
+    {
+      "name": "blog",
+      "pageBundle": false,
+      "previewPath": "",
+      "filePrefix": null,
+      "clearEmpty": true,
+      "fields": [
+        {
+          "title": "Title",
+          "name": "title",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Date",
+          "name": "date",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true
+        },
+        {
+          "title": "Excerpt",
+          "name": "excerpt",
+          "type": "string"
+        },
+        {
+          "title": "Feature image",
+          "name": "featureImage",
+          "type": "image",
+          "isPreviewImage": true
+        },
+        {
+          "title": "Feature image alt text",
+          "name": "featureImageAlt",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "title": "Feature image caption",
+          "name": "featureImageCaption",
+          "type": "string"
+        },
+        {
+          "title": "Tags",
+          "name": "tags",
+          "type": "tags",
+          "default": []
+        },
+        {
+          "title": "Featured",
+          "name": "featured",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "title": "Draft",
+          "name": "draft",
+          "type": "boolean",
+          "default": false
+        }
+      ]
+    },
+    {
+      "name": "photos",
+      "pageBundle": false,
+      "previewPath": "",
+      "filePrefix": null,
+      "clearEmpty": true,
+      "fields": [
+        {
+          "title": "Title",
+          "name": "title",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Date",
+          "name": "date",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true
+        },
+        {
+          "title": "Feature image",
+          "name": "featureImage",
+          "type": "image",
+          "isPreviewImage": true
+        },
+        {
+          "title": "Feature image alt text",
+          "name": "featureImageAlt",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "title": "Order",
+          "name": "order",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "title": "Images",
+          "name": "images",
+          "type": "image",
+          "multiple": true,
+          "default": []
+        }
+      ]
+    },
+    {
+      "name": "about",
+      "pageBundle": false,
+      "previewPath": "",
+      "filePrefix": null,
+      "clearEmpty": true,
+      "fields": []
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Always Take the High Road"
 date: 2021-05-19
 featureImage: "/images/blog/2021/12/highroadtaos.png"

@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Landed in Spain"
 date: 2019-08-09
 featureImage: "/images/blog/2021/12/europe2019-2-1-1.jpg"

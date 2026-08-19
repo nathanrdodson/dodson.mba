@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Zion National Park"
 date: 2018-07-02
 featureImage: "/images/blog/2022/08/Zion-27_90rk0moL.jpeg"

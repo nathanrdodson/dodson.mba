@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Beni Kedeche and Ksar Hallouf"
 date: 2023-05-05
 tags: ["Tunisia 2023", "travel", "photography"]

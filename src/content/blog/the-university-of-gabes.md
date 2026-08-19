@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Gabes and the Ferry to Djerba"
 date: 2023-04-20
 tags: ["Tunisia 2023", "travel", "photography"]

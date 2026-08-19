@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "First Few Days in the UK"
 date: 2019-08-05
 featureImage: "/images/blog/2021/12/europe2019-6-2.jpg"

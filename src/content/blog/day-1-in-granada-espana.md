@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Day 1 in Granada, Spain"
 date: 2019-08-10
 featureImage: "/images/blog/2021/12/europe2019-3-1.jpg"

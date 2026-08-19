@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "In the Air!"
 date: 2019-07-31
 tags: ["Europe 2019", "travel", "photography"]

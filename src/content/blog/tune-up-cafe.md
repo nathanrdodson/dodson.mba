@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Tune-Up Café"
 date: 2021-05-18
 tags: ["New Mexico 2021", "travel", "photography"]

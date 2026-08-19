@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "'Enter: Uromastyx'"
 date: 2023-04-03
 tags: ["Tunisia 2023", "wildlife", "photography"]

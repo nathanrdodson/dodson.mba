@@ -2,7 +2,13 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "src/content"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"[markdown]": {
+		}
+	}
 }

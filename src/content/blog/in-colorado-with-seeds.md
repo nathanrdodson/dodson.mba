@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "In Colorado with SEEDS"
 date: 2022-10-15
 tags: ["SEEDS 2022", "conservation", "travel", "photography"]

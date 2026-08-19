@@ -1,4 +1,5 @@
 ---
+type: photos
 title: "SEEDS Colorado"
 date: 2022-10-15
 featureImage: /images/blog/2022/11/SEEDS_CO_2022-001_aRF4xPAF.jpg

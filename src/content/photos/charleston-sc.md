@@ -1,4 +1,5 @@
 ---
+type: photos
 title: "Charleston, SC"
 date: 2022-08-12
 featureImage: /images/blog/2022/08/DSC_0006.jpg

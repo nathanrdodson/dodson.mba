@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "It's Been A While, Airport"
 date: 2021-05-15
 featureImage: "/images/blog/2021/12/newmexico2021-1-02.jpeg"

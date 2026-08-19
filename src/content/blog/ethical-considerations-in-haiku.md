@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Ethical Considerations in Haiku"
 date: 2023-12-05
 excerpt: "A collection of corporate ethics haiku."

@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Gightis Ruins"
 date: 2023-05-08
 tags: ["Tunisia 2023", "travel", "photography"]

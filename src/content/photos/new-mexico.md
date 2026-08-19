@@ -1,4 +1,5 @@
 ---
+type: photos
 title: "New Mexico"
 date: 2021-05-15
 featureImage: /images/blog/2021/12/newmexico2021-2-01.jpg

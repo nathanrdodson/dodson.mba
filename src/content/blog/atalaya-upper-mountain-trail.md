@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Atalaya Upper Mountain Trail"
 date: 2021-05-21
 featureImage: "/images/blog/2021/12/newmexico2021-6-15.jpg"

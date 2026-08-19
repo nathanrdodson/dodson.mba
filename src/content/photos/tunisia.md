@@ -1,4 +1,5 @@
 ---
+type: photos
 title: "Tunisia"
 date: 2023-03-28
 featureImage: /images/blog/2023/03/_DSC0082.jpg

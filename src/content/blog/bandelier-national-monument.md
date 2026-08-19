@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Bandelier National Monument"
 date: 2021-05-18
 featureImage: "/images/blog/2021/12/newmexico2021-2-45.jpg"

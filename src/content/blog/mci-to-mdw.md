@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "MCI to MDW to ROC to BWI to CHS..."
 date: 2022-08-09
 tags: ["Charleston 2022", "travel", "photography"]

@@ -1,4 +1,5 @@
 ---
+type: about
 ---
 
 I run IT infrastructure and strategy at a regional distributor based in Kansas City — cloud, sysadmin, DevOps, and everything in between. When I'm not working or at my keyboard, I'm usually out taking photos, camping, or seeing a show.

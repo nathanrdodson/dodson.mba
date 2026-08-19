@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Grand Canyon National Park"
 date: 2018-07-05
 featureImage: "/images/blog/2022/08/GrandCanyon-4_R0aMxe8C.jpeg"

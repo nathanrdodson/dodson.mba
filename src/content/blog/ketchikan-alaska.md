@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Ketchikan, Alaska"
 date: 2018-07-29
 featureImage: "/images/blog/2022/08/Ketchikan-1_Aze1MqYB.jpg"

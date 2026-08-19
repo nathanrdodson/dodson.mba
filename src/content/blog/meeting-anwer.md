@@ -1,4 +1,5 @@
 ---
+type: blog
 title: "Meeting Anwer"
 date: 2023-05-01
 tags: ["Tunisia 2023", "travel", "photography"]

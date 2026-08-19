@@ -1,4 +1,5 @@
 ---
+type: photos
 title: "Ketchikan, Alaska"
 date: 2018-07-28
 featureImage: /images/blog/2022/08/Ketchikan_Edit_1_kQLHmfA2.jpg

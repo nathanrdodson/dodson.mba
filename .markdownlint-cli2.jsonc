@@ -24,7 +24,20 @@
 
     // Ghost-era posts open at h3 with no h2 above. Renumbering would change the
     // document outline, which is a content decision rather than a lint fix.
-    "MD001": false
+    "MD001": false,
+
+    // Setext headings (underlined with === / ---) survive from the Ghost export.
+    // Both styles render identically, so enforcing ATX would rewrite the author's
+    // files for no reader-visible gain.
+    "MD003": false,
+
+    // A travel journal legitimately repeats a heading across a post — two days
+    // can both be "Getting there". Renaming one is an editing decision.
+    "MD024": false,
+
+    // Consecutive blockquotes separated by a blank line are the author's own
+    // pacing for quoted passages. Merging them changes how the quotes read.
+    "MD028": false
   },
   "globs": ["src/content/**/*.md"]
 }

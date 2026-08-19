@@ -9,7 +9,7 @@ const photos = (await getCollection('photos') as CollectionEntry<'photos'>[]).so
 ---
 
 <BaseLayout title="Photos" description="Photography by Nathan Dodson" bodyClass="is-photos">
-  <main>
+  <main id="main-content" tabindex="-1">
     <header class="photos-page-header">
       <div class="l-wrapper">
         <h1 class="photos-page-header__title">Photos</h1>

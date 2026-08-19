@@ -6,6 +6,7 @@ import RelatedPosts from '../../components/RelatedPosts.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
 import ReadingProgress from '../../components/ReadingProgress.astro';
 import { readingMinutes } from '../../lib/reading-time';
+import { summarize } from '../../lib/summarize';
 import '../../styles/post.scss';
 
 export async function getStaticPaths() {
@@ -47,6 +48,11 @@ const hasToc = tocItems.length >= 2;
 
 const primaryTag = tags[0] ?? null;
 const minutes = readingMinutes(post.body);
+
+// Most posts set no `excerpt`, so fall back to the opening of the body rather
+// than the site tagline — otherwise every post shares one meta description
+// (SEO-1). The final `|| undefined` lets a bodyless post keep the site default.
+const description = post.data.excerpt || summarize(post.body ?? '') || undefined;
 const formattedDate = date.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
@@ -56,11 +62,11 @@ const formattedDate = date.toLocaleDateString('en-US', {
 
 <BaseLayout
   title={title}
-  description={post.data.excerpt}
+  description={description}
   image={featureImage}
   bodyClass="is-post"
 >
-  <main>
+  <main id="main-content" tabindex="-1">
     <article>
       <ReadingProgress />
 
